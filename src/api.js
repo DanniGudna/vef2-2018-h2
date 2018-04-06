@@ -15,7 +15,10 @@ async function get(endpoint) {
     options.headers['Authorization'] = `Bearer ${token}`;
   }
 
-  /* todo framkvæma get */
+  const response = await fetch(url);
+  const result = await response.json();
+  
+  return { result, status: response.status };
 }
 
 /* todo aðrar aðgerðir */
