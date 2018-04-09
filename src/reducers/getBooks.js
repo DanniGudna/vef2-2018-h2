@@ -10,13 +10,13 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  console.info(action.type);
 
   switch (action.type) {
     case BOOKS_REQUEST:
       return {
         ...state,
         isFetching: action.isFetching,
+        page: action.page,
       };
     case BOOKS_SUCCESS:
       return {

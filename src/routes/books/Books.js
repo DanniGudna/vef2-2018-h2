@@ -2,26 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchBooks } from '../../actions/getBooks';
+import PageFlipper from '../../components/page-flipper';
 
 class Books extends Component {
   state = {
     isFetching: false,
     books: null,
     message: null,
-    page: 1,
+    page: 0,
   }  
 
   async componentDidMount() {
     const { dispatch } = this.props;
     const { page } = this.state;
 
-    console.info(page);
-
-    dispatch(fetchBooks());
+    dispatch(fetchBooks(page));
   }
 
   render() {
-    const { isFetching, books } = this.props;
+    const { isFetching, books, page } = this.props;
 
     if (isFetching || !books) {
       return (
@@ -44,6 +43,9 @@ class Books extends Component {
             <p>Eftir {item.author}</p>
           </div>
         ))}
+        <div>
+          <PageFlipper page={page} />
+        </div>
       </div>
     );
   }
@@ -51,9 +53,11 @@ class Books extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    ...state,
     isFetching: state.getBooks.isFetching,
     books: state.getBooks.books,
     message: state.getBooks.message,
+    page: state.getBooks.page,
   };
 }
 

@@ -4,10 +4,11 @@ export const BOOKS_REQUEST = 'BOOKS_REQUEST';
 export const BOOKS_SUCCESS = 'BOOKS_SUCCESS';
 export const BOOKS_FAILURE = 'BOOKS_FAILURE';
 
-function requestBooks() {
+function requestBooks(page) {
   return {
     type: BOOKS_REQUEST,
     isFetching: true,
+    page,
   }
 }
 
@@ -27,10 +28,12 @@ function booksError(message) {
   }
 }
 
-export const fetchBooks = (offset = 0, limit = 10) => {
+export const fetchBooks = (page = 0, limit = 10) => {
   return async (dispatch) => {
 
-    dispatch(requestBooks());
+    dispatch(requestBooks(page));
+
+    const offset = page * 10;
 
     const endpoint = `/books?offset=${offset}&limit=${limit}`;
     
