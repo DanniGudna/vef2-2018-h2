@@ -6,9 +6,12 @@ import {
 
 const initialState = {
   isFetching: false,
+  books: null,
 }
 
 export default (state = initialState, action) => {
+  console.info(action.type);
+
   switch (action.type) {
     case BOOKS_REQUEST:
       return {

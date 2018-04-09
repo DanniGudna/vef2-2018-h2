@@ -29,6 +29,9 @@ function booksError(message) {
 
 export const fetchBooks = (offset = 0, limit = 10) => {
   return async (dispatch) => {
+
+    dispatch(requestBooks());
+
     const endpoint = `/books?offset=${offset}&limit=${limit}`;
     
     let books;
@@ -38,10 +41,10 @@ export const fetchBooks = (offset = 0, limit = 10) => {
       dispatch(booksError(error));
     }
 
-    if (books.status !== 200) {
+    if (books.status !== 200 || !books) {
       dispatch(booksError('Oh no!'))
     }
 
-    dispatch(receiveBooks);
+    dispatch(receiveBooks(books));
   }
 }
