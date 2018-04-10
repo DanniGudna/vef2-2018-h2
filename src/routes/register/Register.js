@@ -5,31 +5,28 @@ import { Link } from 'react-router-dom';
 import Field from '../../components/field';
 import Button from '../../components/button';
 
-/* todo sækja actions frá ./actions */
+import './Register.css';
 
-import './Login.css';
-
-class Login extends Component {
+class Register extends Component {
 
   render() {
     return (
       <div>
-        <h1>Innskráning</h1>
+        <h1>Nýskráning</h1>
         <form>
           <Field label="Notendanafn" />
-          <Field label="Lykilorð"/>
+          <Field label="Lykilorð" />
+          <Field label="Nafn" />
         </form>
         <div>
-          <Button>Innskrá</Button>
+          <Button>Nýskrá</Button>
         </div>
         <div>
-          <Link to="/register">Nýskráning</Link>
+          <Link to="/login">Innskráning</Link>        
         </div>
       </div>
     );
   }
 }
 
-/* todo tengja við redux */
-
-export default Login;
+export default Register;
