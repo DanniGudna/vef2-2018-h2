@@ -8,10 +8,6 @@ import './PageFlipper';
 import { fetchBooks } from '../../actions/getBooks';
 
 class PageFlipper extends Component {
-  state = {
-    page: -60,
-  }
-
   
   onLeftClick = (e) => {
     const { dispatch, page } = this.props;
@@ -33,7 +29,7 @@ class PageFlipper extends Component {
             &lt; Fyrri síða
           </Button>
         }
-        Síða {page + 1}
+        Síða {page}
         <Button onClick={this.onRightClick}>
           Næsta síða >
         </Button>

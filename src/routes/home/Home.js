@@ -9,8 +9,17 @@ class Home extends Component {
 
     return (
       <div>
-        <p>Halló heimur!</p>
-        <p><Link to="/login">Innskráning</Link></p>
+        <h2>Velkomin á bókasafnið</h2>
+        <p>
+          Til að njóta bókasafnsins til fullnustu mælum við með að&nbsp;
+          <Link to="/login">
+            skrá sig inn
+          </Link>.
+          Þangað til getur þú skoðað&nbsp;
+          <Link to="/books">
+            allar bækurnar
+          </Link>.
+        </p>
       </div>
     );
   }

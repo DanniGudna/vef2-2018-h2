@@ -14,7 +14,7 @@ class Books extends Component {
 
   async componentDidMount() {
     const { dispatch } = this.props;
-    const { page } = this.state;
+    const { page } = this.props.match.params;
 
     dispatch(fetchBooks(page));
   }
