@@ -10,6 +10,7 @@ export default class Button extends Component {
   static propTypes = {
     onClick: PropTypes.func,
     children: PropTypes.node,
+    disabled: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -18,12 +19,12 @@ export default class Button extends Component {
   }
 
   render() {
-    const { children, className, onClick } = this.props;
+    const { children, className, onClick, disabled } = this.props;
 
     const classes = `button ${className}`
 
     return (
-      <button onClick={onClick} className={classes}>{children}</button>
+      <button disabled={disabled} onClick={onClick} className={classes}>{children}</button>
     );
   }
 

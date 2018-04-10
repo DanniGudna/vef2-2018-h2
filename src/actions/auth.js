@@ -104,7 +104,7 @@ export const loginUser = (username, password) => {
   }
 }
 
-export const signup = (username, password, name) => {
+export const signupUser = (username, password, name) => {
   return async (dispatch) => {
     dispatch(signupRequest());
 
