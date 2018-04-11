@@ -9,7 +9,7 @@ function signupRequest() {
   return {
     type: SIGNUP_REQUEST,
     isFetching: true,
-    message: null,
+    errors: null,
   }
 }
 
@@ -18,7 +18,7 @@ function signupSuccess(user) {
     type: SIGNUP_SUCCESS,
     isFetching: false,
     user,
-    message: null,
+    errors: null,
   }
 }
 
@@ -36,25 +36,23 @@ export const signupUser = (username, password, name) => {
 
     const endpoint = '/register';
 
-    let user;
+    let data;
 
     try {
-      user = await api.post(endpoint, {username, password, name})
+      data = await api.post(endpoint, {username, password, name})
     } catch (error) {
       dispatch(signupError(error));
     }
 
-    console.info(user.result.errors);
+    const { errors } = data.result;
+    console.info(errors);
 
-    const { status } = user;
-
-    console.info(status);
-
-    if (!String(status).match(/^2[0-9]{2}/) || !user) {
-      const errors = user.result;
-      dispatch(signupError(errors));
+    if (errors) {
+      return dispatch(signupError(errors));
     }
 
-    dispatch(signupSuccess(user));
+    const { result } = data;
+
+    dispatch(signupSuccess(result));
   }
 }

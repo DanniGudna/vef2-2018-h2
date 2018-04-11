@@ -16,13 +16,11 @@ class Register extends Component {
     name: '',
     isFetching: false,
     user: null,
-    message: null,
+    errors: null,
   }
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    console.info(e.target);
 
     if (name) {
       this.setState({ [name]: value });
@@ -35,17 +33,28 @@ class Register extends Component {
     const { dispatch } = this.props;
     const { username, password, name } = this.state;
 
-    console.info(username, password, name);
     dispatch(signupUser(username, password, name));
   }
 
 
   render() {
-    const { username, password, name, isFetching } = this.state;
+    const { username, password, name } = this.state;
+    const { isFetching, user, errors } = this.props.signup;
+
+    if (user) {
+      this.props.history.push('/login');
+    }
 
     return (
       <div>
         <h1>Nýskráning</h1>
+        {errors &&(
+          <ul>
+            {errors.map((error, i) =>
+              <li key={i}>{error.message}</li>
+            )}
+          </ul>
+        )}
         <form onSubmit={this.handleSubmit}>
           <Field
             name="username"
@@ -81,8 +90,9 @@ class Register extends Component {
 const mapStateToProps = (state) => {
   return {
     ...state,
-    isFetching: state.auth.isFetching,
-    user: state.auth.user,
+    isFetching: state.signup.isFetching,
+    user: state.signup.user,
+    errors: state.signup.errors,
   }
 }
 

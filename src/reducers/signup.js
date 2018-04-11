@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   isFetching: false,
-  message: null,
+  errors: null,
   user: null,
 };
 
@@ -17,14 +17,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: action.isFetching,
-        message: action.message,        
+        errors: action.errors,        
       }
     case SIGNUP_SUCCESS:
       return {
         ...state,
         isFetching: action.isFetching,
         user: action.user,
-        message: action.message,
+        errors: action.errors,
       }
     case SIGNUP_FAILURE:
       return {
