@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Field from '../../components/field';
 import Button from '../../components/button';
 
-import { signupUser } from '../../actions/auth';
+import { signupUser } from '../../actions/signup';
 
 import './Register.css';
 
@@ -36,7 +36,7 @@ class Register extends Component {
     const { username, password, name } = this.state;
 
     console.info(username, password, name);
-    // dispatch(signupUser(username, password, name));
+    dispatch(signupUser(username, password, name));
   }
 
 

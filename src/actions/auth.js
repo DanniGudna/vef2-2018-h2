@@ -11,10 +11,6 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGIN_LOGOUT = 'LOGIN_LOGOUT';
 
-export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
-export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
-export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
-
 
 function requestLogin() {
   return {
@@ -54,32 +50,6 @@ function logout() {
 }
 
 
-function signupRequest() {
-  return {
-    type: SIGNUP_REQUEST,
-    isFetching: true,
-    message: null,
-  }
-}
-
-function signupSuccess(user) {
-  return {
-    type: SIGNUP_SUCCESS,
-    isFetching: false,
-    user,
-    message: null,
-  }
-}
-
-function signupError(message) {
-  return {
-    type: SIGNUP_FAILURE,
-    isFetching: false,
-    message: null,
-  }
-}
-
-
 export const loginUser = (username, password) => {
   return async (dispatch) => {
     dispatch(requestLogin());
@@ -101,30 +71,6 @@ export const loginUser = (username, password) => {
     }
 
     dispatch(loginSuccess(token));
-  }
-}
-
-export const signupUser = (username, password, name) => {
-  return async (dispatch) => {
-    dispatch(signupRequest());
-
-    const endpoint = '/register';
-
-    let user;
-
-    try {
-      user = await api.post(endpoint, {username, password, name})
-    } catch (error) {
-      dispatch(signupError(error));
-    }
-
-    console.info(user);
-
-    if (!user) {
-      dispatch(signupError('Oh no!'));
-    }
-
-    dispatch(signupSuccess(user));
   }
 }
 
