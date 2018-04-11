@@ -17,7 +17,7 @@ function requestLogin() {
     type: LOGIN_REQUEST,
     isFetching: true,
     isAuthenticated: false,
-    message: null,
+    errors: null,
   }
 }
 
@@ -27,16 +27,16 @@ function loginSuccess(token) {
     isFetching: false,
     isAuthenticated: true,
     token,
-    message: null,
+    errors: null,
   }
 }
 
-function loginError(message) {
+function loginError(errors) {
   return {
     type: LOGIN_FAILURE,
     isFetching: false,
     isAuthenticated: false,
-    message,
+    errors,
   }
 }
 
@@ -45,7 +45,7 @@ function logout() {
     type: LOGIN_LOGOUT,
     isFetching: false,
     isAuthenticated: false,
-    user: null,
+    token: null,
   }
 }
 
@@ -56,21 +56,25 @@ export const loginUser = (username, password) => {
 
     const endpoint = '/login';
 
-    let token;
+    let data;
 
     try {
-      token = await api.post(endpoint, {username, password});
+      data = await api.post(endpoint, {username, password});
     } catch (error) {
-      dispatch(loginError(error));
+      return dispatch(loginError(error));
     }
 
-    console.info(token);
+    const { errors } = data.result;
 
-    if (!token) {
-      dispatch(loginError('Oh no!'));
+    if (!errors) {
+      return dispatch(loginError(errors));
     }
 
-    dispatch(loginSuccess(token));
+    const { result } = data;
+
+    console.info(data);
+
+    dispatch(loginSuccess(result));
   }
 }
 

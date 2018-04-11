@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        message: action.message,
+        errors: action.errors,
       };
     case LOGIN_SUCCESS:
       return {
@@ -28,14 +28,14 @@ export default (state = initialState, action) => {
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
         token: action.token,
-        message: action.message,
+        errors: action.errors,
       }
     case LOGIN_FAILURE:
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        message: action.message,
+        errors: action.errors,
       }
     case LOGIN_LOGOUT:
       return {

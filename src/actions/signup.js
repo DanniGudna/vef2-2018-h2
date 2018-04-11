@@ -41,11 +41,10 @@ export const signupUser = (username, password, name) => {
     try {
       data = await api.post(endpoint, {username, password, name})
     } catch (error) {
-      dispatch(signupError(error));
+      return dispatch(signupError(error));
     }
 
     const { errors } = data.result;
-    console.info(errors);
 
     if (errors) {
       return dispatch(signupError(errors));
