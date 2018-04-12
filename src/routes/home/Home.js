@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Home extends Component {
+  state = {
+    user: null,
+  }
 
   render() {
-
-    /* todo birta mismunandi upplýsingar ef innskráður notandi eða ekki */
+    const { user } = this.props;
 
     return (
       <div>
-        <h2>Velkomin á bókasafnið</h2>
+        <h2>Velkomin á bókasafnið&nbsp;{user && user.name}</h2>
         <p>
           Til að njóta bókasafnsins til fullnustu mælum við með að&nbsp;
           <Link to="/login">
@@ -20,10 +23,17 @@ class Home extends Component {
             allar bækurnar
           </Link>.
         </p>
+        <Link to="profile">profile</Link>
       </div>
     );
   }
 }
 
-/* todo setja upp tengingu við redux til að vita stöðu notanda */
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+    user: state.auth.user,
+  }
+}
+
+export default connect(mapStateToProps)(Home);
