@@ -64,9 +64,11 @@ export const loginUser = (username, password) => {
       return dispatch(loginError(error));
     }
 
+    console.info(data);
+
     const { errors } = data.result;
 
-    if (!errors) {
+    if (errors) {
       return dispatch(loginError(errors));
     }
 
