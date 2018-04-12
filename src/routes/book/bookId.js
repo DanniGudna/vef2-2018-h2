@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchBooks } from '../../actions/getBookId';
-import PageFlipper from '../../components/page-flipper';
+import { fetchBooksId } from '../../actions/getBookId';
 
-class Books extends Component {
+class bookId extends Component {
   state = {
     isFetching: false,
     books: null,
     message: null,
-    page: 0,
   }
 
   async componentDidMount() {
     const { dispatch } = this.props;
-    const { page } = this.props.match.params;
+    const { id } = this.props.match.params;
+    console.log('ID', id)
+    console.log('THIS.PROPS.MATCH', this.props.match)
 
-    dispatch(fetchBooks(page));
+    dispatch(fetchBooksId(id));
   }
 
   render() {
@@ -30,29 +30,24 @@ class Books extends Component {
       );
     }
 
-    const { result: { items } } = books;
+    const result = books.result;
 
     return (
       <div>
         <h2>
           Bók!
         </h2>
-        {items.map((item) => (
-          <div key={item.id}>
-            <h3>{item.title}</h3>
-            <p>Eftir {item.author}</p>
-            <p>{item.isbn13}</p>
-            <p>{item.categorytitle}</p>
-            <p>{item.description}</p>
-            <p>{item.pagecount} Síður</p>
-            <p>Gefin út {item.published} </p>
-            <p>Tungumál: {item.language}</p>
+          <div>
+            <h3>{result.title}</h3>
+            <p>Eftir {result.author}</p>
+            <p>{result.isbn13}</p>
+            <p>{result.categorytitle}</p>
+            <p>{result.description}</p>
+            <p>{result.pagecount} Síður</p>
+            <p>Gefin út {result.published} </p>
+            <p>Tungumál: {result.language}</p>
             <p>hérna vantar breyta bók takka, TODO!!</p>
           </div>
-        ))}
-        <div>
-          <PageFlipper page={page} />
-        </div>
       </div>
     );
   }
@@ -68,4 +63,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps)(Books);
+export default connect(mapStateToProps)(bookId);

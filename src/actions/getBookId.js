@@ -33,7 +33,7 @@ export const fetchBooksId = (id = 0) => {
 
     dispatch(requestBooks(id));
 
-    const endpoint = `/books?id=${id}`;
+    const endpoint = `/books/${id}`;
     console.log(endpoint);
 
     let books;
