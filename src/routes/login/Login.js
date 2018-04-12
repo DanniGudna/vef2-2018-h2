@@ -16,7 +16,7 @@ class Login extends Component {
     isFetching: false,
     isAuthenticated: false,
     errors: null,
-    token: null,
+    user: null,
   }
 
   handleInputChange = (e) => {
@@ -38,22 +38,16 @@ class Login extends Component {
 
   render() {
     const { username, password } = this.state;
-    const { isFetching, errors, token } = this.props;
+    const { isFetching, error, user } = this.props;
 
-    if(token) {
-      console.info(token);
+    if(user) {
+      this.props.history.push('/');
     }
 
     return (
       <div>
         <h1>Innskráning</h1>
-        {errors &&(
-          <ul>
-            {errors.map((error, i) =>
-              <li key={i}>{error.message}</li>
-            )}
-          </ul>
-        )}
+        <div>{error}</div>
         <form onSubmit={this.handleSubmit}>
           <Field
             name="username"
@@ -84,8 +78,8 @@ const mapStateToProps = (state) => {
     ...state,
     isFetching: state.auth.isFetching,
     isAuthenticated: state.auth.isAuthenticated,
-    errors: state.auth.errors,
-    token: state.auth.token,
+    error: state.auth.error,
+    user: state.auth.user,
   }
 }
 

@@ -3,13 +3,14 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGIN_LOGOUT,
+  AUTHENTICATE,
 } from '../actions/auth';
 
 const initialState = {
   isFetching: false,
   isAuthenticated: false,
   message: null,
-  token: null,
+  user: null,
 };
 
 export default (state = initialState, action) => {
@@ -20,29 +21,37 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        errors: action.errors,
+        error: action.error,
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        token: action.token,
-        errors: action.errors,
+        user: action.user,
+        error: action.error,
       }
     case LOGIN_FAILURE:
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        errors: action.errors,
+        user: action.user,
+        error: action.error,
       }
     case LOGIN_LOGOUT:
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        token: action.token,
+        user: action.user,
+      }
+    case AUTHENTICATE:
+      return {
+        ...state,
+        isAuthenticated: action.isAuthenticated,
+        user: action.user,
+        error: action.error,
       }
     
   default:

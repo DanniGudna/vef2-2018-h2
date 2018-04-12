@@ -10,6 +10,7 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGIN_LOGOUT = 'LOGIN_LOGOUT';
+export const AUTHENTICATE = 'AUTHENTICATE';
 
 
 function requestLogin() {
@@ -17,26 +18,27 @@ function requestLogin() {
     type: LOGIN_REQUEST,
     isFetching: true,
     isAuthenticated: false,
-    errors: null,
+    error: null,
   }
 }
 
-function loginSuccess(token) {
+function loginSuccess(user) {
   return {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    token,
-    errors: null,
+    user,
+    error: null,
   }
 }
 
-function loginError(errors) {
+function loginError(error) {
   return {
     type: LOGIN_FAILURE,
     isFetching: false,
     isAuthenticated: false,
-    errors,
+    user: null,
+    error,
   }
 }
 
@@ -45,7 +47,16 @@ function logout() {
     type: LOGIN_LOGOUT,
     isFetching: false,
     isAuthenticated: false,
-    token: null,
+    user: null,
+  }
+}
+
+function authenticate(user, isAuthenticated) {
+  return {
+    type: AUTHENTICATE,
+    isAuthenticated,
+    user,
+    error: null,
   }
 }
 
@@ -64,22 +75,36 @@ export const loginUser = (username, password) => {
       return dispatch(loginError(error));
     }
 
-    console.info(data);
+    const { error } = data.result;
 
-    const { errors } = data.result;
-
-    if (errors) {
-      return dispatch(loginError(errors));
+    if (error) {
+      return dispatch(loginError(error));
     }
 
-    const { result } = data;
+    const { token } = data.result;
+    window.localStorage.setItem('token', token);
+    
+    const { user } = data.result;
 
-    console.info(data);
+    console.info(JSON.stringify(user));
 
-    dispatch(loginSuccess(result));
+    window.localStorage.setItem('user', JSON.stringify(user));
+
+    dispatch(loginSuccess(user));
+  }
+}
+
+export const authenticateUser = (user) => {
+  return (dispatch) => {
+    const isAuthenticated = user ? true : false;
+    console.info(isAuthenticated);
+    dispatch(authenticate(user, isAuthenticated));
   }
 }
 
 export const logoutUser = () => {
-
+  return (dispatch) => {
+    window.localStorage.clear();
+    dispatch(logout());
+  }
 }
