@@ -11,6 +11,7 @@ import Login from './routes/login';
 import Profile from './routes/profile';
 import NotFound from './routes/not-found';
 import Books from './routes/books';
+import Book from './routes/book';
 import Register from './routes/register';
 
 import './App.css';
@@ -33,6 +34,7 @@ class App extends Component {
             <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
             <Route path="/books" exact component={Books} />
+            <Route path="/books/:id" exact component={Book} />
             <Route path="/register" exact component={Register} />
             <UserRoute path="/profile" authenticated={authenticated} component={Profile} />
             <Route component={NotFound} />

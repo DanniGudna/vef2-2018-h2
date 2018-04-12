@@ -28,22 +28,13 @@ function booksError(message) {
   }
 }
 
-export const fetchBooks = (page = 0, search = false) => {
+export const fetchBooksId = (id = 0) => {
   return async (dispatch) => {
-    console.log("page í fetch", page);
-    console.log("search í fetch", search);
-    dispatch(requestBooks(page));
 
-    const offset = page * 10;
+    dispatch(requestBooks(id));
 
-    let endpoint = `/books?offset=${offset}&limit=10`;
-
-    console.log('SEARCH', search)
-    if(search){
-      console.log('CONDITION PASSED');
-      endpoint = endpoint + `&search=${search}`;
-      console.log('ENDPOINT', endpoint);
-    }
+    const endpoint = `/books/${id}`;
+    console.log(endpoint);
 
     let books;
     try {
