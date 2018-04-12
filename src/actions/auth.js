@@ -86,8 +86,6 @@ export const loginUser = (username, password) => {
     
     const { user } = data.result;
 
-    console.info(JSON.stringify(user));
-
     window.localStorage.setItem('user', JSON.stringify(user));
 
     dispatch(loginSuccess(user));
@@ -97,7 +95,6 @@ export const loginUser = (username, password) => {
 export const authenticateUser = (user) => {
   return (dispatch) => {
     const isAuthenticated = user ? true : false;
-    console.info(isAuthenticated);
     dispatch(authenticate(user, isAuthenticated));
   }
 }
