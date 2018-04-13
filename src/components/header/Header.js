@@ -28,13 +28,30 @@ class Header extends Component {
 
     const authRoute = user ? "/" : "/login";
     const authRouteMsg = user ? "Útskráning" : "Innskráning"; 
+    let imageUrl = "/profile.jpg";
+
+    if (user) {
+      const { image } = user;
+      if (image) {
+        imageUrl = image;
+      }
+    }
 
     return (
       <header className="header">
         <h1 className="header__heading"><Link to="/">Bókasafnið</Link></h1>
 
-        {/* ætti samt frekar heima í sér component */}
         <Button onClick={this.onClick}>Leita</Button>
+        {user &&
+        <div>
+          <img alt="" src={imageUrl} className="photo" />
+          <h4>
+            <Link to="/profile">
+              {user.name}
+            </Link>
+          </h4>
+        </div>
+        }
         <Link onClick={this.logout} to={authRoute}>
           {authRouteMsg}
         </Link>
