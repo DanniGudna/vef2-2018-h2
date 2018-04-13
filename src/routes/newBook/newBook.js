@@ -34,7 +34,9 @@ class NewBook extends Component {
   handleInputChange = (event) => {
     const target = event.target;
      const value = target.value;
+     console.log('VALUE', value)
      const name = target.name;
+     console.log('NAME', name)
      if(name){
      this.setState({
        [name]: value
@@ -75,9 +77,8 @@ handleSubmit = async (e) => {
 }
 
   render() {
-    console.log("thisprops", this.props);
-    console.log("thisstate", this.state);
-    const { isFetching, books } = this.props;
+
+    const { isFetching, books,categories, message } = this.props;
     const {
         title,
         author,
@@ -89,6 +90,10 @@ handleSubmit = async (e) => {
         pagecount,
         language, } = this.state;
 
+        if(this.props.books){
+          console.log(this.props.books.result);
+        }
+
     if (isFetching || !books) {
       return (
         <div>
@@ -97,15 +102,23 @@ handleSubmit = async (e) => {
       );
     }
 
-    const { result: { items } } = books;
-    console.log('ITEMS', items)
+    if (message) {
+      return (
+        <div>
+          {message}
+        </div>
+      );
+    }
 
+    const { result: { items } } = books;
+    console.log('BOOKS', books)
 
     return (
       <div>
         <h2>
           Bæta við bók
         </h2>
+
         <form onSubmit={this.handleSubmit}>
           <Field
             name="title"
@@ -125,9 +138,9 @@ handleSubmit = async (e) => {
             <textarea name="description" value={description} onChange={this.handleInputChange}></textarea>
           </div>
           Flokkur:
-          <select>
+          <select name="category" onChange={this.handleInputChange}>
             {items.map((item) => (
-              <option value={item.id} name="category" onChange={this.handleInputChange}>{item.title}</option>
+              <option key={item.id} value={item.id}  >{item.title}</option>
             ))}
           </select>
 

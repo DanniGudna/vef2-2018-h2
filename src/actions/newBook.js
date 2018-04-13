@@ -57,25 +57,22 @@ function categoriesError(message) {
 
 export const fetchCategories = () => {
   return async (dispatch) => {
-    dispatch(requestBooks());
+    dispatch(requestCategories());
     const endpoint = '/categories';
     let categories
     try {
-      // TODO : baeta vid body
       categories = await api.get(endpoint);
-      console.log('CATEGORIES', categories)
-
 
     } catch (error) {
       console.log('damn');
-      dispatch(booksError(error));
+      dispatch(categoriesError(error));
     }
 
     if (categories.status !== 200 || !categories) {
-      dispatch(booksError('Oh no!'))
+      dispatch(categoriesError('Oh no!'))
     }
 
-    dispatch(receiveBooks(categories));
+    dispatch(receiveCategories(categories));
   }
 }
 
@@ -83,22 +80,6 @@ export const newBook = (book) => {
   console.log('BOOK', book)
   return async (dispatch) => {
     dispatch(requestBooks());
-    console.log('newBook');
-
-
-  //  let endpoint = `/books?offset=${offset}&limit=10`;
-
-
-  const {
-      title,
-      author,
-      description,
-      isbn10,
-      isbn13,
-      category,
-      published,
-      pagecount,
-      language, } = book;
 
       const endpoint = '/books';
 
@@ -110,7 +91,6 @@ export const newBook = (book) => {
 
 
     } catch (error) {
-      console.log('damn');
       dispatch(booksError(error));
     }
 
@@ -118,6 +98,6 @@ export const newBook = (book) => {
       dispatch(booksError('Oh no!'))
     }
 
-    // dispatch(receiveBooks(books));
+    dispatch(receiveBooks(books));
   }
 }

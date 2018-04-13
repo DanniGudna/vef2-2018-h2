@@ -41,7 +41,9 @@ async function post(endpoint, data) {
   }
 
   const response = await fetch(url, options);
+  console.log('RESPONSE', response)
   const result = await response.json();
+  console.log('RESULT', result)
 
   return { result, status: response.status };
 }
