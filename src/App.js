@@ -28,11 +28,26 @@ class App extends Component {
   }
 
   render() {
-    const { isAuthenticated, isFetching } = this.props; /* vita hvort notandi sé innskráður */
+    const { isAuthenticated, isFetching, error } = this.props; /* vita hvort notandi sé innskráður */
+
+    console.info(error);
+
+    if (error) {
+      return (
+        <main className="main">
+          <Header />
+          <h1>Villa</h1>
+          <p>{error}</p>
+        </main>
+      )
+    }
 
     if (isFetching) {
       return (
-        <h1>Auðkenni...</h1>
+        <main className="main">
+          <Header />
+          <h1>Auðkenni...</h1>
+        </main>
       )
     }
 
@@ -65,6 +80,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.auth.isAuthenticated,
     isFetching: state.auth.isFetching,
     user: state.auth.user,
+    error: state.auth.error,
   };
 }
 

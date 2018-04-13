@@ -5,6 +5,9 @@ import {
   LOGIN_LOGOUT,
   AUTHENTICATE,
   AUTHENTICATE_REQUEST,
+  UPDATE_SUCCESS,
+  UPDATE_REQUEST,
+  UPDATE_FAILURE,
 } from '../actions/auth';
 
 const initialState = {
@@ -46,6 +49,24 @@ export default (state = initialState, action) => {
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
         user: action.user,
+      }
+    case UPDATE_REQUEST:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      }
+    case UPDATE_SUCCESS:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        user: action.user,
+        error: action.error,
+      }
+    case UPDATE_FAILURE:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        error: action.error,
       }
     case AUTHENTICATE_REQUEST:
       return {

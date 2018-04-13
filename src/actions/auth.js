@@ -1,9 +1,3 @@
-
-/**
- * Ef redux er notað skal skilgreina allar actions fyrir auth hér og
- * síðan í annari skrá fyrir aðra virkni.
- * Í async "thunks" ætti þá að gera vefþjónustuköll
- */
 import api from '../api';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
@@ -13,6 +7,10 @@ export const LOGIN_LOGOUT = 'LOGIN_LOGOUT';
 
 export const AUTHENTICATE_REQUEST = 'AUTHENTICATE_REQUEST';
 export const AUTHENTICATE = 'AUTHENTICATE';
+
+export const UPDATE_REQUEST = 'UPDATE_REQUEST';
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
+export const UPDATE_FAILURE = 'UPDATE_FAILURE';
 
 
 function requestLogin() {
@@ -50,6 +48,30 @@ function logout() {
     isFetching: false,
     isAuthenticated: false,
     user: null,
+  }
+}
+
+function requestUpdate() {
+  return {
+    type: UPDATE_REQUEST,
+    isFetching: true,
+  }
+}
+
+function updateSuccess(user) {
+  return {
+    type: UPDATE_SUCCESS,
+    isFetching: false,
+    user,
+    error: null,
+  }
+}
+
+function updateError(error) {
+  return {
+    type: UPDATE_FAILURE,
+    isFetching: false,
+    error: error,
   }
 }
 
@@ -117,5 +139,32 @@ export const logoutUser = () => {
   return (dispatch) => {
     window.localStorage.clear();
     dispatch(logout());
+  }
+}
+
+export const updateUser = (name, password) => {
+  return async (dispatch) => {
+    dispatch(requestUpdate());
+
+    const endpoint = '/users/me';
+
+    let data;
+
+    try {
+      data = await api.patch(endpoint, {name, password});
+    } catch (error) {
+      dispatch(updateError(error));
+    }
+
+    if (data.status === 500) {
+      const { error } = data.result;
+      return dispatch(updateError(error));
+    }
+
+    console.info(data);
+
+    const { user } = data.result;
+
+    dispatch(updateSuccess(user));
   }
 }
