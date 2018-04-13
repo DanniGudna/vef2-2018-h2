@@ -9,6 +9,8 @@ import Button from '../button';
 import SearchBar from '../searchBar';
 import { fetchBooksFromSearch } from '../../actions/getBooks';
 
+import createHistory from 'history/createBrowserHistory'
+
 import './Header.css';
 
 const querystring = require('querystring');
@@ -38,8 +40,11 @@ class Header extends Component {
     console.log('VALUE', value)
     const { dispatch } = this.props;
 
+    const history = createHistory()
+    console.log('HISTORY', history)
 
-    dispatch(fetchBooksFromSearch( value.search));
+
+    dispatch(fetchBooksFromSearch( value.search, history));
 
 
   }

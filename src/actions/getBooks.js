@@ -56,7 +56,7 @@ export const fetchBooks = (page = 0, search = false) => {
   }
 }
 
-export const fetchBooksFromSearch = ( search = false) => {
+export const fetchBooksFromSearch = ( search = false, history) => {
   return async (dispatch) => {
 
     dispatch(requestBooks(0));
@@ -67,8 +67,9 @@ export const fetchBooksFromSearch = ( search = false) => {
     if(search){
       endpoint = endpoint + `${search}`;
     }
-    const newUrl = process.env.REACT_APP_SERVICE_URL + endpoint;
+    const newUrl = endpoint;
     console.log('NEWURL', newUrl)
+    history.push(newUrl);
     //this.props.history.push(newUrl);
 
 
