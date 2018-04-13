@@ -67,6 +67,7 @@ class Books extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('STATEping', state)
   return {
     ...state,
     isFetching: state.getBooks.isFetching,

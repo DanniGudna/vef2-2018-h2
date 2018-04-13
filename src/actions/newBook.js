@@ -3,9 +3,9 @@ import api from '../api';
 export const BOOKS_REQUEST = 'BOOKS_REQUEST';
 export const BOOKS_SUCCESS = 'BOOKS_SUCCESS';
 export const BOOKS_FAILURE = 'BOOKS_FAILURE';
-export const CATEGORIES_REQUEST = 'BOOKS_REQUEST';
-export const CATEGORIES_SUCCESS = 'BOOKS_SUCCESS';
-export const CATEGORIES_FAILURE = 'BOOKS_FAILURE';
+export const CATEGORIES_REQUEST = 'CATEGORIES_REQUEST';
+export const CATEGORIES_SUCCESS = 'CATEGORIES_SUCCESS';
+export const CATEGORIES_FAILURE = 'CATEGORIES_FAILURE';
 
 function requestBooks(page) {
   return {
@@ -38,11 +38,11 @@ function requestCategories() {
   }
 }
 
-function receiveCategories(books) {
+function receiveCategories(categories) {
   return {
     type: CATEGORIES_SUCCESS,
     isFetching: false,
-    books,
+    categories,
   }
 }
 
@@ -77,7 +77,6 @@ export const fetchCategories = () => {
 }
 
 export const newBook = (book) => {
-  console.log('BOOK', book)
   return async (dispatch) => {
     dispatch(requestBooks());
 
@@ -87,7 +86,6 @@ export const newBook = (book) => {
     try {
       // TODO : baeta vid body
       books = await api.post(endpoint, book);
-      console.log('BOOKS', books)
 
 
     } catch (error) {

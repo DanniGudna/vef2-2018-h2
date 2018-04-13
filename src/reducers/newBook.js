@@ -1,7 +1,11 @@
 import {
   BOOKS_REQUEST,
   BOOKS_SUCCESS,
-  BOOKS_FAILURE
+  BOOKS_FAILURE,
+  CATEGORIES_REQUEST,
+  CATEGORIES_SUCCESS,
+  CATEGORIES_FAILURE
+
 } from '../actions/newBook';
 
 const initialState = {
@@ -42,6 +46,7 @@ export default (state = initialState, action) => {
           ...state,
           isFetching: action.isFetching,
           books: action.books,
+          categories: action.categories,
         }
       case CATEGORIES_FAILURE:
         return {

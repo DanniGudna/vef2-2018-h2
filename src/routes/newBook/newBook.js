@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { newBook, fetchCategories } from '../../actions/newBook';
 import PageFlipper from '../../components/page-flipper';
 import Field from '../../components/field';
+import BookForm from '../../components/bookForm';
 import Button from '../../components/button';
 
 class NewBook extends Component {
@@ -26,7 +27,6 @@ class NewBook extends Component {
 
   async componentDidMount() {
     const { dispatch } = this.props;
-    const { page } = this.props.match.params;
 
      dispatch(fetchCategories());
   }
@@ -34,9 +34,7 @@ class NewBook extends Component {
   handleInputChange = (event) => {
     const target = event.target;
      const value = target.value;
-     console.log('VALUE', value)
      const name = target.name;
-     console.log('NAME', name)
      if(name){
      this.setState({
        [name]: value
@@ -70,8 +68,6 @@ handleSubmit = async (e) => {
         pagecount,
         language,
       };
-      console.log('BOOK', book)
-
 
   dispatch(newBook(book));
 }
@@ -79,6 +75,10 @@ handleSubmit = async (e) => {
   render() {
 
     const { isFetching, books,categories, message } = this.props;
+    console.log('BOOKS', books)
+    console.log('THIS.PROPS', this.props)
+    //TODO: ath hvort thetta se annar stadar
+    let errors = null;
     const {
         title,
         author,
@@ -90,11 +90,13 @@ handleSubmit = async (e) => {
         pagecount,
         language, } = this.state;
 
+
         if(this.props.books){
-          console.log(this.props.books.result);
+           errors = this.props.books.result.errors;
+           console.log('ERRORS', errors)
         }
 
-    if (isFetching || !books) {
+    if (isFetching || !categories) {
       return (
         <div>
           Sæki categories...
@@ -102,99 +104,71 @@ handleSubmit = async (e) => {
       );
     }
 
-    if (message) {
+    console.log('ERRORS', errors)
+    if (errors) {
+      console.log('CONDITION PASSED')
+      console.log(errors[0].message);
       return (
         <div>
-          {message}
-        </div>
-      );
-    }
+        <ul>
+          {errors.map((item, el) => (
+            <li key={el} >{item.message}</li>
+          ))}
+        </ul>
+        <BookForm
+          errors={errors}
+          books={categories}
+          title={title}
+          author={author}
+          description={description}
+          isbn10={isbn10}
+          isbn13={isbn13}
+          category={category}
+          published={published}
+          pagecount={pagecount}
+          language={language}
+          submit={this.handleSubmit}
+          change={this.handleInputChange}
+          isFetching={isFetching}
+        />
+      </div>
+        );
+      }
 
-    const { result: { items } } = books;
-    console.log('BOOKS', books)
+    //const { result: { items } } = books;
+    //console.log('BOOKS', books)
 
     return (
-      <div>
-        <h2>
-          Bæta við bók
-        </h2>
-
-        <form onSubmit={this.handleSubmit}>
-          <Field
-            name="title"
-            value={title}
-            type="text"
-            label="Title"
-            onChange={this.handleInputChange}
-          />
-          <Field
-            name="author"
-            value={author}
-            type="text"
-            label="Author"
-            onChange={this.handleInputChange}
-          />
-          <div>
-            <textarea name="description" value={description} onChange={this.handleInputChange}></textarea>
-          </div>
-          Flokkur:
-          <select name="category" onChange={this.handleInputChange}>
-            {items.map((item) => (
-              <option key={item.id} value={item.id}  >{item.title}</option>
-            ))}
-          </select>
-
-
-          <Field
-            name="isbn10"
-            value={isbn10}
-            type="text"
-            label="ISBN10"
-            onChange={this.handleInputChange}
-          />
-          <Field
-            name="isbn13"
-            value={isbn13}
-            type="text"
-            label="ISBN13"
-            onChange={this.handleInputChange}
-          />
-          <Field
-            name="published"
-            value={published}
-            type="text"
-            label="Útgefin"
-            onChange={this.handleInputChange}
-          />
-          <Field
-            name="pagecount"
-            value={pagecount}
-            type="number"
-            label="fjoldi sida"
-            onChange={this.handleInputChange}
-          />
-          <Field
-            name="language"
-            value={language}
-            type="text"
-            label="tungumal"
-            onChange={this.handleInputChange}
-          />
-          <Button disabled={isFetching}>bua til bok</Button>
-        </form>
-
-      </div>
-    );
+      <BookForm
+        errors={errors}
+        books={categories}
+        title={title}
+        author={author}
+        description={description}
+        isbn10={isbn10}
+        isbn13={isbn13}
+        category={category}
+        published={published}
+        pagecount={pagecount}
+        language={language}
+        submit={this.handleSubmit}
+        change={this.handleInputChange}
+        isFetching={isFetching}
+      />
+      )
+    }
   }
-}
+
 
 const mapStateToProps = (state) => {
+  console.log('STATE', state)
   return {
     ...state,
-    isFetching: state.getBooks.isFetching,
+    isFetching: state.newBook.isFetching,
     books: state.getBooks.books,
-    message: state.getBooks.message,
-    page: state.getBooks.page,
+    message: state.newBook.message,
+    page: state.newBook.page,
+    categories: state.newBook.categories
   };
 }
 

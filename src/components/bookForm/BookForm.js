@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Field from '../field';
+import Button from '../button';
 
 // import './Field.css';
 
@@ -7,8 +9,9 @@ class BookForm extends Component {
 
 
   render() {
-    const { isFetching, books,categories, message } = this.props;
     const {
+        errors,
+        books,
         title,
         author,
         description,
@@ -17,9 +20,13 @@ class BookForm extends Component {
         category,
         published,
         pagecount,
-        language, } = this.state;
+        language,
+      submit,
+    change,
+  isFetching } = this.props;
+
         const { result: { items } } = books;
-        console.log('BOOKS', books)
+
 
         return (
           <div>
@@ -27,26 +34,26 @@ class BookForm extends Component {
               Bæta við bók
             </h2>
 
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={submit}>
               <Field
                 name="title"
                 value={title}
                 type="text"
                 label="Title"
-                onChange={this.handleInputChange}
+                onChange={change}
               />
               <Field
                 name="author"
                 value={author}
                 type="text"
                 label="Author"
-                onChange={this.handleInputChange}
+                onChange={change}
               />
               <div>
-                <textarea name="description" value={description} onChange={this.handleInputChange}></textarea>
+                <textarea name="description" value={description} onChange={change}></textarea>
               </div>
               Flokkur:
-              <select name="category" onChange={this.handleInputChange}>
+              <select name="category" onChange={change}>
                 {items.map((item) => (
                   <option key={item.id} value={item.id}  >{item.title}</option>
                 ))}
@@ -58,35 +65,35 @@ class BookForm extends Component {
                 value={isbn10}
                 type="text"
                 label="ISBN10"
-                onChange={this.handleInputChange}
+                onChange={change}
               />
               <Field
                 name="isbn13"
                 value={isbn13}
                 type="text"
                 label="ISBN13"
-                onChange={this.handleInputChange}
+                onChange={change}
               />
               <Field
                 name="published"
                 value={published}
                 type="text"
                 label="Útgefin"
-                onChange={this.handleInputChange}
+                onChange={change}
               />
               <Field
                 name="pagecount"
                 value={pagecount}
                 type="number"
                 label="fjoldi sida"
-                onChange={this.handleInputChange}
+                onChange={change}
               />
               <Field
                 name="language"
                 value={language}
                 type="text"
                 label="tungumal"
-                onChange={this.handleInputChange}
+                onChange={change}
               />
               <Button disabled={isFetching}>bua til bok</Button>
             </form>
