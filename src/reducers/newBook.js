@@ -2,7 +2,7 @@ import {
   BOOKS_REQUEST,
   BOOKS_SUCCESS,
   BOOKS_FAILURE
-} from '../../actions/getBookId';
+} from '../actions/newBook';
 
 const initialState = {
   isFetching: false,
