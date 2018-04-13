@@ -17,12 +17,14 @@ async function get(endpoint) {
 
   const response = await fetch(url);
   const result = await response.json();
-  
+
   return { result, status: response.status };
 }
 
 async function post(endpoint, data) {
+  console.log('DATA', data)
   const url = `${baseurl}${endpoint}`;
+  console.log('URL', url)
 
   const options = {
     body: JSON.stringify(data),
@@ -33,7 +35,7 @@ async function post(endpoint, data) {
   };
 
   const token = window.localStorage.getItem('token');
-  
+
   if (token) {
     options.headers['Authorization'] = `Bearer ${token}`;
   }

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { newBook } from '../../actions/newBook';
+import { newBook, fetchCategories } from '../../actions/newBook';
 import PageFlipper from '../../components/page-flipper';
 import Field from '../../components/field';
 import Button from '../../components/button';
 
 class NewBook extends Component {
-  //constructor(props) {
-   //super(props);
    state = {
     isFetching: false,
     books: true,
@@ -26,16 +24,11 @@ class NewBook extends Component {
     language: '',
   }
 
-  //this.handleInputChange = this.handleInputChange.bind(this);
-//}
-
   async componentDidMount() {
     const { dispatch } = this.props;
     const { page } = this.props.match.params;
 
-
-    // TODO :
-    // dispatch(fetchBooks());
+     dispatch(fetchCategories());
   }
 
   handleInputChange = (event) => {
@@ -64,22 +57,27 @@ handleSubmit = async (e) => {
     published,
     pagecount,
     language, } = this.state;
+    const book = {
+        title,
+        author,
+        description,
+        isbn10,
+        isbn13,
+        category,
+        published,
+        pagecount,
+        language,
+      };
+      console.log('BOOK', book)
 
-  dispatch(newBook(
-    title,
-    author,
-    description,
-    isbn10,
-    isbn13,
-    category,
-    published,
-    pagecount,
-    language));
+
+  dispatch(newBook(book));
 }
 
   render() {
-    console.log("ping");
-    const { isFetching, books, page } = this.props;
+    console.log("thisprops", this.props);
+    console.log("thisstate", this.state);
+    const { isFetching, books } = this.props;
     const {
         title,
         author,
@@ -91,22 +89,24 @@ handleSubmit = async (e) => {
         pagecount,
         language, } = this.state;
 
-    /*if (isFetching || !books) {
+    if (isFetching || !books) {
       return (
         <div>
-          Sæki bækur...
+          Sæki categories...
         </div>
       );
     }
-*/
-    //const { result: { items } } = books;
+
+    const { result: { items } } = books;
+    console.log('ITEMS', items)
+
 
     return (
       <div>
         <h2>
           Bæta við bók
         </h2>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <Field
             name="title"
             value={title}
@@ -121,6 +121,15 @@ handleSubmit = async (e) => {
             label="Author"
             onChange={this.handleInputChange}
           />
+          <div>
+            <textarea name="description" value={description} onChange={this.handleInputChange}></textarea>
+          </div>
+          Flokkur:
+          <select>
+            {items.map((item) => (
+              <option value={item.id} name="category" onChange={this.handleInputChange}>{item.title}</option>
+            ))}
+          </select>
 
 
           <Field
@@ -161,9 +170,6 @@ handleSubmit = async (e) => {
           <Button disabled={isFetching}>bua til bok</Button>
         </form>
 
-        <div>
-          <PageFlipper page={page} />
-        </div>
       </div>
     );
   }

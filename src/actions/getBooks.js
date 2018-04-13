@@ -30,19 +30,15 @@ function booksError(message) {
 
 export const fetchBooks = (page = 0, search = false) => {
   return async (dispatch) => {
-    console.log("page í fetch", page);
-    console.log("search í fetch", search);
+
     dispatch(requestBooks(page));
 
     const offset = page * 10;
 
     let endpoint = `/books?offset=${offset}&limit=10`;
 
-    console.log('SEARCH', search)
     if(search){
-      console.log('CONDITION PASSED');
       endpoint = endpoint + `&search=${search}`;
-      console.log('ENDPOINT', endpoint);
     }
 
     let books;

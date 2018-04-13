@@ -33,6 +33,7 @@ class Books extends Component {
 
   render() {
     const { isFetching, books, page } = this.props;
+    console.log('THIS.PROPS', this.props)
 
     if (isFetching || !books) {
       return (
