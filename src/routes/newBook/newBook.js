@@ -45,6 +45,7 @@ class NewBook extends Component {
 
 handleSubmit = async (e) => {
   e.preventDefault();
+  console.log('E', e)
 
   const { dispatch } = this.props;
   const {
@@ -75,8 +76,6 @@ handleSubmit = async (e) => {
   render() {
 
     const { isFetching, books,categories, message } = this.props;
-    console.log('BOOKS', books)
-    console.log('THIS.PROPS', this.props)
     //TODO: ath hvort thetta se annar stadar
     let errors = null;
     const {
@@ -104,10 +103,7 @@ handleSubmit = async (e) => {
       );
     }
 
-    console.log('ERRORS', errors)
     if (errors) {
-      console.log('CONDITION PASSED')
-      console.log(errors[0].message);
       return (
         <div>
         <ul>

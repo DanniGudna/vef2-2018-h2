@@ -55,3 +55,34 @@ export const fetchBooks = (page = 0, search = false) => {
     dispatch(receiveBooks(books));
   }
 }
+
+export const fetchBooksFromSearch = ( search = false) => {
+  return async (dispatch) => {
+
+    dispatch(requestBooks(0));
+
+
+    let endpoint = `/books?search=`;
+
+    if(search){
+      endpoint = endpoint + `${search}`;
+    }
+    const newUrl = process.env.REACT_APP_SERVICE_URL + endpoint;
+    console.log('NEWURL', newUrl)
+    //this.props.history.push(newUrl);
+
+
+    let books;
+    try {
+      books = await api.get(endpoint);
+    } catch (error) {
+      dispatch(booksError(error));
+    }
+
+    if (books.status !== 200 || !books) {
+      dispatch(booksError('Oh no!'))
+    }
+
+    dispatch(receiveBooks(books));
+  }
+}
