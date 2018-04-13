@@ -15,14 +15,23 @@ import Book from './routes/book';
 import Register from './routes/register';
 import NewBook from './routes/newBook';
 
+import { authenticateUser } from './actions/auth';
+
 import './App.css';
 
 class App extends Component {
+  state = {
+    isAuthenticated: false,
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    const user = JSON.parse(String(window.localStorage.getItem('user')));
+    dispatch(authenticateUser(user));
+  }
 
   render() {
-    const authenticated = false; /* vita hvort notandi sé innskráður */
-
-    // console.info(this.props.match);
+    const { isAuthenticated } = this.props.auth; /* vita hvort notandi sé innskráður */
 
     return (
       <main className="main">
@@ -38,7 +47,7 @@ class App extends Component {
             <Route path="/books/new" exact component={NewBook} />
             <Route path="/books/:id" exact component={Book} />
             <Route path="/register" exact component={Register} />
-            <UserRoute path="/profile" authenticated={authenticated} component={Profile} />
+            <UserRoute path="/profile" isAuthenticated={isAuthenticated} component={Profile} />
             <Route component={NotFound} />
           </Switch>
         </div>
@@ -51,6 +60,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     ...state,
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user,
   };
 }
 
