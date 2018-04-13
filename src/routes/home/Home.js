@@ -13,17 +13,31 @@ class Home extends Component {
     return (
       <div>
         <h2>Velkomin á bókasafnið&nbsp;{user && user.name}</h2>
+        {user
+          ? <p>
+              Þú er skráður notandi og getur því&nbsp;
+              <Link to="/books/new">skráð bækur</Link>
+              &nbsp;og breytt&nbsp;
+              <Link to="/books/edit">þeim sem til eru</Link>.
+            </p>
+          : <p>
+              Til að njóta bókasafnsins til fullnustu mælum við með að&nbsp;
+              <Link to="/login">
+              skrá sig inn
+              </Link>.
+              Þangað til getur þú skoðað&nbsp;
+              <Link to="/books">
+              allar bækurnar
+              </Link>.
+            </p>
+        }
+        {user &&
         <p>
-          Til að njóta bókasafnsins til fullnustu mælum við með að&nbsp;
-          <Link to="/login">
-            skrá sig inn
+          Einnig getur þú skoðað&nbsp;
+          <Link to="/users">
+            aðra notendur
           </Link>.
-          Þangað til getur þú skoðað&nbsp;
-          <Link to="/books">
-            allar bækurnar
-          </Link>.
-        </p>
-        <Link to="profile">profile</Link>
+        </p>}
       </div>
     );
   }

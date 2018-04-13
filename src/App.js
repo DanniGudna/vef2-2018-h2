@@ -19,18 +19,22 @@ import { authenticateUser } from './actions/auth';
 import './App.css';
 
 class App extends Component {
-  state = {
-    isAuthenticated: false,
-  }
 
   componentDidMount() {
+
     const { dispatch } = this.props;
     const user = JSON.parse(String(window.localStorage.getItem('user')));
     dispatch(authenticateUser(user));
   }
 
   render() {
-    const { isAuthenticated } = this.props.auth; /* vita hvort notandi sé innskráður */
+    const { isAuthenticated, isFetching } = this.props; /* vita hvort notandi sé innskráður */
+
+    if (isFetching) {
+      return (
+        <h1>Auðkenni...</h1>
+      )
+    }
 
     return (
       <main className="main">
@@ -59,6 +63,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     isAuthenticated: state.auth.isAuthenticated,
+    isFetching: state.auth.isFetching,
     user: state.auth.user,
   };
 }
