@@ -65,7 +65,16 @@ class Header extends Component {
 
 
     const authRoute = user ? "/" : "/login";
+
     const authRouteMsg = user ? "Útskráning" : "Innskráning";
+    let imageUrl = "/profile.jpg";
+
+    if (user) {
+      const { image } = user;
+      if (image) {
+        imageUrl = image;
+      }
+    }
 
     return (
       <header className="header">
@@ -77,6 +86,17 @@ class Header extends Component {
           onSubmit={this.onSubmit}
           searchValue={searchValue}
           />
+
+        {user &&
+        <div>
+          <img alt="" src={imageUrl} className="photo" />
+          <h4>
+            <Link to="/profile">
+              {user.name}
+            </Link>
+          </h4>
+        </div>
+        }
         <Link onClick={this.logout} to={authRoute}>
           {authRouteMsg}
         </Link>

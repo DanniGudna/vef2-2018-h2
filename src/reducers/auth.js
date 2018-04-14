@@ -4,10 +4,11 @@ import {
   LOGIN_FAILURE,
   LOGIN_LOGOUT,
   AUTHENTICATE,
+  AUTHENTICATE_REQUEST,
 } from '../actions/auth';
 
 const initialState = {
-  isFetching: false,
+  isFetching: true,
   isAuthenticated: false,
   message: null,
   user: null,
@@ -46,10 +47,19 @@ export default (state = initialState, action) => {
         isAuthenticated: action.isAuthenticated,
         user: action.user,
       }
+    case AUTHENTICATE_REQUEST:
+      return {
+        ...state,
+        isAuthenticated: action.isAuthenticated,
+        isFetching: action.isFetching,
+        user: action.user,
+        error: action.error,
+      }
     case AUTHENTICATE:
       return {
         ...state,
         isAuthenticated: action.isAuthenticated,
+        isFetching: action.isFetching,
         user: action.user,
         error: action.error,
       }
