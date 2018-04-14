@@ -14,7 +14,6 @@ class Login extends Component {
     username: '',
     password: '',
     isFetching: false,
-    isAuthenticated: false,
     errors: null,
     user: null,
   }
@@ -77,7 +76,6 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     isFetching: state.auth.isFetching,
-    isAuthenticated: state.auth.isAuthenticated,
     error: state.auth.error,
     user: state.auth.user,
   }

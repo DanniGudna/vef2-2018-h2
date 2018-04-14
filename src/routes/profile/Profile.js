@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Button from '../../components/button';
 import Field from '../../components/field';
+import { updateUser } from '../../actions/auth';
 
 class Profile extends Component {
   state = {
@@ -12,23 +13,49 @@ class Profile extends Component {
     img: null,
   }
 
+  handleFileChange = (e) => {
+    const { files } = e.target;
+    console.info(files);
+    this.setState({ img: files[0] });
+  }
+
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name) {
+      this.setState({ [name]: value });
+    }
+  }
+
+  handleNameSubmit = async (e) => {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    const { name } = this.state;
+    dispatch(updateUser(name));
+  }
+
   render() {
+    const { img, name } = this.state;
+
     return (
       <div>
         <h1>Upplýsingar</h1>
         <form>
           <div>
-            <input type="file" />
+            <input
+              type="file"
+              onChange={this.handleFileChange}
+            />
             <Button>Uppfæra mynd</Button>
           </div>
         </form>
-        <form>
+        <form onSubmit={this.handleNameSubmit}>
           <Field
             name="name"
             label="Nafn"
-            value=""
+            value={name}
             type="text"
-            onChange={null}
+            onChange={this.handleInputChange}
           />
           <Button>Uppfæra nafn</Button>
         </form>
@@ -47,7 +74,7 @@ class Profile extends Component {
             type="password"
             onChange={null}
           />
-          <Button>Uppfæra nafn</Button>
+          <Button>Uppfæra lykilorð</Button>
         </form>
         <h1>Lesnar bækur</h1>
       </div>
