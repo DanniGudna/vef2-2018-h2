@@ -13,8 +13,6 @@ class bookId extends Component {
   async componentDidMount() {
     const { dispatch } = this.props;
     const { id } = this.props.match.params;
-    console.log('ID', id)
-    console.log('THIS.PROPS.MATCH', this.props.match)
 
     dispatch(fetchBooksId(id));
   }
