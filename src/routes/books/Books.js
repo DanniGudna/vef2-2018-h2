@@ -19,13 +19,10 @@ class Books extends Component {
     const { page } = this.props.match.params;
     let search  = this.props.location.search;
     const { limit } = this.props.location;
-    console.log('SEARCH', search)
     if( search.charAt( 0 ) === '?' ){
       search = search.slice( 1 );
     }
     search = querystring.parse(search);
-    console.log('SEARCH', search)
-    console.log('HIS.PROPS.MATCH.PARAMS', this)
 
 
     dispatch(fetchBooks(search.page, search.search));
