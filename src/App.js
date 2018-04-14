@@ -13,6 +13,7 @@ import NotFound from './routes/not-found';
 import Books from './routes/books';
 import Book from './routes/book';
 import Register from './routes/register';
+import NewBook from './routes/newBook';
 
 import { authenticateUser } from './actions/auth';
 
@@ -62,7 +63,9 @@ class App extends Component {
             <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
             <Route path="/books" exact component={Books} />
+            <Route path="/books/new" exact component={NewBook} />
             <Route path="/books/:id" exact component={Book} />
+            <Route path="/books/:id/edit" exact component={Book} /> 
             <Route path="/register" exact component={Register} />
             <UserRoute path="/profile" isAuthenticated={isAuthenticated} component={Profile} />
             <Route component={NotFound} />

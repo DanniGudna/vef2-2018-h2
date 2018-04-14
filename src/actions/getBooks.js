@@ -30,20 +30,48 @@ function booksError(message) {
 
 export const fetchBooks = (page = 0, search = false) => {
   return async (dispatch) => {
-    console.log("page í fetch", page);
-    console.log("search í fetch", search);
+
     dispatch(requestBooks(page));
 
     const offset = page * 10;
 
     let endpoint = `/books?offset=${offset}&limit=10`;
 
-    console.log('SEARCH', search)
     if(search){
-      console.log('CONDITION PASSED');
       endpoint = endpoint + `&search=${search}`;
-      console.log('ENDPOINT', endpoint);
     }
+
+    let books;
+    try {
+      books = await api.get(endpoint);
+    } catch (error) {
+      dispatch(booksError(error));
+    }
+
+    if (books.status !== 200 || !books) {
+      dispatch(booksError('Oh no!'))
+    }
+
+    dispatch(receiveBooks(books));
+  }
+}
+
+export const fetchBooksFromSearch = ( search = false, history) => {
+  return async (dispatch) => {
+
+    dispatch(requestBooks(0));
+
+
+    let endpoint = `/books?search=`;
+
+    if(search){
+      endpoint = endpoint + `${search}`;
+    }
+    const newUrl = endpoint;
+    console.log('NEWURL', newUrl)
+    history.push(newUrl);
+    //this.props.history.push(newUrl);
+
 
     let books;
     try {
