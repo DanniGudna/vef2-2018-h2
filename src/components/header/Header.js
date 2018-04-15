@@ -49,8 +49,6 @@ class Header extends Component {
 
   }
 
-
-
   logout = (e) => {
     const { dispatch } = this.props;
     dispatch(logoutUser());
@@ -59,14 +57,8 @@ class Header extends Component {
   render() {
 
     const { user } = this.props;
-    const {
-        searchValue,
-       } = this.state;
+    const { searchValue } = this.state;
 
-
-    const authRoute = user ? "/" : "/login";
-
-    const authRouteMsg = user ? "Útskráning" : "Innskráning";
     let imageUrl = "/profile.jpg";
 
     if (user) {
@@ -79,27 +71,31 @@ class Header extends Component {
     return (
       <header className="header">
         <h1 className="header__heading"><Link to="/">Bókasafnið</Link></h1>
-
-        {/* ætti samt frekar heima í sér component */}
         <SearchBar
           onChange={this.onClick}
           onSubmit={this.onSubmit}
           searchValue={searchValue}
-          />
-
-        {user &&
-        <div>
-          <img alt="" src={imageUrl} className="photo" />
-          <h4>
-            <Link to="/profile">
-              {user.name}
-            </Link>
-          </h4>
+        />
+        <div className="user-info">
+          {user
+            ? <div className="header__user">
+                <img alt="" src={imageUrl} className="photo" />
+                <div>
+                  <h4 className="header__username">
+                    <Link to="/profile">
+                      {user.name}
+                    </Link>
+                  </h4>
+                  <Button onClick={this.logout}>
+                    Útskráning
+                  </Button>
+                </div>
+              </div>
+            : <Link to="/login">
+                Innskráning
+              </Link>
+          }
         </div>
-        }
-        <Link onClick={this.logout} to={authRoute}>
-          {authRouteMsg}
-        </Link>
       </header>
     );
   }

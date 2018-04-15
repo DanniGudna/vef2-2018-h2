@@ -1,0 +1,8 @@
+.searchbar {
+  display: flex;
+}
+
+.searchinput {
+  margin: 0 13px;
+  height: 38px;
+}

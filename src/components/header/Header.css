@@ -1,9 +1,32 @@
 .header {
   background-color: #dcbe87;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 120px;
+}
+
+.header__heading {
+  text-decoration: none;
+  font-size: 40px;
+}
+
+.header__user {
+  display: flex;
+}
+
+.header__username {
+  margin-bottom: 10px;
+  font-weight: lighter;
 }
 
 .photo {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  height: 75px;
+  width: 75px;
+  margin-right: 15px;
+}
+
+.user-info {
+  display: flex;
 }
