@@ -31,15 +31,13 @@ class Users extends Component {
       );
     }
 
-    console.info(page);
-
     return (
       <div>
         <h1>Notendur</h1>
         {users.map((user, i) => (
             <div key={i}>
               <h3>
-                <Link to={`/user/${user.id}`}>
+                <Link user={user} to={`/users/${user.id}`}>
                   {user.name}
                 </Link>
               </h3>
