@@ -1,2 +1,2 @@
-import Users from './Profile';
+import Users from './Users';
 export default Users;

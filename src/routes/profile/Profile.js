@@ -15,10 +15,8 @@ class Profile extends Component {
 
   handleFileChange = (e) => {
     const { files } = e.target;
-    const filename = files[0].name;
     this.setState({
       img: files[0],
-      filename,
     });
   }
 
@@ -32,7 +30,7 @@ class Profile extends Component {
 
   handleFileSubmit = (e) => {
     e.preventDefault();
-    const { img, filename } = this.state;
+    const { img } = this.state;
     const { dispatch } = this.props;
 
     dispatch(updatePhoto(img));

@@ -21,9 +21,8 @@ async function get(endpoint) {
   return { result, status: response.status };
 }
 
-async function post(endpoint, data, photo = false) {
+async function post(endpoint, data) {
   const url = `${baseurl}${endpoint}`;
-
 
   const options = {
     body: JSON.stringify(data),
@@ -33,15 +32,29 @@ async function post(endpoint, data, photo = false) {
     method: 'POST',
   };
 
+  const token = window.localStorage.getItem('token');
 
-  if (photo) {
-    const formData = new FormData();
-    formData.append('profile', data);
-
-    console.info(data);
-
-    options['body'] = JSON.stringify(formData);
+  if (token) {
+    options.headers['Authorization'] = `Bearer ${token}`;
   }
+
+  const response = await fetch(url, options);
+  const result = await response.json();
+
+  return { result, status: response.status };
+}
+
+async function postImage(endpoint, data) {
+  const url = `${baseurl}${endpoint}`;
+
+  const formData = new FormData();
+  formData.append('profile', data);
+
+  const options = {
+    body: formData,
+    headers: {},
+    method: 'POST',
+  };
 
   const token = window.localStorage.getItem('token');
 
@@ -79,5 +92,5 @@ async function patch(endpoint, data) {
 }
 
 export default {
-  get, post, patch,
+  get, post, patch, postImage,
 };

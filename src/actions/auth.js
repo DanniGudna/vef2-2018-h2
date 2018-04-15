@@ -183,12 +183,17 @@ export const updatePhoto = (photo) => {
     let data;
 
     try {
-      data = await api.post(endpoint, photo, true);
+      data = await api.postImage(endpoint, photo);
     } catch (error) {
       console.error(error);
       dispatch(updateError(error));
     }
 
-    console.info(data);    
+    const { result } = data;
+
+    window.localStorage.removeItem('user');
+    window.localStorage.setItem('user', JSON.stringify(result));
+
+    dispatch(updateSuccess(result));
   }
 }

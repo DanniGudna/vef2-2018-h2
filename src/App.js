@@ -14,6 +14,7 @@ import Books from './routes/books';
 import Book from './routes/book';
 import Register from './routes/register';
 import NewBook from './routes/newBook';
+import Users from './routes/users';
 
 import { authenticateUser } from './actions/auth';
 
@@ -35,7 +36,7 @@ class App extends Component {
       return (
         <main className="main">
           <Header />
-          <h1>Auðkenni...</h1>
+          <h1>Augnablik...</h1>
         </main>
       )
     }
@@ -55,7 +56,7 @@ class App extends Component {
             <Route path="/books/:id" exact component={Book} />
             <Route path="/books/:id/edit" exact component={Book} /> 
             <Route path="/register" exact component={Register} />
-            <UserRoute path="/users" exact component={Users} />
+            <UserRoute path="/users" isAuthenticated={isAuthenticated} exact component={Users} />
             <UserRoute path="/profile" isAuthenticated={isAuthenticated} component={Profile} />
             <Route component={NotFound} />
           </Switch>
