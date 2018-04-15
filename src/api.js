@@ -15,7 +15,7 @@ async function get(endpoint) {
     options.headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await fetch(url);
+  const response = await fetch(url, options);
   const result = await response.json();
 
   return { result, status: response.status };
