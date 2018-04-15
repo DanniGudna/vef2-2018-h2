@@ -21,10 +21,9 @@ async function get(endpoint) {
   return { result, status: response.status };
 }
 
-async function post(endpoint, data) {
-  console.log('DATA', data)
+async function post(endpoint, data, photo = false) {
   const url = `${baseurl}${endpoint}`;
-  console.log('URL', url)
+
 
   const options = {
     body: JSON.stringify(data),
@@ -34,6 +33,16 @@ async function post(endpoint, data) {
     method: 'POST',
   };
 
+
+  if (photo) {
+    const formData = new FormData();
+    formData.append('profile', data);
+
+    console.info(data);
+
+    options['body'] = JSON.stringify(formData);
+  }
+
   const token = window.localStorage.getItem('token');
 
   if (token) {
@@ -41,17 +50,13 @@ async function post(endpoint, data) {
   }
 
   const response = await fetch(url, options);
-  console.log('RESPONSE', response)
   const result = await response.json();
-  console.log('RESULT', result)
 
   return { result, status: response.status };
 }
 
 async function patch(endpoint, data) {
   const url = `${baseurl}${endpoint}`;
-
-  console.info(JSON.stringify(data));
 
   const options = {
     body: JSON.stringify(data),

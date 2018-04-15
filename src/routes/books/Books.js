@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchBooks } from '../../actions/getBooks';
 import PageFlipper from '../../components/page-flipper';
-const querystring = require('querystring');
+import querystring from 'querystring';
 
 class Books extends Component {
   state = {

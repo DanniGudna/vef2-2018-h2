@@ -156,6 +156,8 @@ export const updateUser = (name, password) => {
       dispatch(updateError(error));
     }
 
+    console.info(data);
+
     if (data.status === 500) {
       const { error } = data.result;
       return dispatch(updateError(error));
@@ -163,8 +165,30 @@ export const updateUser = (name, password) => {
 
     console.info(data);
 
-    const { user } = data.result;
+    const { result } = data;
 
-    dispatch(updateSuccess(user));
+    window.localStorage.removeItem('user');
+    window.localStorage.setItem('user', JSON.stringify(result));
+
+    dispatch(updateSuccess(result));
+  }
+}
+
+export const updatePhoto = (photo) => {
+  return async (dispatch) => {
+    dispatch(requestUpdate());
+
+    const endpoint = '/users/me/profile';
+
+    let data;
+
+    try {
+      data = await api.post(endpoint, photo, true);
+    } catch (error) {
+      console.error(error);
+      dispatch(updateError(error));
+    }
+
+    console.info(data);    
   }
 }
