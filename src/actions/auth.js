@@ -63,15 +63,15 @@ function updateSuccess(user) {
     type: UPDATE_SUCCESS,
     isFetching: false,
     user,
-    error: null,
+    errors: null,
   }
 }
 
-function updateError(error) {
+function updateError(errors) {
   return {
     type: UPDATE_FAILURE,
     isFetching: false,
-    error: error,
+    errors: errors,
   }
 }
 
@@ -161,10 +161,40 @@ export const updateUser = (name, password) => {
       return dispatch(updateError(error));
     }
 
-    console.info(data);
+    const { result } = data;
 
-    const { user } = data.result;
+    if (result.errors) {
+      const { errors } = result;
+      return dispatch(updateError(errors));
+    }
 
-    dispatch(updateSuccess(user));
+    window.localStorage.removeItem('user');
+    window.localStorage.setItem('user', JSON.stringify(result));
+
+    dispatch(updateSuccess(result));
+  }
+}
+
+export const updatePhoto = (photo) => {
+  return async (dispatch) => {
+    dispatch(requestUpdate());
+
+    const endpoint = '/users/me/profile';
+
+    let data;
+
+    try {
+      data = await api.postImage(endpoint, photo);
+    } catch (error) {
+      console.error(error);
+      dispatch(updateError(error));
+    }
+
+    const { result } = data;
+
+    window.localStorage.removeItem('user');
+    window.localStorage.setItem('user', JSON.stringify(result));
+
+    dispatch(updateSuccess(result));
   }
 }

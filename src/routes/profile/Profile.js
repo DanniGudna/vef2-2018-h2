@@ -3,20 +3,22 @@ import { connect } from 'react-redux';
 
 import Button from '../../components/button';
 import Field from '../../components/field';
-import { updateUser } from '../../actions/auth';
+import { updateUser, updatePhoto } from '../../actions/auth';
 
 class Profile extends Component {
   state = {
     name: '',
     password: '',
     passwordAgain: '',
+    errors: null,
     img: null,
   }
 
   handleFileChange = (e) => {
     const { files } = e.target;
-    console.info(files);
-    this.setState({ img: files[0] });
+    this.setState({
+      img: files[0],
+    });
   }
 
   handleInputChange = (e) => {
@@ -27,20 +29,46 @@ class Profile extends Component {
     }
   }
 
+  handleFileSubmit = (e) => {
+    e.preventDefault();
+    const { img } = this.state;
+    const { dispatch } = this.props;
+
+    dispatch(updatePhoto(img));
+  }
+
   handleNameSubmit = async (e) => {
     e.preventDefault();
     const { dispatch } = this.props;
     const { name } = this.state;
+
     dispatch(updateUser(name));
   }
 
+  handlePasswordSubmit = async (e) => {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    const { password } = this.state;
+
+    dispatch(updateUser(null, password));
+  }
+
   render() {
-    const { img, name } = this.state;
+    const { img, name, password, passwordAgain } = this.state;
+    const { isFetching, errors } = this.props;
+
+    if (isFetching) {
+      return (
+        <div>
+          Augnablik...
+        </div>
+      )
+    }
 
     return (
       <div>
         <h1>Upplýsingar</h1>
-        <form>
+        <form onSubmit={this.handleFileSubmit}>
           <div>
             <input
               type="file"
@@ -49,6 +77,13 @@ class Profile extends Component {
             <Button>Uppfæra mynd</Button>
           </div>
         </form>
+        {errors &&
+        <ul>
+          {errors.map((error, i) => (
+            <li key={i}>{error.message}</li>
+          ))}
+        </ul>
+        }
         <form onSubmit={this.handleNameSubmit}>
           <Field
             name="name"
@@ -59,22 +94,25 @@ class Profile extends Component {
           />
           <Button>Uppfæra nafn</Button>
         </form>
-        <form>
+        {password !== passwordAgain &&
+        <div>Lykilorð verða að vera eins</div>
+        }
+        <form onSubmit={this.handlePasswordSubmit}>
           <Field
             name="password"
             label="Lykilorð"
-            value=""
+            value={password}
             type="password"
-            onChange={null}
+            onChange={this.handleInputChange}
           />
           <Field
-            name="password-again"
-            label="Lykilorð, aftur"
-            value=""
+            name="passwordAgain"
+            label="Lykilorð aftur"
+            value={passwordAgain}
             type="password"
-            onChange={null}
+            onChange={this.handleInputChange}
           />
-          <Button>Uppfæra lykilorð</Button>
+          <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
         </form>
         <h1>Lesnar bækur</h1>
       </div>
@@ -84,7 +122,8 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
+    isFetching: state.auth.isFetching,
+    errors: state.auth.errors,
   }
 }
 

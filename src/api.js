@@ -15,16 +15,14 @@ async function get(endpoint) {
     options.headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await fetch(url);
+  const response = await fetch(url, options);
   const result = await response.json();
 
   return { result, status: response.status };
 }
 
 async function post(endpoint, data) {
-  console.log('DATA', data)
   const url = `${baseurl}${endpoint}`;
-  console.log('URL', url)
 
   const options = {
     body: JSON.stringify(data),
@@ -41,17 +39,37 @@ async function post(endpoint, data) {
   }
 
   const response = await fetch(url, options);
-  console.log('RESPONSE', response)
   const result = await response.json();
-  console.log('RESULT', result)
+
+  return { result, status: response.status };
+}
+
+async function postImage(endpoint, data) {
+  const url = `${baseurl}${endpoint}`;
+
+  const formData = new FormData();
+  formData.append('profile', data);
+
+  const options = {
+    body: formData,
+    headers: {},
+    method: 'POST',
+  };
+
+  const token = window.localStorage.getItem('token');
+
+  if (token) {
+    options.headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, options);
+  const result = await response.json();
 
   return { result, status: response.status };
 }
 
 async function patch(endpoint, data) {
   const url = `${baseurl}${endpoint}`;
-
-  console.info(JSON.stringify(data));
 
   const options = {
     body: JSON.stringify(data),
@@ -74,5 +92,5 @@ async function patch(endpoint, data) {
 }
 
 export default {
-  get, post, patch,
+  get, post, patch, postImage,
 };
