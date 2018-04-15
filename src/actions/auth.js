@@ -63,15 +63,15 @@ function updateSuccess(user) {
     type: UPDATE_SUCCESS,
     isFetching: false,
     user,
-    error: null,
+    errors: null,
   }
 }
 
-function updateError(error) {
+function updateError(errors) {
   return {
     type: UPDATE_FAILURE,
     isFetching: false,
-    error: error,
+    errors: errors,
   }
 }
 
@@ -156,16 +156,17 @@ export const updateUser = (name, password) => {
       dispatch(updateError(error));
     }
 
-    console.info(data);
-
     if (data.status === 500) {
       const { error } = data.result;
       return dispatch(updateError(error));
     }
 
-    console.info(data);
-
     const { result } = data;
+
+    if (result.errors) {
+      const { errors } = result;
+      return dispatch(updateError(errors));
+    }
 
     window.localStorage.removeItem('user');
     window.localStorage.setItem('user', JSON.stringify(result));

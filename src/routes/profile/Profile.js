@@ -10,6 +10,7 @@ class Profile extends Component {
     name: '',
     password: '',
     passwordAgain: '',
+    errors: null,
     img: null,
   }
 
@@ -54,7 +55,7 @@ class Profile extends Component {
 
   render() {
     const { img, name, password, passwordAgain } = this.state;
-    const { isFetching } = this.props;
+    const { isFetching, errors } = this.props;
 
     if (isFetching) {
       return (
@@ -76,6 +77,13 @@ class Profile extends Component {
             <Button>Uppfæra mynd</Button>
           </div>
         </form>
+        {errors &&
+        <ul>
+          {errors.map((error, i) => (
+            <li key={i}>{error.message}</li>
+          ))}
+        </ul>
+        }
         <form onSubmit={this.handleNameSubmit}>
           <Field
             name="name"
@@ -115,6 +123,7 @@ class Profile extends Component {
 const mapStateToProps = (state) => {
   return {
     isFetching: state.auth.isFetching,
+    errors: state.auth.errors,
   }
 }
 

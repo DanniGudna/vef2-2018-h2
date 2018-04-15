@@ -52,8 +52,6 @@ export const fetchUser = (id) => {
       return dispatch(userFailure(result.error));
     }
 
-    console.info(result);
-
     dispatch(userSuccess(result));
   }
 }
