@@ -44,6 +44,7 @@ async function post(endpoint, data) {
   return { result, status: response.status };
 }
 
+
 async function postImage(endpoint, data) {
   const url = `${baseurl}${endpoint}`;
 
@@ -80,7 +81,7 @@ async function patch(endpoint, data) {
   };
 
   const token = window.localStorage.getItem('token');
-  
+
   if (token) {
     options.headers['Authorization'] = `Bearer ${token}`;
   }

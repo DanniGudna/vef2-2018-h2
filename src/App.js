@@ -14,6 +14,7 @@ import Books from './routes/books';
 import Book from './routes/book';
 import Register from './routes/register';
 import NewBook from './routes/newBook';
+import EditBook from './routes/editBook';
 import Users from './routes/users';
 import User from './routes/user';
 
@@ -55,7 +56,7 @@ class App extends Component {
             <Route path="/books" exact component={Books} />
             <UserRoute path="/books/new" isAuthenticated={isAuthenticated} exact component={NewBook} />
             <Route path="/books/:id" exact component={Book} />
-            <Route path="/books/:id/edit" exact component={Book} />
+            <Route path="/books/:id/edit" exact component={EditBook} />
             <Route path="/register" exact component={Register} />
             <UserRoute path="/users" isAuthenticated={isAuthenticated} exact component={Users} />
             <UserRoute path="/users/:id" isAuthenticated={isAuthenticated} exact component={User} />
