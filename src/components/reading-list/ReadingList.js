@@ -26,9 +26,6 @@ class ReadingList extends Component {
   render() {
     const { readings, me, className, page, fetchingReads } = this.props;
 
-    console.info(fetchingReads);
-    console.info(readings);
-   
     if (fetchingReads) {
 
       return (
@@ -69,7 +66,6 @@ class ReadingList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.info(state.readings);
   return {
     fetchingReads: state.readings.fetchingReads,
     readings: state.readings.readings,

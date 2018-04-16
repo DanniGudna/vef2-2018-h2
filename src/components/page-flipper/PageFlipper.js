@@ -9,39 +9,29 @@ import { fetchBooks } from '../../actions/getBooks';
 
 class PageFlipper extends Component {
   
-  onLeftClick = (e) => {
-    const { dispatch, page } = this.props;
-    dispatch(fetchBooks(page - 1));
-  }
-
-  onRightClick = (e) => {
-    const { dispatch, page } = this.props;
-    dispatch(fetchBooks(page + 1));
-  }
-  
   render() {
-    const { page } = this.props;
+    const { page, onLeftClick, onRightClick } = this.props;
+    let { size } = this.props;
+
+    if (!size) {
+      size = Infinity;
+    }
 
     return (
       <div>
         {page > 0 &&
-          <Button onClick={this.onLeftClick}>
+          <Button onClick={onLeftClick}>
             &lt; Fyrri síða
           </Button>
         }
-        Síða {page}
-        <Button onClick={this.onRightClick}>
+        Síða {Number(page + 1)}
+        {size >= 10 &&
+        <Button onClick={onRightClick}>
           Næsta síða >
-        </Button>
+        </Button>}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    ...state,
-  };
-}
-
-export default connect(mapStateToProps)(PageFlipper);
+export default PageFlipper;
