@@ -13,7 +13,7 @@ import createHistory from 'history/createBrowserHistory'
 
 import './Header.css';
 
-const querystring = require('querystring');
+import querystring from 'querystring';
 
 class Header extends Component {
   state = {

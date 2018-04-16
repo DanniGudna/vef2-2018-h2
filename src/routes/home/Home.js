@@ -45,7 +45,6 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
     user: state.auth.user,
   }
 }
