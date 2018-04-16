@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Field from '../field';
 import Button from '../button';
 
-//import './Field.css';
+import './SearchBar.css';
 
 class SearchBar extends Component {
 
@@ -34,8 +34,9 @@ class SearchBar extends Component {
           type="text"
           label=""
           onChange={onChange}
+          placeHolder="Bókaleit"
+          inputClass="searchinput"
         />
-
         <Button onClick={onSubmit} to={searchValue}>Leita</Button>
       </form>
     );

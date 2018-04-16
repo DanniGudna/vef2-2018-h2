@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 
 import Button from '../../components/button';
 import Field from '../../components/field';
+import { Link } from 'react-router-dom';
 import { updateUser, updatePhoto } from '../../actions/auth';
+
+import './Profile.css';
+import PageFlipper from '../../components/page-flipper';
+import Reading from '../../components/reading/Reading';
+import ReadingList from '../../components/reading-list/ReadingList';
 
 class Profile extends Component {
   state = {
@@ -12,6 +18,7 @@ class Profile extends Component {
     passwordAgain: '',
     errors: null,
     img: null,
+    page: 0,
   }
 
   handleFileChange = (e) => {
@@ -54,8 +61,8 @@ class Profile extends Component {
   }
 
   render() {
-    const { img, name, password, passwordAgain } = this.state;
-    const { isFetching, errors } = this.props;
+    const { img, name, password, passwordAgain, page } = this.state;
+    const { isFetching, errors, readings, fetchingReads } = this.props;
 
     if (isFetching) {
       return (
@@ -114,7 +121,11 @@ class Profile extends Component {
           />
           <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
         </form>
-        <h1>Lesnar bækur</h1>
+        <ReadingList
+            me={true}
+            className="danger"
+            page={page}
+          />
       </div>
     );
   }

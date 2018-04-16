@@ -92,6 +92,25 @@ async function patch(endpoint, data) {
   return { result, status: response.status };
 }
 
+async function mdelete(endpoint) {
+  const url = `${baseurl}${endpoint}`;
+
+  const options = {
+    headers: {
+      'content-type': 'application/json'
+    },
+    method: 'DELETE',
+  };
+
+  const token = window.localStorage.getItem('token');
+
+  if (token) {
+    options.headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, options);
+}
+
 export default {
-  get, post, patch, postImage,
+  get, post, patch, postImage, mdelete,
 };

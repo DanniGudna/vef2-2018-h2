@@ -14,6 +14,16 @@ class Books extends Component {
     search: null,
   }
 
+  onLeftClick = (e) => {
+    const { dispatch, page } = this.props;
+    dispatch(fetchBooks(page - 1));
+  }
+
+  onRightClick = (e) => {
+    const { dispatch, page } = this.props;
+    dispatch(fetchBooks(page + 1));
+  }
+
   async componentDidMount() {
     const { dispatch } = this.props;
     const { page } = this.props.match.params;
@@ -23,7 +33,6 @@ class Books extends Component {
       search = search.slice( 1 );
     }
     search = querystring.parse(search);
-
 
     dispatch(fetchBooks(search.page, search.search));
   }
@@ -55,7 +64,11 @@ class Books extends Component {
           </div>
         ))}
         <div>
-          <PageFlipper page={page} />
+          <PageFlipper
+            page={page}
+            onLeftClick={this.onLeftClick}
+            onRightClick={this.onRightClick}
+          />
         </div>
       </div>
     );
