@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import readings from './readings';
+import editBook from './editBook';
 import getBooks from './getBooks';
 import newBook from './newBook';
 import signup from './signup';
