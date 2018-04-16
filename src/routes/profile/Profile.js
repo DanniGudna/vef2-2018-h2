@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 import { updateUser, updatePhoto } from '../../actions/auth';
 import { fetchMyReadings, deleteReading } from '../../actions/readings';
 
+import './Profile.css';
+import PageFlipper from '../../components/page-flipper';
+import Reading from '../../components/reading/Reading';
+
 class Profile extends Component {
   state = {
     name: '',
@@ -14,6 +18,7 @@ class Profile extends Component {
     passwordAgain: '',
     errors: null,
     img: null,
+    page: 0,
   }
 
   async componentDidMount() {
@@ -70,7 +75,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { img, name, password, passwordAgain } = this.state;
+    const { img, name, password, passwordAgain, page } = this.state;
     const { isFetching, errors, readings } = this.props;
 
     if (isFetching) {
@@ -133,19 +138,21 @@ class Profile extends Component {
         <h1>Lesnar bækur</h1>
         {readings
           ? readings.length > 0
-            ? <ul>
-                {readings.map((book, i) => (
-                  <li key={i}>
-                    <form onSubmit={this.handleDelete}>
-                      <Link to={`/books/${book.id}`}>
-                        <h3>{book.title}</h3>
-                      </Link>
-                      <h3 id={book.id}>Einkunn: {book.rating}. {book.review}</h3>
-                      <Button>Eyða</Button>
-                    </form>
-                  </li>
-                ))}
-              </ul>
+            ? <div>
+                <ul>
+                  {readings.map((book, i) => (
+                    <li key={i}>
+                      <Reading
+                        onSubmit={this.handleDelete}
+                        book={book}
+                        className="danger"
+                      />
+                    </li>
+                  ))}
+                </ul>
+                {readings.length > 9 &&
+                <PageFlipper page={page} />}
+              </div>
             : <div>
                 Engar bækur lesnar
               </div>
