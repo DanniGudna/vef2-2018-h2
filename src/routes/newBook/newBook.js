@@ -45,7 +45,6 @@ class NewBook extends Component {
 
 handleSubmit = async (e) => {
   e.preventDefault();
-  console.log('E', e)
 
   const { dispatch } = this.props;
   const {
@@ -71,6 +70,8 @@ handleSubmit = async (e) => {
       };
 
   dispatch(newBook(book));
+
+
 }
 
   render() {
@@ -92,7 +93,6 @@ handleSubmit = async (e) => {
 
         if(this.props.books){
            errors = this.props.books.result.errors;
-           console.log('ERRORS', errors)
         }
 
     if (isFetching || !categories) {
@@ -103,14 +103,17 @@ handleSubmit = async (e) => {
       );
     }
 
-    if (errors) {
+
       return (
+
         <div>
+          {errors &&
         <ul>
           {errors.map((item, el) => (
             <li key={el} >{item.message}</li>
           ))}
-        </ul>
+
+        </ul>}
         <BookForm
           errors={errors}
           books={categories}
@@ -131,33 +134,10 @@ handleSubmit = async (e) => {
         );
       }
 
-    //const { result: { items } } = books;
-    //console.log('BOOKS', books)
-
-    return (
-      <BookForm
-        errors={errors}
-        books={categories}
-        title={title}
-        author={author}
-        description={description}
-        isbn10={isbn10}
-        isbn13={isbn13}
-        category={category}
-        published={published}
-        pagecount={pagecount}
-        language={language}
-        submit={this.handleSubmit}
-        change={this.handleInputChange}
-        isFetching={isFetching}
-      />
-      )
-    }
   }
 
 
 const mapStateToProps = (state) => {
-  console.log('STATE', state)
   return {
     ...state,
     isFetching: state.newBook.isFetching,

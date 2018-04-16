@@ -27,7 +27,7 @@ class SearchBar extends Component {
    } = this.props;
 
     return (
-      <div>
+      <form>
         <Field
           name="searchValue"
           value={searchValue}
@@ -37,7 +37,7 @@ class SearchBar extends Component {
         />
 
         <Button onClick={onSubmit} to={searchValue}>Leita</Button>
-      </div>
+      </form>
     );
   }
 }

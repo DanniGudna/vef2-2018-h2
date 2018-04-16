@@ -22,9 +22,7 @@ async function get(endpoint) {
 }
 
 async function post(endpoint, data) {
-  console.log('DATA', data)
   const url = `${baseurl}${endpoint}`;
-  console.log('URL', url)
 
   const options = {
     body: JSON.stringify(data),
@@ -41,13 +39,34 @@ async function post(endpoint, data) {
   }
 
   const response = await fetch(url, options);
-  console.log('RESPONSE', response)
   const result = await response.json();
-  console.log('RESULT', result)
+
+  return { result, status: response.status };
+}
+
+async function patch(endpoint, data) {
+  const url = `${baseurl}${endpoint}`;
+
+  const options = {
+    body: JSON.stringify(data),
+    headers: {
+      'content-type': 'application/json',
+    },
+    method: 'PATCH',
+  };
+
+  const token = window.localStorage.getItem('token');
+
+  if (token) {
+    options.headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(url, options);
+  const result = await response.json();
 
   return { result, status: response.status };
 }
 
 export default {
-  get, post,
+  get, post, patch
 };

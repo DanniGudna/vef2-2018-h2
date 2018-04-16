@@ -84,7 +84,6 @@ export const newBook = (book) => {
 
       let books;
     try {
-      // TODO : baeta vid body
       books = await api.post(endpoint, book);
 
 

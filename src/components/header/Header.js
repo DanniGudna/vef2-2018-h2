@@ -37,11 +37,9 @@ class Header extends Component {
     let value = this.state.searchValue;
     value = 'search=' + value;
     value = querystring.parse(value);
-    console.log('VALUE', value)
     const { dispatch } = this.props;
 
     const history = createHistory()
-    console.log('HISTORY', history)
 
 
     dispatch(fetchBooksFromSearch( value.search, history));
