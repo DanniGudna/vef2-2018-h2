@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import './Home.css';
 
 class Home extends Component {
   state = {
@@ -11,7 +12,7 @@ class Home extends Component {
     const { user } = this.props;
 
     return (
-      <div>
+      <div className = "home">
         <h2>Velkomin á bókasafnið&nbsp;{user && user.name}</h2>
         {user
           ? <p>

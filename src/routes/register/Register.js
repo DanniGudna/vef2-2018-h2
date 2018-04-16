@@ -46,7 +46,7 @@ class Register extends Component {
     }
 
     return (
-      <div>
+      <div className = "newUser">
         <h1>Nýskráning</h1>
         {errors &&(
           <ul>

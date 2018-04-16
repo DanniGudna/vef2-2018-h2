@@ -1,0 +1,24 @@
+.newUser{
+    margin-top: 1.5em;
+    padding-left: 12em;
+}
+
+.newUser h1{
+    padding-bottom: .5em;
+}
+
+.newUser form div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 1em;
+}
+
+.newUser form input{
+    width: 2em;
+    position: relative;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    display: inline-flex;
+    
+}
