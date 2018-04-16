@@ -5,7 +5,6 @@ import Button from '../../components/button';
 import Field from '../../components/field';
 import { Link } from 'react-router-dom';
 import { updateUser, updatePhoto } from '../../actions/auth';
-import { fetchMyReadings, deleteReading } from '../../actions/readings';
 
 import './Profile.css';
 import PageFlipper from '../../components/page-flipper';
@@ -20,11 +19,6 @@ class Profile extends Component {
     errors: null,
     img: null,
     page: 0,
-  }
-
-  async componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(fetchMyReadings());
   }
 
   handleFileChange = (e) => {
@@ -66,18 +60,9 @@ class Profile extends Component {
     dispatch(updateUser(null, password));
   }
 
-  handleDelete = async (e) => {
-    e.preventDefault();
-    const { dispatch } = this.props;
-    const readingId = e.target.children[1].id;
-
-    dispatch(deleteReading(readingId));
-    dispatch(fetchMyReadings());
-  }
-
   render() {
     const { img, name, password, passwordAgain, page } = this.state;
-    const { isFetching, errors, readings } = this.props;
+    const { isFetching, errors, readings, fetchingReads } = this.props;
 
     if (isFetching) {
       return (
@@ -137,12 +122,10 @@ class Profile extends Component {
           <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
         </form>
         <ReadingList
-          readings={readings}
-          me={true}
-          className="danger"
-          onSubmit={this.handleDelete}
-          page={page}
-        />
+            me={true}
+            className="danger"
+            page={page}
+          />
       </div>
     );
   }
@@ -152,7 +135,6 @@ const mapStateToProps = (state) => {
   return {
     isFetching: state.auth.isFetching,
     errors: state.auth.errors,
-    readings: state.readings.readings,
   }
 }
 

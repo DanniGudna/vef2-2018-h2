@@ -5,6 +5,7 @@ import {
 } from '../actions/readings';
 
 const initialState = {
+  fetchingReads: true,
   readings: null,
   error: null,
 }
@@ -15,19 +16,22 @@ export default (state = initialState, action) => {
       return {
         ...state,
         readings: action.readings,
-        error: action.readings,
+        fetchingReads: action.fetchingReads,
+        error: action.error,
       }
     case READINGS_SUCCESS:
       return {
         ...state,
         readings: action.readings,
-        error: action.readings,
+        fetchingReads: action.fetchingReads,
+        error: action.error,
       }
     case READINGS_FAILURE:
       return {
         ...state,
         readings: action.readings,
-        error: action.readings,
+        fetchingReads: action.fetchingReads,
+        error: action.error,
       }
     default:
       return state;

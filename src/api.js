@@ -95,7 +95,9 @@ async function mdelete(endpoint) {
   const url = `${baseurl}${endpoint}`;
 
   const options = {
-    headers: {},
+    headers: {
+      'content-type': 'application/json'
+    },
     method: 'DELETE',
   };
 
@@ -106,9 +108,6 @@ async function mdelete(endpoint) {
   }
 
   const response = await fetch(url, options);
-  const result = await response.json();
-
-  return { result, status: response.status };
 }
 
 export default {
