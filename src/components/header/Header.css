@@ -1,9 +1,30 @@
 .header {
   background-color: #dcbe87;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
 }
 
 .photo {
   border-radius: 50%;
   width: 100px;
   height: 100px;
+}
+
+
+
+.header .header__heading h1{
+  grid-column-start: 2;
+}
+
+.header div div{
+  grid-column-start: 4;
+  grid-column-end: 6;
+}
+
+.header .button{
+  grid-column-start: 5;
+}
+
+.header :nth-child(3){
+  grid-column-start: 9;
 }
