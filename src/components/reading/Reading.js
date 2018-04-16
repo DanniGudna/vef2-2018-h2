@@ -8,7 +8,7 @@ import './Reading.css';
 class Reading extends Component {
 
   render() {
-    const { onSubmit, book, className } = this.props;
+    const { onSubmit, book, className, me } = this.props;
 
     return (
       <div>
@@ -17,7 +17,7 @@ class Reading extends Component {
             <h3>{book.title}</h3>
           </Link>
           <h3 id={book.id}>Einkunn: {book.rating}. {book.review}</h3>
-          <Button className={className}>Eyða</Button>
+          {me && <Button className={className}>Eyða</Button>}
         </form>
       </div>
     );

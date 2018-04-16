@@ -10,6 +10,7 @@ import { fetchMyReadings, deleteReading } from '../../actions/readings';
 import './Profile.css';
 import PageFlipper from '../../components/page-flipper';
 import Reading from '../../components/reading/Reading';
+import ReadingList from '../../components/reading-list/ReadingList';
 
 class Profile extends Component {
   state = {
@@ -135,31 +136,13 @@ class Profile extends Component {
           />
           <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
         </form>
-        <h1>Lesnar bækur</h1>
-        {readings
-          ? readings.length > 0
-            ? <div>
-                <ul>
-                  {readings.map((book, i) => (
-                    <li key={i}>
-                      <Reading
-                        onSubmit={this.handleDelete}
-                        book={book}
-                        className="danger"
-                      />
-                    </li>
-                  ))}
-                </ul>
-                {readings.length > 9 &&
-                <PageFlipper page={page} />}
-              </div>
-            : <div>
-                Engar bækur lesnar
-              </div>
-          : <div>
-              Næ í bækur...
-            </div>
-        }
+        <ReadingList
+          readings={readings}
+          me={true}
+          className="danger"
+          onSubmit={this.handleDelete}
+          page={page}
+        />
       </div>
     );
   }
