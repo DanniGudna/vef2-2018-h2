@@ -62,7 +62,13 @@ class Profile extends Component {
 
   render() {
     const { img, name, password, passwordAgain, page } = this.state;
-    const { isFetching, errors, readings, fetchingReads } = this.props;
+    const {
+      isFetching,
+      errors,
+      readings,
+      fetchingReads,
+      user: { id },
+    } = this.props;
 
     if (isFetching) {
       return (
@@ -81,7 +87,7 @@ class Profile extends Component {
               type="file"
               onChange={this.handleFileChange}
             />
-            <Button>Uppfæra mynd</Button>
+            <Button disabled={!img}>Uppfæra mynd</Button>
           </div>
         </form>
         {errors &&
@@ -122,6 +128,7 @@ class Profile extends Component {
           <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
         </form>
         <ReadingList
+            userId={id}
             me={true}
             className="danger"
             page={page}
@@ -135,6 +142,7 @@ const mapStateToProps = (state) => {
   return {
     isFetching: state.auth.isFetching,
     errors: state.auth.errors,
+    user: state.auth.user,
   }
 }
 

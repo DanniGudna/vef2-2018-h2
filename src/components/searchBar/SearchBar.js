@@ -27,7 +27,7 @@ class SearchBar extends Component {
    } = this.props;
 
     return (
-      <form>
+      <form className="searchbar">
         <Field
           name="searchValue"
           value={searchValue}

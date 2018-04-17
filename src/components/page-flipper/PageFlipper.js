@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 import Button from '../button';
 
-import './PageFlipper';
+import './PageFlipper.css';
+
 import { fetchBooks } from '../../actions/getBooks';
 
 class PageFlipper extends Component {
@@ -18,17 +19,18 @@ class PageFlipper extends Component {
     }
 
     return (
-      <div>
-        {page > 0 &&
-          <Button onClick={onLeftClick}>
+      <div className="pageFlipper">
+        <div className="pageFlipper__fixed">
+          <Button disabled={page <= 0} onClick={onLeftClick}>
             &lt; Fyrri síða
           </Button>
-        }
-        Síða {Number(page + 1)}
-        {size >= 10 &&
-        <Button onClick={onRightClick}>
-          Næsta síða >
-        </Button>}
+          </div>
+        <div className="pageFlipper__page">Síða {Number(page + 1)}</div>
+        <div className="pageFlipper__fixed">
+          <Button disabled={size < 10} onClick={onRightClick}>
+            Næsta síða >
+          </Button>
+        </div>
       </div>
     );
   }

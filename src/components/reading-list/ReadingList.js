@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchMyReadings, deleteReading } from '../../actions/readings';
+import { fetchReadings, deleteReading } from '../../actions/readings';
 
 import Reading from '../reading';
 import PageFlipper from '../page-flipper';
@@ -9,10 +9,29 @@ import PageFlipper from '../page-flipper';
 import './ReadingList.css';
 
 class ReadingList extends Component {
+  state = {
+    page: 0,
+  };
 
   async componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(fetchMyReadings());
+    const { dispatch, userId, page } = this.props
+    dispatch(fetchReadings(userId, page));
+  }
+
+  onLeftClick = (e) => {
+    e.preventDefault();    
+    const { page } = this.state;
+    this.setState({ page: page - 1 });
+    const { dispatch, userId } = this.props;
+    dispatch(fetchReadings(userId, page - 1));
+  }
+
+  onRightClick = (e) => {
+    e.preventDefault();
+    const { page } = this.state;
+    this.setState({ page: page + 1 });
+    const { dispatch, userId } = this.props;
+    dispatch(fetchReadings(userId, page + 1));
   }
 
   handleDelete = async (e) => {
@@ -24,7 +43,8 @@ class ReadingList extends Component {
   }
 
   render() {
-    const { readings, me, className, page, fetchingReads } = this.props;
+    const { readings, me, className, fetchingReads } = this.props;
+    const { page } = this.state;
 
     if (fetchingReads) {
 
@@ -53,8 +73,12 @@ class ReadingList extends Component {
                   </li>
                 ))}
               </ul>
-              {readings.length > 9 &&
-              <PageFlipper page={page} />}
+              <PageFlipper
+                size={readings.length}
+                page={page}
+                onLeftClick={this.onLeftClick}
+                onRightClick={this.onRightClick}
+              />
             </div>
           : <div>
               Engar bækur lesnar
