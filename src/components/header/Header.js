@@ -34,12 +34,16 @@ class Header extends Component {
   }
 
   onSubmit = async (e) => {
+    e.preventDefault();
     let value = this.state.searchValue;
+    console.log('VALUE', value)
     value = 'search=' + value;
     value = querystring.parse(value);
+    console.log('VALUE', value)
     const { dispatch } = this.props;
 
     const history = createHistory()
+    console.log('HISTORY', history)
 
 
     dispatch(fetchBooksFromSearch( value.search, history));

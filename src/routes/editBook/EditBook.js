@@ -5,11 +5,14 @@ import { fetchBookIdCategories, patchBook } from '../../actions/editBook';
 import Field from '../../components/field';
 import BookForm from '../../components/bookForm';
 import Button from '../../components/button';
+import { Redirect } from 'react-router' //TODO
 
 /*/books/:id
 PATCH uppfærir bók */
 
 class EditBook extends Component {
+
+
   state = {
     isFetching: false,
     books: null,
@@ -28,6 +31,7 @@ class EditBook extends Component {
     pagecount: '',
     language: '',
     success: false,
+    first: true,
   }
 
 
@@ -39,7 +43,8 @@ class EditBook extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if(props.books){
+
+    if(props.books && this.state.first){
        this.setState({    title: props.books.result.title,
            author: props.books.result.author,
            description: props.books.result.description,
@@ -48,9 +53,11 @@ class EditBook extends Component {
            category: props.books.result.category,
            published: props.books.result.published,
            pagecount: props.books.result.pagecount,
-           language: props.books.result.language,});
-         }
-   }
+           language: props.books.result.language,
+           first: false,
+          });
+    }
+  }
 
   /* componentWillUpdate(nextState, prevState){
      if(this.props.books){
@@ -93,6 +100,7 @@ handleSubmit = async (e) => {
     published,
     pagecount,
     language, } = this.state;
+
     const book = {
         title,
         author,
@@ -105,18 +113,20 @@ handleSubmit = async (e) => {
         language,
       };
   dispatch(patchBook(book, id, this.props.categories));
-  console.log(this.props);
-  console.log(this.state);
-  if (!this.props.books.errors){
-  }
-
-
 
 }
 
   render() {
-    const { isFetching, books, page, categories } = this.props;
+    const { isFetching, books, page, categories, success } = this.props;
+    const { id } = this.props.match.params;
+
     let errors = null;
+
+    if (success) {
+      return (
+        <Redirect to= {`/books/${id}`}/>
+      );
+    }
 
     if (isFetching || !books) {
       return (
@@ -190,7 +200,8 @@ const mapStateToProps = (state) => {
     ...state,
     isFetching: state.editBook.isFetching,
     books: state.editBook.books,
-    categories: state.editBook.categories
+    categories: state.editBook.categories,
+    success: state.editBook.success,
   };
 }
 

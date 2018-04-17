@@ -50,14 +50,14 @@ class bookId extends Component {
     );
   }
 }
-
+// TODO: gera rudecer og route fyrir getBookId
 const mapStateToProps = (state) => {
   return {
     ...state,
-    isFetching: state.getBooks.isFetching,
-    books: state.getBooks.books,
-    message: state.getBooks.message,
-    page: state.getBooks.page,
+    isFetching: state.getBookId.isFetching,
+    books: state.getBookId.books,
+    message: state.getBookId.message,
+    page: state.getBookId.page,
   };
 }
 
