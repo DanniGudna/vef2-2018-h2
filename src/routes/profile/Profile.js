@@ -49,7 +49,7 @@ class Profile extends Component {
     const { dispatch } = this.props;
     const { name } = this.state;
 
-    dispatch(updateUser(name));
+    dispatch(updateUser("name", name));
   }
 
   handlePasswordSubmit = async (e) => {
@@ -57,13 +57,14 @@ class Profile extends Component {
     const { dispatch } = this.props;
     const { password } = this.state;
 
-    dispatch(updateUser(null, password));
+    dispatch(updateUser("password", null, password));
   }
 
   render() {
     const { img, name, password, passwordAgain, page } = this.state;
     const {
       isFetching,
+      message,
       errors,
       readings,
       fetchingReads,
@@ -90,6 +91,8 @@ class Profile extends Component {
             <Button disabled={!img}>Uppfæra mynd</Button>
           </div>
         </form>
+        {message &&
+        <p>{message}</p>}
         {errors &&
         <ul>
           {errors.map((error, i) => (
@@ -143,6 +146,7 @@ const mapStateToProps = (state) => {
     isFetching: state.auth.isFetching,
     errors: state.auth.errors,
     user: state.auth.user,
+    message: state.auth.message
   }
 }
 

@@ -54,6 +54,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: action.isFetching,
+        message: action.message,
       }
     case UPDATE_SUCCESS:
       return {
@@ -61,12 +62,14 @@ export default (state = initialState, action) => {
         isFetching: action.isFetching,
         user: action.user,
         errors: action.errors,
+        message: action.message,
       }
     case UPDATE_FAILURE:
       return {
         ...state,
         isFetching: action.isFetching,
         errors: action.errors,
+        message: action.message,
       }
     case AUTHENTICATE_REQUEST:
       return {
