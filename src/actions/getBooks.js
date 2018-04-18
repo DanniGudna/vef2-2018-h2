@@ -83,9 +83,6 @@ export const fetchBooksFromSearch = ( search = false, history) => {
     console.log('NEWURL', newUrl)
     history.push(newUrl);
 
-    //this.props.history.push(newUrl);
-
-
     let books;
     try {
       books = await api.get(endpoint);
