@@ -18,7 +18,7 @@ import querystring from 'querystring';
 class Header extends Component {
   state = {
     user: null,
-    searchValue: '',
+    search: '',
   }
 
 
@@ -34,21 +34,16 @@ class Header extends Component {
   }
 
   onSubmit = async (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     let value = this.state.searchValue;
-    console.log('VALUE', value)
     value = 'search=' + value;
     value = querystring.parse(value);
-    console.log('VALUE', value)
     const { dispatch } = this.props;
 
     const history = createHistory()
-    console.log('HISTORY', history)
 
 
     dispatch(fetchBooksFromSearch( value.search, history));
-
-
   }
 
   logout = (e) => {
@@ -70,6 +65,8 @@ class Header extends Component {
       }
     }
 
+    const history = createHistory()
+
     return (
       <header className="header">
         <h1 className="header__heading"><Link to="/">Bókasafnið</Link></h1>
@@ -77,6 +74,7 @@ class Header extends Component {
           onChange={this.onClick}
           onSubmit={this.onSubmit}
           searchValue={searchValue}
+          origPath={history.location.pathname}
         />
         <div className="user-info">
           {user

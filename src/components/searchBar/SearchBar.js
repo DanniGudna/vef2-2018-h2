@@ -17,17 +17,15 @@ class SearchBar extends Component {
      }
 
   render() {
-    const { endpoint } = this.props;
-
     const {
         onChange,
         onSubmit,
         searchValue,
-
+        endpoint
    } = this.props;
-
+console.log('SEARCHVALUE', searchValue)
     return (
-      <form>
+      <form onSubmit={onSubmit}>
         <Field
           name="searchValue"
           value={searchValue}
@@ -37,7 +35,7 @@ class SearchBar extends Component {
           placeHolder="Bókaleit"
           inputClass="searchinput"
         />
-        <Button onClick={onSubmit} to={searchValue}>Leita</Button>
+        <Button>Leita</Button>
       </form>
     );
   }

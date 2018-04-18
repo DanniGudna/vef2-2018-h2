@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchBooksId } from '../../actions/getBookId';
+import Button from '../../components/button';
 
 class bookId extends Component {
   state = {
@@ -17,8 +18,19 @@ class bookId extends Component {
     dispatch(fetchBooksId(id));
   }
 
+  onClick = (e) => {
+    console.log('ping');
+    const { id } = this.props.match.params;
+    this.props.history.push({
+      pathname: `/books/${id}/edit`,
+      state: this.state,
+     });
+  }
+
+
   render() {
     const { isFetching, books, page } = this.props;
+    const { id } = this.props.match.params;
 
     if (isFetching || !books) {
       return (
@@ -44,7 +56,7 @@ class bookId extends Component {
             <p>{result.pagecount} Síður</p>
             <p>Gefin út {result.published} </p>
             <p>Tungumál: {result.language}</p>
-            <p>hérna vantar breyta bók takka, TODO!!</p>
+            <Button onClick={this.onClick}>oirkur</Button>
           </div>
       </div>
     );
