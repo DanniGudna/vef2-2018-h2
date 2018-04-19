@@ -32,11 +32,15 @@ function bookCategoriesError(message, book, categories) {
   }
 }
 
-function receiveBooks(books, categories) {
+function receiveBooks(books, categories, status) {
+  let suc = false;
+  if(status === 201){
+    suc = true;
+  }
   return {
     type: BOOKCATEGORIES_SUCCESS,
     isFetching: false,
-    success: true,
+    success: suc,
     books,
     categories,
   }
@@ -88,7 +92,10 @@ export const patchBook = (book, id, categories) => {
     if (books.status !== 200 || !books) {
       dispatch(bookCategoriesError('Oh no!', book, categories))
     }
+    console.log('status', books.status);
 
-    dispatch(receiveBooks(books, categories));
+    dispatch(receiveBooks(books, categories, books.status))
+
+
   }
 }
