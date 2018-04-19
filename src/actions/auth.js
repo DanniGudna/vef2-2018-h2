@@ -110,7 +110,7 @@ export const loginUser = (username, password) => {
     try {
       data = await api.post(endpoint, {username, password});
     } catch (error) {
-      return dispatch(loginError(error));
+      return dispatch(loginError('500 - Eitthvað kom uppá'));
     }
 
     const { error } = data.result;
@@ -194,8 +194,7 @@ export const updatePhoto = (photo) => {
     try {
       data = await api.postImage(endpoint, photo);
     } catch (error) {
-      console.error(error);
-      dispatch(updateError(error));
+      dispatch(updateError([{message: '500 - Eitthvað kom uppá'}]));
     }
 
     const { result } = data;

@@ -88,7 +88,7 @@ export const newBook = (book) => {
 
 
     } catch (error) {
-      dispatch(booksError(error));
+      dispatch(booksError('Eitthvað kom uppá'));
     }
 
     if (books.status !== 200 || !books) {
