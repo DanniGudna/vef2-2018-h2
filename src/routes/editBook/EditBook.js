@@ -59,18 +59,6 @@ class EditBook extends Component {
     }
   }
 
-  /* componentWillUpdate(nextState, prevState){
-     if(this.props.books){
-       if(this.props.books.result.errors){
-        // TODO: gera thetta betur ef thetta virkar
-        this.state.author = prevState.author;
-
-     }
-   }
-
-
- }*/
-
   handleInputChange = (event) => {
     const target = event.target;
      const value = target.value;
@@ -136,7 +124,6 @@ handleSubmit = async (e) => {
       );
     }
 
-
     if(this.props.books){
        errors = books.result.errors;
 
@@ -186,6 +173,7 @@ return (
       submit={this.handleSubmit}
       change={this.handleInputChange}
       isFetching={isFetching}
+      buttonLabel='Breyta Bók'
     />
   </div>
   );

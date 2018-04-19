@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchBooksId } from '../../actions/getBookId';
 import Button from '../../components/button';
+import BookInfo from '../../components/bookInfo';
 
 class bookId extends Component {
   state = {
@@ -14,12 +15,12 @@ class bookId extends Component {
   async componentDidMount() {
     const { dispatch } = this.props;
     const { id } = this.props.match.params;
+    console.log(typeof(id));
 
     dispatch(fetchBooksId(id));
   }
 
-  onClick = (e) => {
-    console.log('ping');
+  onClick = (e) => {;
     const { id } = this.props.match.params;
     this.props.history.push({
       pathname: `/books/${id}/edit`,
@@ -32,6 +33,7 @@ class bookId extends Component {
     const { isFetching, books, page } = this.props;
     const { id } = this.props.match.params;
 
+
     if (isFetching || !books) {
       return (
         <div>
@@ -41,23 +43,34 @@ class bookId extends Component {
     }
 
     const result = books.result;
+    console.log('RESULT', result.error)
+
+    if(result.error){
+      return (
+        <div>
+          Bók er ekki til
+        </div>
+      )
+    }
 
     return (
       <div>
         <h2>
           Bók!
         </h2>
-          <div>
-            <h3>{result.title}</h3>
-            <p>Eftir {result.author}</p>
-            <p>{result.isbn13}</p>
-            <p>{result.categorytitle}</p>
-            <p>{result.description}</p>
-            <p>{result.pagecount} Síður</p>
-            <p>Gefin út {result.published} </p>
-            <p>Tungumál: {result.language}</p>
-            <Button onClick={this.onClick}>oirkur</Button>
-          </div>
+        <div>
+          <BookInfo
+            title={result.title}
+            author={result.author}
+            ISBN13={result.isbn13}
+            category={result.categoryTitle}
+            description={result.description}
+            pagecount={result.pagecount}
+            published={result.published}
+            language={result.language}
+            onClick={this.onClick}/>
+        </div>
+
       </div>
     );
   }

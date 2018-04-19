@@ -7,7 +7,6 @@ import Button from '../button';
 
 class BookForm extends Component {
 
-
   render() {
     const {
         errors,
@@ -23,15 +22,17 @@ class BookForm extends Component {
         language,
       submit,
     change,
+    buttonLabel,
   isFetching } = this.props;
 
         const { result: { items } } = books;
+        console.log('ITEMS', items)
 
 
         return (
           <div>
             <h2>
-              Bæta við bók
+              {buttonLabel}
             </h2>
 
             <form onSubmit={submit}>
@@ -49,13 +50,14 @@ class BookForm extends Component {
                 label="Author"
                 onChange={change}
               />
+              Um bók
               <div>
                 <textarea name="description" value={description} onChange={change}></textarea>
               </div>
               Flokkur:
-              <select name="category" onChange={change}>
+              <select name="category" onChange={change} value={category}>
                 {items.map((item) => (
-                  <option key={item.id} value={item.id}  >{item.title}</option>
+                  <option key={item.id} value={item.id} >{item.title}</option>
                 ))}
               </select>
 
@@ -95,7 +97,7 @@ class BookForm extends Component {
                 label="tungumal"
                 onChange={change}
               />
-              <Button disabled={isFetching}>bua til bok</Button>
+              <Button disabled={isFetching}>{buttonLabel}</Button>
             </form>
 
           </div>
