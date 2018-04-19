@@ -11,6 +11,7 @@ const initialState = {
   message: null,
   books: null,
   categories: null,
+  success: false,
 }
 
 export default (state = initialState, action) => {
@@ -28,6 +29,7 @@ export default (state = initialState, action) => {
         isFetching: action.isFetching,
         books: action.books,
         categories: action.categories,
+        success: action.success,
       }
     case BOOKCATEGORIES_FAILURE:
       return {
@@ -36,6 +38,7 @@ export default (state = initialState, action) => {
         message: action.message,
         categories: action.categories,
         books: action.books,
+        success: action.success,
       }
 
     default:

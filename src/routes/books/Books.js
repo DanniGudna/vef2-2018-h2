@@ -47,7 +47,6 @@ class Books extends Component {
         </div>
       );
     }
-
     const { result: { items } } = books;
 
     return (
