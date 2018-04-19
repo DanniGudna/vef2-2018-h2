@@ -80,6 +80,7 @@ export const patchBook = (book, id, categories) => {
 
       const endpoint = `/books/${id}`;
 
+
       let books;
     try {
       books = await api.patch(endpoint, book);
@@ -92,7 +93,6 @@ export const patchBook = (book, id, categories) => {
     if (books.status !== 200 || !books) {
       dispatch(bookCategoriesError('Oh no!', book, categories))
     }
-    console.log('status', books.status);
 
     dispatch(receiveBooks(books, categories, books.status))
 
