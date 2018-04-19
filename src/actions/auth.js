@@ -206,8 +206,6 @@ export const updatePhoto = (photo) => {
       dispatch(updateError([{message: '500 - Eitthvað kom uppá'}]));
     }
 
-    console.info(data);
-
     const { error } = data.result;
 
     if (error) {

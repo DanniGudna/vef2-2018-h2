@@ -84,7 +84,6 @@ class Books extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
     isFetching: state.getBooks.isFetching,
     books: state.getBooks.books,
     message: state.getBooks.message,
