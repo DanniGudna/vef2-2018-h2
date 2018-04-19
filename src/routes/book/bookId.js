@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchBooksId } from '../../actions/getBookId';
 
+import BookReview from '../../components/book-review';
+
 class bookId extends Component {
   state = {
     isFetching: false,
@@ -46,6 +48,7 @@ class bookId extends Component {
             <p>Tungumál: {result.language}</p>
             <p>hérna vantar breyta bók takka, TODO!!</p>
           </div>
+          <BookReview id={result.id} />
       </div>
     );
   }

@@ -18,7 +18,7 @@ class Home extends Component {
               Þú er skráður notandi og getur því&nbsp;
               <Link to="/books/new">skráð bækur</Link>
               &nbsp;og breytt&nbsp;
-              <Link to="/books/edit">þeim sem til eru</Link>.
+              <Link to="/books/">þeim sem til eru</Link>.
             </p>
           : <p>
               Til að njóta bókasafnsins til fullnustu mælum við með að&nbsp;
