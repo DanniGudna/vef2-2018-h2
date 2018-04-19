@@ -55,15 +55,17 @@ function requestUpdate() {
   return {
     type: UPDATE_REQUEST,
     isFetching: true,
+    message: null,
   }
 }
 
-function updateSuccess(user) {
+function updateSuccess(user, message) {
   return {
     type: UPDATE_SUCCESS,
     isFetching: false,
     user,
     errors: null,
+    message,
   }
 }
 
@@ -72,6 +74,7 @@ function updateError(errors) {
     type: UPDATE_FAILURE,
     isFetching: false,
     errors: errors,
+    message: null,
   }
 }
 
@@ -142,7 +145,7 @@ export const logoutUser = () => {
   }
 }
 
-export const updateUser = (name, password) => {
+export const updateUser = (field, name, password) => {
   return async (dispatch) => {
     dispatch(requestUpdate());
 
@@ -168,10 +171,15 @@ export const updateUser = (name, password) => {
       return dispatch(updateError(errors));
     }
 
+    let message = null;
+
+    if (field === "name") { message = "Nafni var breytt" }
+    if (field === "password" ) { message = "Lykilorði var breytt" }
+
     window.localStorage.removeItem('user');
     window.localStorage.setItem('user', JSON.stringify(result));
 
-    dispatch(updateSuccess(result));
+    dispatch(updateSuccess(result, message));
   }
 }
 
@@ -191,10 +199,11 @@ export const updatePhoto = (photo) => {
     }
 
     const { result } = data;
+    const message = 'Mynd var uppfærð';
 
     window.localStorage.removeItem('user');
     window.localStorage.setItem('user', JSON.stringify(result));
 
-    dispatch(updateSuccess(result));
+    dispatch(updateSuccess(result, message));
   }
 }

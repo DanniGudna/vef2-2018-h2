@@ -49,7 +49,7 @@ class Profile extends Component {
     const { dispatch } = this.props;
     const { name } = this.state;
 
-    dispatch(updateUser(name));
+    dispatch(updateUser("name", name));
   }
 
   handlePasswordSubmit = async (e) => {
@@ -57,33 +57,42 @@ class Profile extends Component {
     const { dispatch } = this.props;
     const { password } = this.state;
 
-    dispatch(updateUser(null, password));
+    dispatch(updateUser("password", null, password));
   }
 
   render() {
     const { img, name, password, passwordAgain, page } = this.state;
-    const { isFetching, errors, readings, fetchingReads } = this.props;
+    const {
+      isFetching,
+      message,
+      errors,
+      readings,
+      fetchingReads,
+      user: { id },
+    } = this.props;
 
     if (isFetching) {
       return (
-        <div>
+        <h2>
           Augnablik...
-        </div>
+        </h2>
       )
     }
 
     return (
       <div>
         <h1>Upplýsingar</h1>
-        <form onSubmit={this.handleFileSubmit}>
-          <div>
+        <form className="profile__imageform" onSubmit={this.handleFileSubmit}>
+          <div className="profile__imageform_container" >
             <input
               type="file"
               onChange={this.handleFileChange}
             />
-            <Button>Uppfæra mynd</Button>
+            <Button disabled={!img}>Uppfæra mynd</Button>
           </div>
         </form>
+        {message &&
+        <p>{message}</p>}
         {errors &&
         <ul>
           {errors.map((error, i) => (
@@ -91,7 +100,7 @@ class Profile extends Component {
           ))}
         </ul>
         }
-        <form onSubmit={this.handleNameSubmit}>
+        <form className="form__default" onSubmit={this.handleNameSubmit}>
           <Field
             name="name"
             label="Nafn"
@@ -99,12 +108,14 @@ class Profile extends Component {
             type="text"
             onChange={this.handleInputChange}
           />
-          <Button>Uppfæra nafn</Button>
+          <div className="button__container">
+            <Button>Uppfæra nafn</Button>
+          </div>
         </form>
         {password !== passwordAgain &&
         <div>Lykilorð verða að vera eins</div>
         }
-        <form onSubmit={this.handlePasswordSubmit}>
+        <form className="form__default" onSubmit={this.handlePasswordSubmit}>
           <Field
             name="password"
             label="Lykilorð"
@@ -119,9 +130,12 @@ class Profile extends Component {
             type="password"
             onChange={this.handleInputChange}
           />
-          <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
+          <div className="button__container">          
+            <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
+          </div>
         </form>
         <ReadingList
+            userId={id}
             me={true}
             className="danger"
             page={page}
@@ -135,6 +149,8 @@ const mapStateToProps = (state) => {
   return {
     isFetching: state.auth.isFetching,
     errors: state.auth.errors,
+    user: state.auth.user,
+    message: state.auth.message
   }
 }
 

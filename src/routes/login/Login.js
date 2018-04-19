@@ -44,25 +44,27 @@ class Login extends Component {
     }
 
     return (
-      <div>
-        <h1>Innskráning</h1>
+      <div className="login__container">
+        <h1 className="login__header">Innskráning</h1>
         <div>{error}</div>
-        <form onSubmit={this.handleSubmit}>
+        <form className="form__default" onSubmit={this.handleSubmit}>
           <Field
             name="username"
             value={username}
             type="text"
-            label="Notendanafn"
+            label="Notendanafn:"
             onChange={this.handleInputChange}
           />
           <Field
             name="password"
             value={password}
             type="password"
-            label="Lykilorð"
+            label="Lykilorð:"
             onChange={this.handleInputChange}
           />
-          <Button>Innskrá</Button>
+          <div className="button__container">
+            <Button><strong>Innskrá</strong></Button>
+          </div>
         </form>
         <div>
           <Link to="/register">Nýskráning</Link>

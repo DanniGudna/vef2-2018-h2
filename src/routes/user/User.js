@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser } from '../../actions/user';
 
+import ReadingList from '../../components/reading-list';
+
 import './User.css';
 
 class User extends Component {
@@ -45,12 +47,11 @@ class User extends Component {
       )
     }
 
-    console.info(this.props.user);
-
     return (
       <div>
         <img className="photo" src={imageUrl} />
         <h1>{user.name}</h1>
+        <ReadingList userId={user.id} />
       </div>
     )
   }

@@ -21,7 +21,7 @@ class SearchBar extends Component {
         endpoint
    } = this.props;
     return (
-      <form onSubmit={onSubmit}>
+      <form className="searchbar" onSubmit={onSubmit}>
         <Field
           name="search"
           value={searchValue}

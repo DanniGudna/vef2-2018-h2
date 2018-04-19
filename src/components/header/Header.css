@@ -1,9 +1,10 @@
 .header {
   background-color: #dcbe87;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 120px;
+  padding: 0 20px;
 }
 
 .header__heading {

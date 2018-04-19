@@ -5,6 +5,8 @@ import { fetchBooksId } from '../../actions/getBookId';
 import Button from '../../components/button';
 import BookInfo from '../../components/bookInfo';
 
+import BookReview from '../../components/book-review';
+
 class bookId extends Component {
   state = {
     isFetching: false,
@@ -68,9 +70,10 @@ class bookId extends Component {
             pagecount={result.pagecount}
             published={result.published}
             language={result.language}
-            onClick={this.onClick}/>
+            onClick={this.onClick}
+          />
+            <BookReview id={result.id} />
         </div>
-
       </div>
     );
   }

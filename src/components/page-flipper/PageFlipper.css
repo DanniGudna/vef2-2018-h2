@@ -1,1 +1,14 @@
+.pageFlipper {
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+}
 
+.pageFlipper__fixed {
+  width: 135px;
+}
+
+.pageFlipper__page {
+  align-self: center;
+  margin-left: -14px;
+}
