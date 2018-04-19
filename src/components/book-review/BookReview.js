@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 
 import Button from '../button';
 
+import { submitReview } from '../../actions/review';
+
 import './BookReview.css';
 
 class BookReview extends Component {
   state = {
-    reviewing: true, // muna að breyta í false
+    reviewing: false,
     reviewText: undefined,
     grade: 5,
+    received: false,
   }
 
   componentDidMount() {
@@ -19,8 +22,9 @@ class BookReview extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { grade, reviewText } = this.state;
-    console.info(grade, reviewText);
+    const { dispatch, id } = this.props;
 
+    dispatch(submitReview(id, grade, reviewText));
   }
 
   handleBeginReviewClick = (e) => {
@@ -44,7 +48,19 @@ class BookReview extends Component {
 
   render() {
     const { reviewing, reviewText, grade } = this.state;
-    const { id } = this.props
+    const { id, received, isFetching, errors } = this.props
+
+    if (received) {
+      return (
+        <div>Lestur mótekinn</div>
+      )
+    }
+
+    if (isFetching) {
+      return (
+        <div>Skrái lestur</div>
+      )
+    }
 
     if (!reviewing) {
       return (
@@ -58,6 +74,12 @@ class BookReview extends Component {
 
     return (
       <div>
+        {errors &&
+        <ul>
+          {errors.map((error, i) => 
+            <li key={i}>{error.message}</li>
+          )}
+        </ul>}
         <form onSubmit={this.handleSubmit}>
           <h5>Um bók:</h5>
           <textarea
@@ -88,4 +110,12 @@ class BookReview extends Component {
   }
 }
 
-export default BookReview;
+const mapStateToProps = (state) => {
+  return {
+    isFetching: state.review.isFetching,
+    errors: state.review.errors,
+    received: state.review.received,
+  }
+}
+
+export default connect(mapStateToProps)(BookReview);
