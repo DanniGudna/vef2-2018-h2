@@ -1,5 +1,4 @@
-.photo {
-  border-radius: 50%;
-  width: 75px;
-  height: 75px;
+.user__head {
+  display: flex;
+  align-items: start;
 }

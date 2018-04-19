@@ -55,8 +55,8 @@ class App extends Component {
             <Route path="/login" exact component={Login} />
             <Route path="/books" exact component={Books} />
             <UserRoute path="/books/new" isAuthenticated={isAuthenticated} exact component={NewBook} />
-            <UserRoute path="/books/:id" isAuthenticated={isAuthenticated} exact component={Book} />
             <UserRoute path="/books/:id/edit" isAuthenticated={isAuthenticated} exact component={EditBook} />
+            <UserRoute path="/books/:id" isAuthenticated={isAuthenticated} exact component={Book} />
             <Route path="/register" exact component={Register} />
             <UserRoute path="/users" isAuthenticated={isAuthenticated} exact component={Users} />
             <UserRoute path="/users/:id" isAuthenticated={isAuthenticated} exact component={User} />

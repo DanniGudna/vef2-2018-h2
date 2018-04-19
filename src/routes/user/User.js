@@ -49,8 +49,10 @@ class User extends Component {
 
     return (
       <div>
-        <img className="photo" src={imageUrl} />
-        <h1>{user.name}</h1>
+        <div className="user__head">
+          <img className="photo" src={imageUrl} />
+          <h1>{user.name}</h1>
+        </div>
         <ReadingList userId={user.id} />
       </div>
     )

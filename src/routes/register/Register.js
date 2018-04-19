@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import Field from '../../components/field';
 import Button from '../../components/button';
@@ -39,15 +39,17 @@ class Register extends Component {
 
   render() {
     const { username, password, name } = this.state;
-    const { isFetching, user, errors } = this.props.signup;
+    const { isFetching, user, errors } = this.props;
 
     if (user) {
-      this.props.history.push('/login');
+      return (
+        <Redirect to={{pathname: '/'}} />
+      )
     }
 
     return (
-      <div>
-        <h1>Nýskráning</h1>
+      <div className="login__container">
+        <h1 className="login__header">Nýskráning</h1>
         {errors &&(
           <ul>
             {errors.map((error, i) =>
@@ -55,7 +57,7 @@ class Register extends Component {
             )}
           </ul>
         )}
-        <form onSubmit={this.handleSubmit}>
+        <form className="form__default" onSubmit={this.handleSubmit}>
           <Field
             name="username"
             value={username}
@@ -77,7 +79,9 @@ class Register extends Component {
             label="Nafn"
             onChange={this.handleInputChange}
           />
-          <Button disabled={isFetching}>Nýskrá</Button>
+          <div className="button__container">
+            <Button disabled={isFetching}>Nýskrá</Button>
+          </div>
         </form>
         <div>
           <Link to="/login">Innskráning</Link>        
@@ -91,7 +95,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     isFetching: state.signup.isFetching,
-    user: state.signup.user,
+    user: state.auth.user,
     errors: state.signup.errors,
   }
 }

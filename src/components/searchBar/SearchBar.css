@@ -1,5 +1,17 @@
 .searchbar {
   display: flex;
+  align-items: center;
+}
+
+@media (max-width: 500px) {
+  .searchbar {
+    visibility: hidden;
+    width: 0;
+  }
+
+  .searchinput {
+    width: 0;
+  }
 }
 
 .searchinput {

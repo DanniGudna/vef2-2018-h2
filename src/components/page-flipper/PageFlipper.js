@@ -20,13 +20,13 @@ class PageFlipper extends Component {
 
     return (
       <div className="pageFlipper">
-        <div className="pageFlipper__fixed">
+        <div className="button__container">
           <Button disabled={page <= 0} onClick={onLeftClick}>
             &lt; Fyrri síða
           </Button>
           </div>
-        <div className="pageFlipper__page">Síða {Number(page + 1)}</div>
-        <div className="pageFlipper__fixed">
+        <div>Síða {Number(page + 1)}</div>
+        <div className="button__container">
           <Button disabled={size < 10} onClick={onRightClick}>
             Næsta síða >
           </Button>

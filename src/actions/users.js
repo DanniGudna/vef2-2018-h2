@@ -45,7 +45,7 @@ export const fetchUsers = (page = 0) => {
     try {
       data = await api.get(endpoint);
     } catch (error) {
-      dispatch(usersFailure(error));
+      dispatch(usersFailure('Eitthvað kom uppá'));
     }
 
     const { result } = data;

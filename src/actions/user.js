@@ -43,7 +43,7 @@ export const fetchUser = (id) => {
     try {
       data = await api.get(endpoint);
     } catch (error) {
-      dispatch(userFailure(error));
+      dispatch(userFailure('Eitthvað kom uppá'));
     }
 
     const { result } = data;

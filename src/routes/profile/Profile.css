@@ -9,6 +9,15 @@
   justify-content: space-between;
 }
 
+@media (max-width: 500px) {
+  .profile__imageform {
+    display: flex;
+    width: 200px;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 .profile__default_form {
   width: 600px;
 }

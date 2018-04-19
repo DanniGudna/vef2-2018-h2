@@ -1,0 +1,33 @@
+.review__container {
+  margin-top: 50px;
+  width: 600px;
+}
+
+@media (max-width: 500px) {
+  .review__container {
+    margin-top: 50px;
+    width: 350px;
+  }
+}
+
+.review__rating-container{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.review__textarea {
+  width: 100%;
+  height: 170px;
+  margin-bottom: 20px;
+}
+
+.review__rating {
+  width: 400px;
+}
+
+@media (max-width: 500px) {
+  .review__rating {
+    width: 200px;
+  }
+}

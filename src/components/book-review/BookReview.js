@@ -11,7 +11,7 @@ class BookReview extends Component {
   state = {
     reviewing: false,
     reviewText: undefined,
-    grade: 5,
+    grade: '- Veldu einkunn -',
     received: false,
   }
 
@@ -64,7 +64,7 @@ class BookReview extends Component {
 
     if (!reviewing) {
       return (
-        <div>
+        <div className="review__container">
           <Button onClick={this.handleBeginReviewClick}>
             Gefa einkunn
           </Button>
@@ -73,7 +73,7 @@ class BookReview extends Component {
     }
 
     return (
-      <div>
+      <div className="review__container">
         {errors &&
         <ul>
           {errors.map((error, i) => 
@@ -86,24 +86,29 @@ class BookReview extends Component {
             onChange={this.handleInputChange}
             name="reviewText"
             value={reviewText}
+            className="review__textarea"
             type="text"
-            rows="10"
-            cols="80"
           />
-          <div>Einkunn</div>
-          <select
-            onChange={this.handleInputChange}
-            name="grade"
-            value={grade}
-          >
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
-          </select>
-          <Button>Vista</Button>
-          <Button onClick={this.handleCancel} className="danger">Hætta við</Button>
+          <div className="review__rating-container">
+            <div>Einkunn</div>
+            <select
+              onChange={this.handleInputChange}
+              className="review__rating"
+              name="grade"
+              value={grade}
+            >
+              <option value={0}>- Veldu einkunn -</option>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+            </select>
+          </div>
+          <div className="review__rating-container">
+            <Button>Vista</Button>
+            <Button onClick={this.handleCancel} className="danger">Hætta við</Button>
+          </div>
         </form>
       </div>
     )

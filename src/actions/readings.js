@@ -70,7 +70,7 @@ export const deleteReading = (id) => {
       const { items } = data.result;
       dispatch(readingsSuccess(items));
     } catch (error) {
-      dispatch(readingsFailure(error));
+      dispatch(readingsFailure('Eitthvað kom uppá'));
     }
   }
 }
