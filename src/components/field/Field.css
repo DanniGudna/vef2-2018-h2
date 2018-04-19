@@ -9,3 +9,10 @@
   height: 32px;
   width: 340px;
 }
+
+@media (max-width: 500px) {
+  .field__input {
+    width: 200px;
+    height: 32px;
+  }
+}

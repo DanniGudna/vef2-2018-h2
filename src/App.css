@@ -5,6 +5,12 @@
   padding: 70px 140px;
 }
 
+@media (max-width: 500px) {
+  .main__content {
+    padding: 70px 10px;
+  }
+}
+
 .danger {
   background-color: #941111;
 }
@@ -14,6 +20,15 @@
   width: 550px;
   margin-bottom: 25px;
   flex-direction: column;
+}
+
+@media (max-width: 500px) {
+  .form__default {
+    display: flex;
+    width: 300px;
+    margin-bottom: 25px;
+    flex-direction: column;
+  }
 }
 
 .button__container {

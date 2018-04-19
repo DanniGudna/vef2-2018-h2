@@ -1,5 +1,19 @@
 .searchbar {
   display: flex;
+  align-items: center;
+}
+
+@media (max-width: 500px) {
+  .searchbar {
+    visibility: hidden;
+    width: 0;
+  }
+
+  .searchinput {
+    /* margin: 0 13px;
+    height: 38px; */
+    width: 0;
+  }
 }
 
 .searchinput {
