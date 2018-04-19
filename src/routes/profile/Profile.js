@@ -66,6 +66,7 @@ class Profile extends Component {
       isFetching,
       message,
       errors,
+      error,
       readings,
       fetchingReads,
       user: { id },
@@ -82,6 +83,7 @@ class Profile extends Component {
     return (
       <div>
         <h1>Upplýsingar</h1>
+        <p>{error}</p>
         <form className="profile__imageform" onSubmit={this.handleFileSubmit}>
           <div className="profile__imageform_container" >
             <input
@@ -150,7 +152,8 @@ const mapStateToProps = (state) => {
     isFetching: state.auth.isFetching,
     errors: state.auth.errors,
     user: state.auth.user,
-    message: state.auth.message
+    message: state.auth.message,
+    error: state.auth.error,
   }
 }
 

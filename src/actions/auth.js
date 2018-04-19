@@ -11,6 +11,7 @@ export const AUTHENTICATE = 'AUTHENTICATE';
 export const UPDATE_REQUEST = 'UPDATE_REQUEST';
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
 export const UPDATE_FAILURE = 'UPDATE_FAILURE';
+export const PHOTO_FAILURE = 'PHOTO_FAILURE';
 
 
 function requestLogin() {
@@ -75,6 +76,14 @@ function updateError(errors) {
     isFetching: false,
     errors: errors,
     message: null,
+  }
+}
+
+function photoError(error) {
+  return {
+    type: PHOTO_FAILURE,
+    isFetching: false,
+    error,
   }
 }
 
@@ -197,8 +206,17 @@ export const updatePhoto = (photo) => {
       dispatch(updateError([{message: '500 - Eitthvað kom uppá'}]));
     }
 
-    const { result } = data;
+    console.info(data);
+
+    const { error } = data.result;
+
+    if (error) {
+      return dispatch(photoError(error));
+    }
+
     const message = 'Mynd var uppfærð';
+
+    const { result } = data;
 
     window.localStorage.removeItem('user');
     window.localStorage.setItem('user', JSON.stringify(result));
