@@ -48,6 +48,14 @@ class Books extends Component {
       );
     }
     const { result: { items } } = books;
+    console.log('ITEMS ', items )
+    if(!items){
+      return(
+        <div>
+          <h2>Bækur finnast ekki, vinsamlegast reyndu aftur</h2>
+        </div>
+      )
+    }
 
     return (
       <div>

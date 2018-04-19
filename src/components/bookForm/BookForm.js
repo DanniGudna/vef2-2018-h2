@@ -20,13 +20,12 @@ class BookForm extends Component {
         published,
         pagecount,
         language,
-      submit,
-    change,
-    buttonLabel,
-  isFetching } = this.props;
+        submit,
+        change,
+        buttonLabel,
+        isFetching } = this.props;
 
         const { result: { items } } = books;
-        console.log('ITEMS', items)
 
 
         return (

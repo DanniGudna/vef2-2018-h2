@@ -79,6 +79,9 @@ export const patchBook = (book, id, categories) => {
     dispatch(requestBookCategories());
 
       const endpoint = `/books/${id}`;
+      book.pageCount = book.pagecount;
+      delete book.pagecount;
+
 
       let books;
     try {
@@ -92,7 +95,6 @@ export const patchBook = (book, id, categories) => {
     if (books.status !== 200 || !books) {
       dispatch(bookCategoriesError('Oh no!', book, categories))
     }
-    console.log('status', books.status);
 
     dispatch(receiveBooks(books, categories, books.status))
 

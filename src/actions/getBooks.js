@@ -42,7 +42,7 @@ export const fetchBooks = (page = 0, search = false) => {
   return async (dispatch) => {
 
     dispatch(requestBooks(page));
-
+    console.log("ping");
     const offset = page * 10;
 
     let endpoint = `/books?offset=${offset}&limit=10`;
@@ -74,13 +74,10 @@ export const fetchBooksFromSearch = ( search = false, history) => {
 
     let endpoint = `/books?search=`;
 
-    console.log('SEARCH', search)
     if(search){
-      console.log('CONDITION PASSED')
       endpoint = endpoint + `${search}`;
     }
     const newUrl = endpoint;
-    console.log('NEWURL', newUrl)
     history.push(newUrl);
 
     let books;
