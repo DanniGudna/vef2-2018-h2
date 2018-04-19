@@ -54,10 +54,10 @@ class Users extends Component {
 
     return (
       <div>
-        <h1>Notendur</h1>
+        <h1 className="global__bottom-margin">Notendur</h1>
         {users.map((user, i) => (
             <div key={i}>
-              <h3>
+              <h3 className="global__bottom-margin">
                 <Link user={user} to={`/users/${user.id}`}>
                   {user.name}
                 </Link>

@@ -18,4 +18,9 @@
 
 .button__container {
   max-width: 200px;
+  margin-top: 10px;
+}
+
+.global__bottom-margin {
+  margin-bottom: 10px;
 }

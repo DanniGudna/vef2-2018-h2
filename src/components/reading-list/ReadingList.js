@@ -58,10 +58,10 @@ class ReadingList extends Component {
 
     return (
       <div>
-        <h1>Lesnar Bækur</h1>
+        <h1 className="readinglist__header">Lesnar Bækur</h1>
         {readings.length > 0
           ? <div>
-              <ul>
+              <ul className="readinglist__container">
                 {readings.map((book, i) => (
                   <li key={i}>
                     <Reading

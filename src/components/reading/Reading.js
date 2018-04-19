@@ -11,12 +11,12 @@ class Reading extends Component {
     const { onSubmit, book, className, me } = this.props;
 
     return (
-      <div>
+      <div className="reading__container">
         <form onSubmit={onSubmit}>
           <Link to={`/books/${book.id}`}>
-            <h3>{book.title}</h3>
+            <h3 className="global__bottom-margin">{book.title}</h3>
           </Link>
-          <h3 id={book.id}>Einkunn: {book.rating}. {book.review}</h3>
+          <h3 className="global__bottom-margin" id={book.id}>Einkunn: {book.rating}. {book.review}</h3>
           {me && <Button className={className}>Eyða</Button>}
         </form>
       </div>

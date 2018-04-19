@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import Field from '../../components/field';
 import Button from '../../components/button';
@@ -40,7 +40,9 @@ class Login extends Component {
     const { isFetching, error, user } = this.props;
 
     if(user) {
-      this.props.history.push('/');
+      return (
+        <Redirect to={{pathname: '/'}} />
+      )
     }
 
     return (
@@ -63,7 +65,7 @@ class Login extends Component {
             onChange={this.handleInputChange}
           />
           <div className="button__container">
-            <Button><strong>Innskrá</strong></Button>
+            <Button>Innskrá</Button>
           </div>
         </form>
         <div>
