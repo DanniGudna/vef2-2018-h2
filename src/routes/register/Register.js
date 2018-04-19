@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import Field from '../../components/field';
 import Button from '../../components/button';
@@ -39,10 +39,12 @@ class Register extends Component {
 
   render() {
     const { username, password, name } = this.state;
-    const { isFetching, user, errors } = this.props.signup;
+    const { isFetching, user, errors } = this.props;
 
     if (user) {
-      this.props.history.push('/login');
+      return (
+        <Redirect to={{pathname: '/'}} />
+      )
     }
 
     return (
@@ -93,7 +95,7 @@ const mapStateToProps = (state) => {
   return {
     ...state,
     isFetching: state.signup.isFetching,
-    user: state.signup.user,
+    user: state.auth.user,
     errors: state.signup.errors,
   }
 }
