@@ -73,17 +73,17 @@ class Profile extends Component {
 
     if (isFetching) {
       return (
-        <div>
+        <h2>
           Augnablik...
-        </div>
+        </h2>
       )
     }
 
     return (
       <div>
         <h1>Upplýsingar</h1>
-        <form onSubmit={this.handleFileSubmit}>
-          <div>
+        <form className="profile__imageform" onSubmit={this.handleFileSubmit}>
+          <div className="profile__imageform_container" >
             <input
               type="file"
               onChange={this.handleFileChange}
@@ -100,7 +100,7 @@ class Profile extends Component {
           ))}
         </ul>
         }
-        <form onSubmit={this.handleNameSubmit}>
+        <form className="form__default" onSubmit={this.handleNameSubmit}>
           <Field
             name="name"
             label="Nafn"
@@ -108,12 +108,14 @@ class Profile extends Component {
             type="text"
             onChange={this.handleInputChange}
           />
-          <Button>Uppfæra nafn</Button>
+          <div className="button__container">
+            <Button>Uppfæra nafn</Button>
+          </div>
         </form>
         {password !== passwordAgain &&
         <div>Lykilorð verða að vera eins</div>
         }
-        <form onSubmit={this.handlePasswordSubmit}>
+        <form className="form__default" onSubmit={this.handlePasswordSubmit}>
           <Field
             name="password"
             label="Lykilorð"
@@ -128,7 +130,9 @@ class Profile extends Component {
             type="password"
             onChange={this.handleInputChange}
           />
-          <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
+          <div className="button__container">          
+            <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
+          </div>
         </form>
         <ReadingList
             userId={id}

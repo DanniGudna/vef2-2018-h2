@@ -6,10 +6,15 @@ class Field extends Component {
   
   
   render() {
-    const { label, name, value, type, onChange, inputClass, placeHolder } = this.props;
-    
+    const { label, name, value, type, onChange, placeHolder } = this.props;
+    let { inputClass } = this.props;
+
+    if (!inputClass) {
+      inputClass = "field__input";
+    }
+
     return (
-      <div>
+      <div className="field__container">
         <label>{label}</label>
         <input
           className={inputClass}

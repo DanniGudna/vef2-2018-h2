@@ -35,8 +35,6 @@ export const submitReview = (bookId, rating, review) => {
   return async (dispatch) => {
     dispatch(requestReview());
 
-    console.info(bookId,rating,review);
-
     const endpoint = '/users/me/read';
 
     let data;
@@ -50,7 +48,7 @@ export const submitReview = (bookId, rating, review) => {
     const { errors } = data.result;
 
     if (errors) {
-      dispatch(reviewError(errors));
+      return dispatch(reviewError(errors));
     }
 
     dispatch(reviewSuccess());

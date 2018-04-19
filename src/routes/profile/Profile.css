@@ -1,3 +1,14 @@
-.danger {
-  background-color: #941111;
+.profile__imageform {
+  margin: 30px 0;
+}
+
+.profile__imageform_container {
+  display: flex;
+  width: 480px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile__default_form {
+  width: 600px;
 }
