@@ -79,6 +79,8 @@ export const patchBook = (book, id, categories) => {
     dispatch(requestBookCategories());
 
       const endpoint = `/books/${id}`;
+      book.pageCount = book.pagecount;
+      delete book.pagecount;
 
 
       let books;
