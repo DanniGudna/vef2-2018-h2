@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-
-// import './Field.css';
 
 class BookInfo extends Component {
 
@@ -38,14 +34,14 @@ class BookInfo extends Component {
   }
 }
 
-BookInfo.PropTypes = {
+BookInfo.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
   description: PropTypes.string,
   isbn13: PropTypes.string,
   category: PropTypes.string,
-  published: PropTypes.number,
-  pagecount: PropTypes.number,
+  published: PropTypes.string,
+  pagecount: PropTypes.string,
   language: PropTypes.string,
   onClick: PropTypes.func,
 }

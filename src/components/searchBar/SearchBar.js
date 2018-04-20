@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Field from '../field';
@@ -13,21 +12,14 @@ class SearchBar extends Component {
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
     searchValue: PropTypes.string,
-    endpoint: PropTypes.string,
   }
-
-  onClick = (e) => {
-       const value = e.target.value;
-
-     }
 
   render() {
     const {
-        onChange,
-        onSubmit,
-        searchValue,
-        endpoint
-   } = this.props;
+      onChange,
+      onSubmit,
+      searchValue,
+    } = this.props;
     return (
       <form className="searchbar" onSubmit={onSubmit}>
         <Field

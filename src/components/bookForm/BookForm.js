@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Field from '../field';
 import Button from '../button';
-
-// import './Field.css';
 
 class BookForm extends Component {
 
   render() {
     const {
-      errors,
       books,
       title,
       author,
@@ -103,7 +99,6 @@ class BookForm extends Component {
 }
 
 BookForm.propTypes = {
-  errors: PropTypes.array,
   books: PropTypes.array,
   title: PropTypes.string,
   description: PropTypes.string,

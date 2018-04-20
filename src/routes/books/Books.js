@@ -19,7 +19,7 @@ class Books extends Component {
   static propTypes = {
     dispatch: PropTypes.func,
     isFetching: PropTypes.bool,
-    books: PropTypes.array,
+    books: PropTypes.object,
     message: PropTypes.string,
   }
 
@@ -45,9 +45,7 @@ class Books extends Component {
 
   async componentDidMount() {
     const { dispatch } = this.props;
-    const { page } = this.props.match.params;
     let search  = this.props.location.search;
-    const { limit } = this.props.location;
     if (search.charAt(0) === '?') {
       search = search.slice(1);
     }

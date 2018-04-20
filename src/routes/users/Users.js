@@ -17,7 +17,7 @@ class Users extends Component {
 
   static propTypes = {
     isFetching: PropTypes.bool,
-    users: PropTypes.object,
+    users: PropTypes.array,
     error: PropTypes.string,
     dispatch: PropTypes.func,
   }
@@ -62,7 +62,7 @@ class Users extends Component {
   }
 
   render() {
-    const { users, errors, isFetching } = this.props;
+    const { users, isFetching } = this.props;
     let page;
 
     const history = createHistory();

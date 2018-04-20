@@ -49,7 +49,7 @@ class BookReview extends Component {
 
   render() {
     const { reviewing, reviewText, grade } = this.state;
-    const { id, received, isFetching, errors } = this.props
+    const { received, isFetching, errors } = this.props
 
     if (received) {
       return (

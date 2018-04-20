@@ -48,6 +48,10 @@ class Login extends Component {
     const { username, password } = this.state;
     const { isFetching, error, user } = this.props;
 
+    if (isFetching) {
+      return (<h2>Sæki gögn</h2>)
+    }
+
     if(user) {
       return (
         <Redirect to={{pathname: '/'}} />

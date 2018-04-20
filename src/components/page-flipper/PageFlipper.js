@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import Button from '../button';
 
 import './PageFlipper.css';
-
-import { fetchBooks } from '../../actions/getBooks';
 
 class PageFlipper extends Component {
 

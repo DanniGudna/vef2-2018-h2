@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/auth';
 
-import Field from '../field';
 import Button from '../button';
 import SearchBar from '../searchBar';
 import { fetchBooksFromSearch } from '../../actions/getBooks';

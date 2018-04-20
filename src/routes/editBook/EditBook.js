@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { fetchBookIdCategories, patchBook } from '../../actions/editBook';
-import Field from '../../components/field';
 import BookForm from '../../components/bookForm';
-import Button from '../../components/button';
 import { Redirect } from 'react-router';
 
 
@@ -111,7 +108,7 @@ handleSubmit = async (e) => {
 }
 
   render() {
-    const { isFetching, books, page, categories, success } = this.props;
+    const { isFetching, books, categories, success } = this.props;
     const { id } = this.props.match.params;
 
     let errors = null;

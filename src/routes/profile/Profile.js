@@ -4,12 +4,9 @@ import PropTypes from 'prop-types';
 
 import Button from '../../components/button';
 import Field from '../../components/field';
-import { Link } from 'react-router-dom';
 import { updateUser, updatePhoto } from '../../actions/auth';
 
 import './Profile.css';
-import PageFlipper from '../../components/page-flipper';
-import Reading from '../../components/reading/Reading';
 import ReadingList from '../../components/reading-list/ReadingList';
 
 class Profile extends Component {
@@ -78,8 +75,6 @@ class Profile extends Component {
       message,
       errors,
       error,
-      readings,
-      fetchingReads,
       user: { id },
     } = this.props;
 

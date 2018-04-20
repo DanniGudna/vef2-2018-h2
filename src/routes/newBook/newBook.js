@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { newBook, fetchCategories } from '../../actions/newBook';
-import PageFlipper from '../../components/page-flipper';
-import Field from '../../components/field';
 import BookForm from '../../components/bookForm';
-import Button from '../../components/button';
 
 class NewBook extends Component {
    state = {
@@ -86,7 +82,7 @@ handleSubmit = async (e) => {
 
   render() {
 
-    const { isFetching, books,categories, message } = this.props;
+    const { isFetching, categories } = this.props;
     let errors = null;
     const {
       title,

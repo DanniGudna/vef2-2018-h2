@@ -14,7 +14,7 @@ class User extends Component {
     error: null,
   };
 
-  static PropTypes = {
+  static propTypes = {
     user: PropTypes.object,
     isFetching: PropTypes.bool,
     error: PropTypes.string,
@@ -58,7 +58,7 @@ class User extends Component {
     return (
       <div>
         <div className="user__head">
-          <img className="photo" src={imageUrl} />
+          <img alt="" className="photo" src={imageUrl} />
           <h1>{user.name}</h1>
         </div>
         <ReadingList userId={user.id} />

@@ -108,7 +108,7 @@ async function mdelete(endpoint) {
     options.headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const response = await fetch(url, options);
+  await fetch(url, options);
 }
 
 export default {
