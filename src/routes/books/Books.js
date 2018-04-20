@@ -4,23 +4,34 @@ import { Link } from 'react-router-dom';
 import { fetchBooks } from '../../actions/getBooks';
 import PageFlipper from '../../components/page-flipper';
 import querystring from 'querystring';
+import createHistory from 'history/createBrowserHistory';
 
 class Books extends Component {
   state = {
     isFetching: false,
     books: null,
     message: null,
-    page: 0,
+    page: 1,
     search: null,
   }
 
   onLeftClick = (e) => {
-    const { dispatch, page } = this.props;
+    e.preventDefault();    
+    const { page } = this.state;
+    this.setState({ page: page - 1 });
+    const { dispatch } = this.props;
+    const history = createHistory();
+    history.push(`?page=${page-1}`)
     dispatch(fetchBooks(page - 1));
   }
 
   onRightClick = (e) => {
-    const { dispatch, page } = this.props;
+    e.preventDefault();
+    const { page } = this.state;
+    this.setState({ page: page + 1 });
+    const { dispatch } = this.props;
+    const history = createHistory();
+    history.push(`?page=${page+1}`)
     dispatch(fetchBooks(page + 1));
   }
 
@@ -38,7 +49,17 @@ class Books extends Component {
   }
 
   render() {
-    const { isFetching, books, page } = this.props;
+    const { isFetching, books } = this.props;
+    let page;
+
+    const history = createHistory();
+    let { search } = history.location;
+    if (search) {
+      search = search.slice(6);
+      page = Number(search);
+    } else {
+      page = this.state.page;
+    }
 
     if (isFetching || !books) {
       return (
@@ -48,7 +69,6 @@ class Books extends Component {
       );
     }
     const { result: { items } } = books;
-    console.log('ITEMS ', items )
     if(!items){
       return(
         <div>
@@ -87,7 +107,6 @@ const mapStateToProps = (state) => {
     isFetching: state.getBooks.isFetching,
     books: state.getBooks.books,
     message: state.getBooks.message,
-    page: state.getBooks.page,
   };
 }
 

@@ -18,7 +18,7 @@ class Profile extends Component {
     passwordAgain: '',
     errors: null,
     img: null,
-    page: 0,
+    page: 1,
   }
 
   handleFileChange = (e) => {

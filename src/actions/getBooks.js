@@ -5,11 +5,10 @@ export const BOOKS_SUCCESS = 'BOOKS_SUCCESS';
 export const BOOKS_FAILURE = 'BOOKS_FAILURE';
 export const SEARCH_BOOKS_SUCCESS = 'SEARCH_BOOKS_SUCCESS';
 
-function requestBooks(page) {
+function requestBooks() {
   return {
     type: BOOKS_REQUEST,
     isFetching: true,
-    page,
   }
 }
 
@@ -38,12 +37,11 @@ function booksError(message) {
   }
 }
 
-export const fetchBooks = (page = 0, search = false) => {
+export const fetchBooks = (page = 1, search = false) => {
   return async (dispatch) => {
 
-    dispatch(requestBooks(page));
-    console.log("ping");
-    const offset = page * 10;
+    dispatch(requestBooks());
+    const offset = (page - 1) * 10;
 
     let endpoint = `/books?offset=${offset}&limit=10`;
 
@@ -69,7 +67,7 @@ export const fetchBooks = (page = 0, search = false) => {
 export const fetchBooksFromSearch = ( search = false, history) => {
 
   return async (dispatch) => {
-    dispatch(requestBooks(0));
+    dispatch(requestBooks());
 
 
     let endpoint = `/books?search=`;

@@ -31,12 +31,12 @@ function usersFailure(error) {
   }
 }
 
-export const fetchUsers = (page = 0) => {
+export const fetchUsers = (page = 1) => {
   return async (dispatch) => {
 
     dispatch(requestUsers());
 
-    const offset = page * 10;
+    const offset = (page - 1) * 10;
 
     const endpoint = `/users?offset=${offset}`;
 

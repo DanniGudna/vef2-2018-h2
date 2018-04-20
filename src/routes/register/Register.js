@@ -39,11 +39,19 @@ class Register extends Component {
 
   render() {
     const { username, password, name } = this.state;
-    const { isFetching, user, errors } = this.props;
+    const { isFetching, user, errors, success } = this.props;
+
+
 
     if (user) {
       return (
         <Redirect to={{pathname: '/'}} />
+      )
+    }
+
+    if (success) {
+      return (
+        <Redirect to={{pathname: '/login'}} />
       )
     }
 
@@ -93,9 +101,9 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
     isFetching: state.signup.isFetching,
     user: state.auth.user,
+    success: state.signup.success,
     errors: state.signup.errors,
   }
 }

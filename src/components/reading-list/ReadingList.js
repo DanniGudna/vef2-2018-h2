@@ -17,25 +17,23 @@ class ReadingList extends Component {
   async componentDidMount() {
     const { dispatch, userId } = this.props
     let { page } = this.props;
-
     const history = createHistory();
     let { search } = history.location;
     if (search) {
       search = search.slice(6);
       page = Number(search);
     }
-
     dispatch(fetchReadings(userId, page));
   }
 
   onLeftClick = (e) => {
     e.preventDefault();    
     const { page } = this.state;
-    this.setState({ page: page + 1 });
+    this.setState({ page: page - 1 });
     const { dispatch, userId } = this.props;
     const history = createHistory();
-    history.push(`?page=${page}`)
-    dispatch(fetchReadings(userId, page));
+    history.push(`?page=${page-1}`)
+    dispatch(fetchReadings(userId, page-1));
   }
 
   onRightClick = (e) => {
