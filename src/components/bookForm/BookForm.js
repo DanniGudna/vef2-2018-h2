@@ -111,7 +111,7 @@ class BookForm extends Component {
 }
 
 BookForm.propTypes = {
-  books: PropTypes.array,
+  books: PropTypes.object,
   title: PropTypes.string,
   description: PropTypes.string,
   isbn10: PropTypes.string,
