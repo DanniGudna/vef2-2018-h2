@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { newBook, fetchCategories } from '../../actions/newBook';
 import BookForm from '../../components/bookForm';
@@ -64,7 +65,7 @@ handleSubmit = async (e) => {
     pagecount,
     language,
   } = this.state;
-  
+
   const book = {
     title,
     author,
@@ -96,6 +97,7 @@ handleSubmit = async (e) => {
       language,
     } = this.state;
 
+
     if (this.props.books) {
         errors = this.props.books.result.errors;
     }
@@ -107,6 +109,13 @@ handleSubmit = async (e) => {
         </div>
       );
     }
+
+
+  if(this.props.books && !errors) {
+    return (
+      <Redirect to={{pathname: `/books/${this.props.books.result.id}`}} />
+    )
+  }
 
     return (
       <div>{errors &&

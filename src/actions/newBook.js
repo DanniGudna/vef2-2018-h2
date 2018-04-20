@@ -64,7 +64,6 @@ export const fetchCategories = () => {
       categories = await api.get(endpoint);
 
     } catch (error) {
-      console.log('damn');
       dispatch(categoriesError(error));
     }
 
@@ -79,7 +78,6 @@ export const fetchCategories = () => {
 export const newBook = (book) => {
   return async (dispatch) => {
     dispatch(requestBooks());
-        console.log('BOOKhihi', book)
       const endpoint = '/books';
 
       let books;

@@ -24,10 +24,8 @@ class BookForm extends Component {
       buttonLabel,
       isFetching
     } = this.props;
-    console.log('THIS.PROPS', this.props)
 
     const { result: { items } } = books;
-    console.log('ITEMS', items)
 
     return (
       <div className="bookForm__container">
