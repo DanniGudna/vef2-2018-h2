@@ -62,6 +62,13 @@ class EditBook extends Component {
         first: false,
       });
     }
+
+    // vegna pagecount = pageCount í sýnislausn óla
+    if(!this.state.pagecount){
+      this.setState({
+        pagecount: ''
+      })
+    }
   }
 
   handleInputChange = (event) => {
