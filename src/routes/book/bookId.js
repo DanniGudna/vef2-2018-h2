@@ -57,14 +57,11 @@ class bookId extends Component {
 
     return (
       <div>
-        <h2>
-          Bók!
-        </h2>
         <div>
           <BookInfo
             title={result.title}
             author={result.author}
-            ISBN13={result.isbn13}
+            isbn13={result.isbn13}
             category={result.categorytitle}
             description={result.description}
             pagecount={result.pagecount}

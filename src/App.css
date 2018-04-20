@@ -39,3 +39,7 @@
 .global__bottom-margin {
   margin-bottom: 10px;
 }
+
+.missing {
+  font-style: italic;
+}
