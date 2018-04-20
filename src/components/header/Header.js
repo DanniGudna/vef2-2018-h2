@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/auth';
 
-import Field from '../field';
 import Button from '../button';
 import SearchBar from '../searchBar';
 import { fetchBooksFromSearch } from '../../actions/getBooks';
@@ -21,16 +21,20 @@ class Header extends Component {
     search: '',
   }
 
+  static propTypes = {
+    user: PropTypes.object,
+    dispatch: PropTypes.func,
+  }
 
   onClick = (e) => {
     const target = e.target;
-     const value = target.value;
-     const name = target.name;
-     if(name){
-       this.setState({
-       [name]: value
-        });
-      }
+    const value = target.value;
+    const name = target.name;
+    if (name) {
+      this.setState({
+        [name]: value
+      });
+    }
   }
 
   onSubmit = async (e) => {

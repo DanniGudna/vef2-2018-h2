@@ -24,6 +24,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: action.isFetching,
         user: action.user,
+        success: action.success,
         errors: action.errors,
       }
     case SIGNUP_FAILURE:

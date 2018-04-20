@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { fetchBookIdCategories, patchBook } from '../../actions/editBook';
-import Field from '../../components/field';
 import BookForm from '../../components/bookForm';
-import Button from '../../components/button';
-import { Redirect } from 'react-router' //TODO
+import { Redirect } from 'react-router';
 
-/*/books/:id
-PATCH uppfærir bók */
 
 class EditBook extends Component {
 
+  static propTypes = {
+    dispatch: PropTypes.func,
+    books: PropTypes.object,
+    isFetching: PropTypes.bool,
+    page: PropTypes.number,
+    categories: PropTypes.any,
+    success: PropTypes.bool,
+  }
 
   state = {
     isFetching: false,
@@ -45,33 +49,31 @@ class EditBook extends Component {
   componentWillReceiveProps(props) {
 
     if(props.books && this.state.first){
-       this.setState({    title: props.books.result.title,
-           author: props.books.result.author,
-           description: props.books.result.description,
-           isbn10: props.books.result.isbn10,
-           isbn13: props.books.result.isbn13,
-           category: props.books.result.category,
-           published: props.books.result.published,
-           pagecount: props.books.result.pagecount,
-           language: props.books.result.language,
-           first: false,
-          });
+      this.setState({
+        title: props.books.result.title,
+        author: props.books.result.author,
+        description: props.books.result.description,
+        isbn10: props.books.result.isbn10,
+        isbn13: props.books.result.isbn13,
+        category: props.books.result.category,
+        published: props.books.result.published,
+        pagecount: props.books.result.pagecount,
+        language: props.books.result.language,
+        first: false,
+      });
     }
   }
 
   handleInputChange = (event) => {
     const target = event.target;
-     const value = target.value;
-     const name = target.name;
-     if(name){
-     this.setState({
-
-       [name]: value
-
-     });
-   }
-
-}
+    const value = target.value;
+    const name = target.name;
+    if (name) {
+      this.setState({
+        [name]: value
+      });
+    }
+  }
 
 handleSubmit = async (e) => {
   e.preventDefault();
@@ -87,26 +89,26 @@ handleSubmit = async (e) => {
     category,
     published,
     pagecount,
-    language, } = this.state;
+    language,
+  } = this.state;
 
-    const book = {
-        title,
-        author,
-        description,
-        isbn10,
-        isbn13,
-        category,
-        published,
-        pagecount,
-        language,
-      };
-      console.log('thisthist', book);
+  const book = {
+    title,
+    author,
+    description,
+    isbn10,
+    isbn13,
+    category,
+    published,
+    pagecount,
+    language,
+  };
+
   dispatch(patchBook(book, id, this.props.categories));
-
 }
 
   render() {
-    const { isFetching, books, page, categories, success } = this.props;
+    const { isFetching, books, categories, success } = this.props;
     const { id } = this.props.match.params;
 
     let errors = null;
@@ -149,44 +151,39 @@ handleSubmit = async (e) => {
       pagecount,
       language, } = this.state;
 
-return (
-
-  <div>
-    {errors &&
-  <ul>
-    {errors.map((item, el) => (
-      <li key={el} >{item.message}</li>
-    ))}
-
-  </ul>}
-    <BookForm
-      errors={errors}
-      books={categories}
-      title={title}
-      author={author}
-      description={description}
-      isbn10={isbn10}
-      isbn13={isbn13}
-      category={category}
-      published={published}
-      pagecount={pagecount}
-      language={language}
-      submit={this.handleSubmit}
-      change={this.handleInputChange}
-      isFetching={isFetching}
-      buttonLabel='Breyta Bók'
-    />
-  </div>
-  );
-
+    return (
+      <div>
+        {errors &&
+        <ul>
+          {errors.map((item, el) => (
+            <li key={el} >{item.message}</li>
+          ))}
+        </ul>}
+        <BookForm
+          errors={errors}
+          books={categories}
+          title={title}
+          author={author}
+          description={description}
+          isbn10={isbn10}
+          isbn13={isbn13}
+          category={category}
+          published={published}
+          pagecount={pagecount}
+          language={language}
+          submit={this.handleSubmit}
+          change={this.handleInputChange}
+          isFetching={isFetching}
+          buttonLabel='Breyta Bók'
+        />
+      </div>
+    );
   }
-
 }
 
 const mapStateToProps = (state) => {
 
   return {
-    ...state,
     isFetching: state.editBook.isFetching,
     books: state.editBook.books,
     categories: state.editBook.categories,

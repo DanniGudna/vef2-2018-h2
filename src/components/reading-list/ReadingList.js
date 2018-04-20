@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { fetchReadings, deleteReading } from '../../actions/readings';
+import createHistory from 'history/createBrowserHistory';
 
 import Reading from '../reading';
 import PageFlipper from '../page-flipper';
@@ -10,11 +12,27 @@ import './ReadingList.css';
 
 class ReadingList extends Component {
   state = {
-    page: 0,
+    page: 1,
   };
 
+  static propTypes = {
+    dispatch: PropTypes.func,
+    userId: PropTypes.number,
+    readings: PropTypes.array,
+    me: PropTypes.bool,
+    className: PropTypes.string,
+    fetchingReads: PropTypes.bool,
+  }
+
   async componentDidMount() {
-    const { dispatch, userId, page } = this.props
+    const { dispatch, userId } = this.props
+    let { page } = this.props;
+    const history = createHistory();
+    let { search } = history.location;
+    if (search) {
+      search = search.slice(6);
+      page = Number(search);
+    }
     dispatch(fetchReadings(userId, page));
   }
 
@@ -23,7 +41,9 @@ class ReadingList extends Component {
     const { page } = this.state;
     this.setState({ page: page - 1 });
     const { dispatch, userId } = this.props;
-    dispatch(fetchReadings(userId, page - 1));
+    const history = createHistory();
+    history.push(`?page=${page-1}`)
+    dispatch(fetchReadings(userId, page-1));
   }
 
   onRightClick = (e) => {
@@ -31,6 +51,9 @@ class ReadingList extends Component {
     const { page } = this.state;
     this.setState({ page: page + 1 });
     const { dispatch, userId } = this.props;
+    const history = createHistory();
+    history.push(`?page=${page+1}`)
+
     dispatch(fetchReadings(userId, page + 1));
   }
 
@@ -44,7 +67,18 @@ class ReadingList extends Component {
 
   render() {
     const { readings, me, className, fetchingReads } = this.props;
-    const { page } = this.state;
+    let page;
+
+
+    const history = createHistory();
+    let { search } = history.location;
+    if (search) {
+      search = search.slice(6);
+      page = Number(search);
+    } else {
+      page = this.state.page;
+    }
+
 
     if (fetchingReads) {
 

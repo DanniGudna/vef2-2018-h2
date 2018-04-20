@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Button from '../../components/button';
 import Field from '../../components/field';
-import { Link } from 'react-router-dom';
 import { updateUser, updatePhoto } from '../../actions/auth';
 
 import './Profile.css';
-import PageFlipper from '../../components/page-flipper';
-import Reading from '../../components/reading/Reading';
 import ReadingList from '../../components/reading-list/ReadingList';
 
 class Profile extends Component {
@@ -18,7 +16,17 @@ class Profile extends Component {
     passwordAgain: '',
     errors: null,
     img: null,
-    page: 0,
+    page: 1,
+  }
+
+  static propTypes = {
+    dispatch: PropTypes.func,
+    isFetching: PropTypes.bool,
+    errors: PropTypes.array,
+    error: PropTypes.string,
+    user: PropTypes.object,
+    message: PropTypes.string,
+    readings: PropTypes.array,
   }
 
   handleFileChange = (e) => {
@@ -66,8 +74,7 @@ class Profile extends Component {
       isFetching,
       message,
       errors,
-      readings,
-      fetchingReads,
+      error,
       user: { id },
     } = this.props;
 
@@ -82,6 +89,7 @@ class Profile extends Component {
     return (
       <div>
         <h1>Upplýsingar</h1>
+        <p>{error}</p>
         <form className="profile__imageform" onSubmit={this.handleFileSubmit}>
           <div className="profile__imageform_container" >
             <input
@@ -150,7 +158,8 @@ const mapStateToProps = (state) => {
     isFetching: state.auth.isFetching,
     errors: state.auth.errors,
     user: state.auth.user,
-    message: state.auth.message
+    message: state.auth.message,
+    error: state.auth.error,
   }
 }
 

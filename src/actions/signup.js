@@ -18,6 +18,7 @@ function signupSuccess(user) {
     type: SIGNUP_SUCCESS,
     isFetching: false,
     user,
+    success: true,
     errors: null,
   }
 }

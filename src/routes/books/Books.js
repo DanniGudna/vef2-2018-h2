@@ -1,36 +1,53 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { fetchBooks } from '../../actions/getBooks';
 import PageFlipper from '../../components/page-flipper';
 import querystring from 'querystring';
+import createHistory from 'history/createBrowserHistory';
 
 class Books extends Component {
   state = {
     isFetching: false,
     books: null,
     message: null,
-    page: 0,
+    page: 1,
     search: null,
   }
 
+  static propTypes = {
+    dispatch: PropTypes.func,
+    isFetching: PropTypes.bool,
+    books: PropTypes.object,
+    message: PropTypes.string,
+  }
+
   onLeftClick = (e) => {
-    const { dispatch, page } = this.props;
+    e.preventDefault();    
+    const { page } = this.state;
+    this.setState({ page: page - 1 });
+    const { dispatch } = this.props;
+    const history = createHistory();
+    history.push(`?page=${page-1}`)
     dispatch(fetchBooks(page - 1));
   }
 
   onRightClick = (e) => {
-    const { dispatch, page } = this.props;
+    e.preventDefault();
+    const { page } = this.state;
+    this.setState({ page: page + 1 });
+    const { dispatch } = this.props;
+    const history = createHistory();
+    history.push(`?page=${page+1}`)
     dispatch(fetchBooks(page + 1));
   }
 
   async componentDidMount() {
     const { dispatch } = this.props;
-    const { page } = this.props.match.params;
     let search  = this.props.location.search;
-    const { limit } = this.props.location;
-    if( search.charAt( 0 ) === '?' ){
-      search = search.slice( 1 );
+    if (search.charAt(0) === '?') {
+      search = search.slice(1);
     }
     search = querystring.parse(search);
 
@@ -38,7 +55,17 @@ class Books extends Component {
   }
 
   render() {
-    const { isFetching, books, page } = this.props;
+    const { isFetching, books } = this.props;
+    let page;
+
+    const history = createHistory();
+    let { search } = history.location;
+    if (search) {
+      search = search.slice(6);
+      page = Number(search);
+    } else {
+      page = this.state.page;
+    }
 
     if (isFetching || !books) {
       return (
@@ -48,7 +75,6 @@ class Books extends Component {
       );
     }
     const { result: { items } } = books;
-    console.log('ITEMS ', items )
     if(!items){
       return(
         <div>
@@ -59,9 +85,9 @@ class Books extends Component {
 
     return (
       <div>
-        <h2>
-          Bækur!
-        </h2>
+        {search
+          ? <h2>Bækur</h2>
+          : <h2>Bókaleit: {search}</h2>}
         {items.map((item) => (
           <div key={item.id}>
 
@@ -84,11 +110,9 @@ class Books extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
     isFetching: state.getBooks.isFetching,
     books: state.getBooks.books,
     message: state.getBooks.message,
-    page: state.getBooks.page,
   };
 }
 

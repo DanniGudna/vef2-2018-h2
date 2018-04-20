@@ -16,7 +16,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: action.isFetching,
-        page: action.page,
       };
     case BOOKS_SUCCESS:
       return {

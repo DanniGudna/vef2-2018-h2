@@ -32,11 +32,11 @@ function readingsFailure(error) {
   }
 }
 
-export const fetchReadings = (id, page = 0) => {
+export const fetchReadings = (id, page = 1) => {
   return async (dispatch) => {
     dispatch(requestReadings());
 
-    const offset = page * 10;
+    const offset = (page - 1) * 10;
 
     const endpoint = `/users/${id}/read?offset=${offset}`;
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser } from '../../actions/user';
+import PropTypes from 'prop-types';
 
 import ReadingList from '../../components/reading-list';
 
@@ -12,6 +13,13 @@ class User extends Component {
     isFetching: true,
     error: null,
   };
+
+  static propTypes = {
+    user: PropTypes.object,
+    isFetching: PropTypes.bool,
+    error: PropTypes.string,
+    dispatch: PropTypes.func,
+  }
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -50,7 +58,7 @@ class User extends Component {
     return (
       <div>
         <div className="user__head">
-          <img className="photo" src={imageUrl} />
+          <img alt="" className="photo" src={imageUrl} />
           <h1>{user.name}</h1>
         </div>
         <ReadingList userId={user.id} />

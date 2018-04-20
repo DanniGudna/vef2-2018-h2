@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Field from '../field';
 import Button from '../button';
 
- import './BookForm.css';
+import './BookForm.css';
 
 class BookForm extends Component {
 
@@ -26,7 +26,7 @@ class BookForm extends Component {
         buttonLabel,
         isFetching } = this.props;
 
-        const { result: { items } } = books;
+    const { result: { items } } = books;
 
         return (
           <div className="bookForm__container">
@@ -106,9 +106,20 @@ class BookForm extends Component {
               <Button disabled={isFetching}>{buttonLabel}</Button>
             </form>
 
-          </div>
-        );
-      }
+BookForm.propTypes = {
+  books: PropTypes.array,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  isbn10: PropTypes.string,
+  isbn13: PropTypes.string,
+  category: PropTypes.string,
+  published: PropTypes.number,
+  pagecount: PropTypes.number,
+  language: PropTypes.string,
+  submit: PropTypes.func,
+  change: PropTypes.func,
+  buttonLabel: PropTypes.string,
+  isFetching: PropTypes.string,
 }
 
 export default BookForm;

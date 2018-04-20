@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { fetchBooksId } from '../../actions/getBookId';
-import Button from '../../components/button';
 import BookInfo from '../../components/bookInfo';
 
 import BookReview from '../../components/book-review';
@@ -14,9 +13,16 @@ class bookId extends Component {
     message: null,
   }
 
+  static propTypes = {
+    isFetching: PropTypes.bool,
+    books: PropTypes.object,
+    page: PropTypes.string,
+  }
+
   async componentDidMount() {
     const { dispatch } = this.props;
     const { id } = this.props.match.params;
+
     dispatch(fetchBooksId(id));
   }
 
@@ -29,9 +35,7 @@ class bookId extends Component {
   }
 
   render() {
-    const { isFetching, books, page } = this.props;
-    const { id } = this.props.match.params;
-
+    const { isFetching, books } = this.props;
 
     if (isFetching || !books) {
       return (
@@ -77,7 +81,6 @@ class bookId extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
     isFetching: state.getBookId.isFetching,
     books: state.getBookId.books,
     message: state.getBookId.message,

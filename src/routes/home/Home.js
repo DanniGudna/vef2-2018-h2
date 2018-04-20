@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Home extends Component {
   state = {
     user: null,
+  }
+
+  static propTypes = {
+    user: PropTypes.object,
   }
 
   render() {

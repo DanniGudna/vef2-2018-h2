@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchUsers } from '../../actions/users';
+import createHistory from 'history/createBrowserHistory';
 
 import PageFlipper from '../../components/page-flipper';
 
 class Users extends Component {
   state = {
-    page: 0,
+    page: 1,
     users: null,
     error: null,
     isFetching: false,
   };
+
+  static propTypes = {
+    isFetching: PropTypes.bool,
+    users: PropTypes.array,
+    error: PropTypes.string,
+    dispatch: PropTypes.func,
+  }
 
   onLeftClick = (e) => {
     e.preventDefault();    
     const { page } = this.state;
     this.setState({ page: page - 1 });
     const { dispatch } = this.props;
+    const history = createHistory();
+    history.push(`?page=${page-1}`)
     dispatch(fetchUsers(page - 1));
   }
 
@@ -26,6 +37,8 @@ class Users extends Component {
     const { page } = this.state;
     this.setState({ page: page + 1 });
     const { dispatch } = this.props;
+    const history = createHistory();
+    history.push(`?page=${page+1}`)
     dispatch(fetchUsers(page + 1));
   }
 
@@ -34,7 +47,14 @@ class Users extends Component {
     let { page } = this.props.match.params;
     
     if (!page) {
-      page = 0;
+      page = 1;
+    }
+    
+    const history = createHistory();    
+    let { search } = history.location;
+    if (search) {
+      search = search.slice(6);
+      page = Number(search);
     }
 
     this.setState({ page });
@@ -42,9 +62,17 @@ class Users extends Component {
   }
 
   render() {
-    const { users, errors, isFetching } = this.props;
-    const { page } = this.state || this.props.match.params;
-    
+    const { users, isFetching } = this.props;
+    let page;
+
+    const history = createHistory();
+    let { search } = history.location;
+    if (search) {
+      search = search.slice(6);
+      page = Number(search);
+    } else {
+      page = this.state.page;
+    }
 
     if (isFetching) {
       return (

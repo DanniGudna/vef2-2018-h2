@@ -8,6 +8,7 @@ import {
   UPDATE_SUCCESS,
   UPDATE_REQUEST,
   UPDATE_FAILURE,
+  PHOTO_FAILURE,
 } from '../actions/auth';
 
 const initialState = {
@@ -70,6 +71,12 @@ export default (state = initialState, action) => {
         isFetching: action.isFetching,
         errors: action.errors,
         message: action.message,
+      }
+    case PHOTO_FAILURE:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        error: action.error,
       }
     case AUTHENTICATE_REQUEST:
       return {

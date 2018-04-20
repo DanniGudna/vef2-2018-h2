@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Field from '../../components/field';
 import Button from '../../components/button';
@@ -17,6 +18,14 @@ class Register extends Component {
     isFetching: false,
     user: null,
     errors: null,
+  }
+
+  static propTypes = {
+    isFetching: PropTypes.bool,
+    user: PropTypes.object,
+    success: PropTypes.bool,
+    errors: PropTypes.array,
+    dispatch: PropTypes.func,
   }
 
   handleInputChange = (e) => {
@@ -39,11 +48,19 @@ class Register extends Component {
 
   render() {
     const { username, password, name } = this.state;
-    const { isFetching, user, errors } = this.props;
+    const { isFetching, user, errors, success } = this.props;
+
+
 
     if (user) {
       return (
         <Redirect to={{pathname: '/'}} />
+      )
+    }
+
+    if (success) {
+      return (
+        <Redirect to={{pathname: '/login'}} />
       )
     }
 
@@ -93,9 +110,9 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
     isFetching: state.signup.isFetching,
     user: state.auth.user,
+    success: state.signup.success,
     errors: state.signup.errors,
   }
 }
