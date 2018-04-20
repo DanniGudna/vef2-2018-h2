@@ -24,7 +24,7 @@ class Books extends Component {
   }
 
   onLeftClick = (e) => {
-    e.preventDefault();    
+    e.preventDefault();
     const { page } = this.state;
     this.setState({ page: page - 1 });
     const { dispatch } = this.props;
@@ -46,10 +46,16 @@ class Books extends Component {
   async componentDidMount() {
     const { dispatch } = this.props;
     let search  = this.props.location.search;
+    console.log('SEARCH', search)
     if (search.charAt(0) === '?') {
       search = search.slice(1);
     }
+    console.log('SEARCH', search)
     search = querystring.parse(search);
+    console.log('SEARCH', search)
+    this.setState({
+      search: search.search
+    });
 
     dispatch(fetchBooks(search.page, search.search));
   }
@@ -59,10 +65,10 @@ class Books extends Component {
     let page;
 
     const history = createHistory();
-    let { search } = history.location;
-    if (search) {
-      search = search.slice(6);
-      page = Number(search);
+    let { searchHis } = history.location;
+    if (searchHis) {
+      searchHis = searchHis.slice(6);
+      page = Number(searchHis);
     } else {
       page = this.state.page;
     }
@@ -82,12 +88,13 @@ class Books extends Component {
         </div>
       )
     }
+    console.log(this.state.search);
 
     return (
       <div>
-        {search
-          ? <h2>Bækur</h2>
-          : <h2>Bókaleit: {search}</h2>}
+        {this.state.search
+          ? <h2>Bókaleit: {this.state.search}</h2>
+          : <h2>Bækur</h2>}
         {items.map((item) => (
           <div key={item.id}>
 

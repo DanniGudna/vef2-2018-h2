@@ -22,10 +22,6 @@
   margin-bottom: 20px;
 }
 
-.bookForm__rating {
-  width: 400px;
-}
-
 @media (max-width: 500px) {
   .bookForm__rating {
     width: 200px;
