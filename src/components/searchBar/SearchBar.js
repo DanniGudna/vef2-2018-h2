@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Field from '../field';
 import Button from '../button';
@@ -7,6 +8,13 @@ import Button from '../button';
 import './SearchBar.css';
 
 class SearchBar extends Component {
+
+  static propTypes = {
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    searchValue: PropTypes.string,
+    endpoint: PropTypes.string,
+  }
 
   onClick = (e) => {
        const value = e.target.value;

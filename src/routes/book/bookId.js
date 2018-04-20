@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchBooksId } from '../../actions/getBookId';
 import Button from '../../components/button';
@@ -12,6 +13,12 @@ class bookId extends Component {
     isFetching: false,
     books: null,
     message: null,
+  }
+
+  static propTypes = {
+    isFetching: PropTypes.bool,
+    books: PropTypes.object,
+    page: PropTypes.number,
   }
 
   async componentDidMount() {
@@ -29,7 +36,6 @@ class bookId extends Component {
       state: this.state,
      });
   }
-
 
   render() {
     const { isFetching, books, page } = this.props;
@@ -78,10 +84,9 @@ class bookId extends Component {
     );
   }
 }
-// TODO: gera rudecer og route fyrir getBookId
+
 const mapStateToProps = (state) => {
   return {
-    ...state,
     isFetching: state.getBookId.isFetching,
     books: state.getBookId.books,
     message: state.getBookId.message,

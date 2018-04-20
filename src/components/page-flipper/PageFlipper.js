@@ -9,7 +9,14 @@ import './PageFlipper.css';
 import { fetchBooks } from '../../actions/getBooks';
 
 class PageFlipper extends Component {
-  
+
+  static propTypes = {
+    page: PropTypes.number,
+    onLeftClick: PropTypes.func,
+    onRightClick: PropTypes.func,
+    size: PropTypes.number,
+  }
+
   render() {
     const { page, onLeftClick, onRightClick } = this.props;
     let { size } = this.props;

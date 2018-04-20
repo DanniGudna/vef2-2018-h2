@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { fetchReadings, deleteReading } from '../../actions/readings';
 import createHistory from 'history/createBrowserHistory';
@@ -13,6 +14,15 @@ class ReadingList extends Component {
   state = {
     page: 1,
   };
+
+  static propTypes = {
+    dispatch: PropTypes.func,
+    userId: PropTypes.number,
+    readings: PropTypes.array,
+    me: PropTypes.bool,
+    className: PropTypes.string,
+    fetchingReads: PropTypes.bool,
+  }
 
   async componentDidMount() {
     const { dispatch, userId } = this.props

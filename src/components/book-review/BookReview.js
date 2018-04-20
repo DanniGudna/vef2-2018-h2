@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Button from '../button';
 
@@ -121,6 +122,13 @@ const mapStateToProps = (state) => {
     errors: state.review.errors,
     received: state.review.received,
   }
+}
+
+BookReview.propTypes = {
+  isFetching: PropTypes.bool,
+  errors: PropTypes.array,
+  received: PropTypes.bool,
+  id: PropTypes.number,
 }
 
 export default connect(mapStateToProps)(BookReview);

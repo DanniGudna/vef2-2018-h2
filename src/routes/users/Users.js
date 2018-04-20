@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchUsers } from '../../actions/users';
 import createHistory from 'history/createBrowserHistory';
@@ -13,6 +14,13 @@ class Users extends Component {
     error: null,
     isFetching: false,
   };
+
+  static propTypes = {
+    isFetching: PropTypes.bool,
+    users: PropTypes.object,
+    error: PropTypes.string,
+    dispatch: PropTypes.func,
+  }
 
   onLeftClick = (e) => {
     e.preventDefault();    

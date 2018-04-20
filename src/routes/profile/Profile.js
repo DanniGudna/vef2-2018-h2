@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Button from '../../components/button';
 import Field from '../../components/field';
@@ -19,6 +20,16 @@ class Profile extends Component {
     errors: null,
     img: null,
     page: 1,
+  }
+
+  static propTypes = {
+    dispatch: PropTypes.func,
+    isFetching: PropTypes.bool,
+    errors: PropTypes.array,
+    error: PropTypes.string,
+    user: PropTypes.object,
+    message: PropTypes.string,
+    readings: PropTypes.array,
   }
 
   handleFileChange = (e) => {

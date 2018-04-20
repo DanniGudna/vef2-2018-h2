@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Button from '../button';
 
 import './Reading.css';
 
 class Reading extends Component {
+
+  static propTypes = {
+    onSubmit: PropTypes.func,
+    book: PropTypes.object,
+    className: PropTypes.string,
+    me: PropTypes.bool,
+  }
 
   render() {
     const { onSubmit, book, className, me } = this.props;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Field from '../../components/field';
 import Button from '../../components/button';
@@ -17,6 +18,14 @@ class Register extends Component {
     isFetching: false,
     user: null,
     errors: null,
+  }
+
+  static propTypes = {
+    isFetching: PropTypes.bool,
+    user: PropTypes.object,
+    success: PropTypes.bool,
+    errors: PropTypes.array,
+    dispatch: PropTypes.func,
   }
 
   handleInputChange = (e) => {

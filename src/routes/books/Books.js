@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { fetchBooks } from '../../actions/getBooks';
 import PageFlipper from '../../components/page-flipper';
 import querystring from 'querystring';
@@ -13,6 +14,13 @@ class Books extends Component {
     message: null,
     page: 1,
     search: null,
+  }
+
+  static propTypes = {
+    dispatch: PropTypes.func,
+    isFetching: PropTypes.bool,
+    books: PropTypes.array,
+    message: PropTypes.string,
   }
 
   onLeftClick = (e) => {

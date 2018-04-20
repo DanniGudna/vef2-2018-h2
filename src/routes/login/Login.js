@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Field from '../../components/field';
 import Button from '../../components/button';
@@ -10,6 +11,14 @@ import { loginUser } from '../../actions/auth';
 import './Login.css';
 
 class Login extends Component {
+
+  static propTypes = {
+    isFetching: PropTypes.bool,
+    user: PropTypes.object,
+    error: PropTypes.string,
+    dispatch: PropTypes.func,
+  }
+
   state = {
     username: '',
     password: '',

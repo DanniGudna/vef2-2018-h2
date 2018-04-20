@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser } from '../../actions/user';
+import PropTypes from 'prop-types';
 
 import ReadingList from '../../components/reading-list';
 
@@ -12,6 +13,13 @@ class User extends Component {
     isFetching: true,
     error: null,
   };
+
+  static PropTypes = {
+    user: PropTypes.object,
+    isFetching: PropTypes.bool,
+    error: PropTypes.string,
+    dispatch: PropTypes.func,
+  }
 
   componentDidMount() {
     const { dispatch } = this.props;
