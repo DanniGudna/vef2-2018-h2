@@ -20,7 +20,7 @@ class BookInfo extends Component {
       <div>
         <div>
           <h2>{title}</h2>
-          <div>Eftir:&nbsp;
+        <div className="global__bottom-margin">Eftir:&nbsp;
             {author
               ? author
               : <p className="missing">Höfund vantar</p>
@@ -56,7 +56,7 @@ class BookInfo extends Component {
               : <p className="missing">Útgáfuár vantar</p>
             }
           </div>
-          <div>Tungumál:&nbsp;
+          <div className="global__bottom-margin">Tungumál:&nbsp;
             {language
               ? language
               : <p className="missing">Tungumál vantar</p>

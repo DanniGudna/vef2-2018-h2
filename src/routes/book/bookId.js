@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchBooksId } from '../../actions/getBookId';
 import BookInfo from '../../components/bookInfo';
 import Button from '../../components/button';
+import Helmet from 'react-helmet';
 
 import BookReview from '../../components/book-review';
 
@@ -62,6 +63,7 @@ class bookId extends Component {
 
     return (
       <div>
+        <Helmet title={`${result.title}`} />
         <div>
           <BookInfo
             title={result.title}

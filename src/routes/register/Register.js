@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import Helmet from 'react-helmet';
 import Field from '../../components/field';
 import Button from '../../components/button';
 
@@ -66,6 +66,7 @@ class Register extends Component {
 
     return (
       <div className="login__container">
+        <Helmet title={`Nýskráning`} />
         <h1 className="login__header">Nýskráning</h1>
         {errors &&(
           <ul>
@@ -101,7 +102,7 @@ class Register extends Component {
           </div>
         </form>
         <div>
-          <Link to="/login">Innskráning</Link>        
+          <Link to="/login">Innskráning</Link>
         </div>
       </div>
     );

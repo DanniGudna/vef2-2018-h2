@@ -6,6 +6,7 @@ import { fetchBooks } from '../../actions/getBooks';
 import PageFlipper from '../../components/page-flipper';
 import querystring from 'querystring';
 import createHistory from 'history/createBrowserHistory';
+import Helmet from 'react-helmet';
 
 class Books extends Component {
   state = {
@@ -20,7 +21,7 @@ class Books extends Component {
     dispatch: PropTypes.func,
     isFetching: PropTypes.bool,
     books: PropTypes.object,
-    message: PropTypes.string,
+    message: PropTypes.object,
   }
 
   onLeftClick = (e) => {
@@ -93,6 +94,7 @@ class Books extends Component {
 
     return (
       <div>
+      <Helmet title={`Bókasafn bls: ${page}`} />
         {this.state.search
           ? <h2>Bókaleit: {this.state.search}</h2>
           : <h2>Bækur</h2>}

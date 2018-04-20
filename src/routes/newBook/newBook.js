@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { newBook, fetchCategories } from '../../actions/newBook';
 import BookForm from '../../components/bookForm';
+import Helmet from 'react-helmet';
 
 class NewBook extends Component {
    state = {
@@ -118,7 +119,9 @@ handleSubmit = async (e) => {
   }
 
     return (
-      <div>{errors &&
+      <div>
+        <Helmet title='Búa til bók'/>
+      {errors &&
         <ul>
           {errors.map((item, el) => (
             <li key={el} >{item.message}</li>

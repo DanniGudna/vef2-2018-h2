@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
+import Helmet from 'react-helmet';
 import Field from '../../components/field';
 import Button from '../../components/button';
 
@@ -60,6 +60,7 @@ class Login extends Component {
 
     return (
       <div className="login__container">
+        <Helmet title='Skrá inn'/>
         <h1 className="login__header">Innskráning</h1>
         <div>{error}</div>
         <form className="form__default" onSubmit={this.handleSubmit}>

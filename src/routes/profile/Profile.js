@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import Helmet from 'react-helmet';
 import Button from '../../components/button';
 import Field from '../../components/field';
 import { updateUser, updatePhoto } from '../../actions/auth';
@@ -88,6 +88,7 @@ class Profile extends Component {
 
     return (
       <div>
+        <Helmet title={`${this.props.user.name}`} />
         <h1>Upplýsingar</h1>
         <p>{error}</p>
         <form className="profile__imageform" onSubmit={this.handleFileSubmit}>
@@ -138,7 +139,7 @@ class Profile extends Component {
             type="password"
             onChange={this.handleInputChange}
           />
-          <div className="button__container">          
+          <div className="button__container">
             <Button disabled={password !== passwordAgain}>Uppfæra lykilorð</Button>
           </div>
         </form>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchUsers } from '../../actions/users';
 import createHistory from 'history/createBrowserHistory';
-
+import Helmet from 'react-helmet';
 import PageFlipper from '../../components/page-flipper';
 
 class Users extends Component {
@@ -23,7 +23,7 @@ class Users extends Component {
   }
 
   onLeftClick = (e) => {
-    e.preventDefault();    
+    e.preventDefault();
     const { page } = this.state;
     this.setState({ page: page - 1 });
     const { dispatch } = this.props;
@@ -45,12 +45,12 @@ class Users extends Component {
   async componentDidMount() {
     const { dispatch } = this.props;
     let { page } = this.props.match.params;
-    
+
     if (!page) {
       page = 1;
     }
-    
-    const history = createHistory();    
+
+    const history = createHistory();
     let { search } = history.location;
     if (search) {
       search = search.slice(6);
@@ -82,6 +82,7 @@ class Users extends Component {
 
     return (
       <div>
+        <Helmet title={'Notendur'} />
         <h1 className="global__bottom-margin">Notendur</h1>
         {users.map((user, i) => (
             <div key={i}>

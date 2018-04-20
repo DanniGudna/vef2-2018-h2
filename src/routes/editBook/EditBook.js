@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchBookIdCategories, patchBook } from '../../actions/editBook';
 import BookForm from '../../components/bookForm';
 import { Redirect } from 'react-router';
+import Helmet from 'react-helmet';
 
 
 class EditBook extends Component {
@@ -160,6 +161,7 @@ handleSubmit = async (e) => {
 
     return (
       <div>
+    <Helmet title={`Breyta: ${title}`} />
         {errors &&
         <ul>
           {errors.map((item, el) => (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchUser } from '../../actions/user';
 import PropTypes from 'prop-types';
-
+import Helmet from 'react-helmet';
 import ReadingList from '../../components/reading-list';
 
 import './User.css';
@@ -57,6 +57,7 @@ class User extends Component {
 
     return (
       <div>
+        <Helmet title={`${user.name}`} />
         <div className="user__head">
           <img alt="" className="photo" src={imageUrl} />
           <h1>{user.name}</h1>
