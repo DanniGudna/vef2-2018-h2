@@ -68,6 +68,7 @@ handleSubmit = async (e) => {
         pagecount,
         language,
       };
+      console.log('thisthis', book)
 
   dispatch(newBook(book));
 
@@ -90,10 +91,13 @@ handleSubmit = async (e) => {
         pagecount,
         language, } = this.state;
 
+        let selectedCategory = category;
+
 
         if(this.props.books){
            errors = this.props.books.result.errors;
         }
+
 
     if (isFetching || !categories) {
       return (
@@ -128,6 +132,7 @@ handleSubmit = async (e) => {
           language={language}
           submit={this.handleSubmit}
           change={this.handleInputChange}
+          buttonLabel='Búa til bók'
           isFetching={isFetching}
         />
       </div>

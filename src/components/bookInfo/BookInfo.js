@@ -30,7 +30,7 @@ class BookInfo extends Component {
               <p>{pagecount} Síður</p>
               <p>Gefin út {published} </p>
               <p>Tungumál: {language}</p>
-              <a onClick={onClick}>Breyta Bók</a>
+            <a onClick={onClick}>Breyta Bók</a>
             </div>
           </div>
         );
