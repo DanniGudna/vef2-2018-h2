@@ -9,7 +9,6 @@ class BookForm extends Component {
 
   render() {
     const {
-      errors,
       books,
       title,
       author,
@@ -116,14 +115,14 @@ BookForm.propTypes = {
   description: PropTypes.string,
   isbn10: PropTypes.string,
   isbn13: PropTypes.string,
-  category: PropTypes.string,
-  published: PropTypes.number,
-  pagecount: PropTypes.number,
+  category: PropTypes.any,
+  published: PropTypes.string,
+  pagecount: PropTypes.string,
   language: PropTypes.string,
   submit: PropTypes.func,
   change: PropTypes.func,
   buttonLabel: PropTypes.string,
-  isFetching: PropTypes.string,
+  isFetching: PropTypes.bool,
 }
 
 export default BookForm;
