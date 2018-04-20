@@ -129,6 +129,7 @@ handleSubmit = async (e) => {
           language={language}
           submit={this.handleSubmit}
           change={this.handleInputChange}
+          buttonLabel='Búa til bók'
           isFetching={isFetching}
         />
       </div>

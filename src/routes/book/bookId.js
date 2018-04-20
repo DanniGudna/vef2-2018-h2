@@ -65,7 +65,7 @@ class bookId extends Component {
             title={result.title}
             author={result.author}
             ISBN13={result.isbn13}
-            category={result.categoryTitle}
+            category={result.categorytitle}
             description={result.description}
             pagecount={result.pagecount}
             published={result.published}
