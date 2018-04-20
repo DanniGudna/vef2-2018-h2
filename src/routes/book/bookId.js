@@ -17,8 +17,6 @@ class bookId extends Component {
   async componentDidMount() {
     const { dispatch } = this.props;
     const { id } = this.props.match.params;
-    console.log(typeof(id));
-
     dispatch(fetchBooksId(id));
   }
 
@@ -29,7 +27,6 @@ class bookId extends Component {
       state: this.state,
      });
   }
-
 
   render() {
     const { isFetching, books, page } = this.props;
@@ -45,7 +42,6 @@ class bookId extends Component {
     }
 
     const result = books.result;
-    console.log('RESULT', result.error)
 
     if(result.error){
       return (
@@ -65,7 +61,7 @@ class bookId extends Component {
             title={result.title}
             author={result.author}
             ISBN13={result.isbn13}
-            category={result.categoryTitle}
+            category={result.categorytitle}
             description={result.description}
             pagecount={result.pagecount}
             published={result.published}
@@ -78,7 +74,7 @@ class bookId extends Component {
     );
   }
 }
-// TODO: gera rudecer og route fyrir getBookId
+
 const mapStateToProps = (state) => {
   return {
     ...state,

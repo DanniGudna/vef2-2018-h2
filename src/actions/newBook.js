@@ -79,7 +79,7 @@ export const fetchCategories = () => {
 export const newBook = (book) => {
   return async (dispatch) => {
     dispatch(requestBooks());
-
+        console.log('BOOKhihi', book)
       const endpoint = '/books';
 
       let books;

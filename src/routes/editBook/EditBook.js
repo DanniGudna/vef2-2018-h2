@@ -100,6 +100,7 @@ handleSubmit = async (e) => {
         pagecount,
         language,
       };
+      console.log('thisthist', book);
   dispatch(patchBook(book, id, this.props.categories));
 
 }

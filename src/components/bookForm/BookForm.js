@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Field from '../field';
 import Button from '../button';
 
-// import './Field.css';
+ import './BookForm.css';
 
 class BookForm extends Component {
 
@@ -17,6 +17,7 @@ class BookForm extends Component {
         isbn10,
         isbn13,
         category,
+
         published,
         pagecount,
         language,
@@ -27,9 +28,8 @@ class BookForm extends Component {
 
         const { result: { items } } = books;
 
-
         return (
-          <div>
+          <div className="bookForm__container">
             <h2>
               {buttonLabel}
             </h2>
@@ -51,14 +51,20 @@ class BookForm extends Component {
               />
               Um bók
               <div>
-                <textarea name="description" value={description} onChange={change}></textarea>
+                <textarea name="description" className="bookForm__textarea" value={description} onChange={change}></textarea>
               </div>
-              Flokkur:
-              <select name="category" onChange={change} value={category}>
-                {items.map((item) => (
-                  <option key={item.id} value={item.id} >{item.title}</option>
-                ))}
-              </select>
+
+              <div className="bookForm__field_container">
+                Flokkur:
+                <select name="category" onChange={change} value={category} className="bookForm__rating">
+                  {!category &&
+                    <option key={''}>veldu Category</option>
+                  }
+                  {items.map((item) => (
+                    <option key={item.id} value={item.id} >{item.title}</option>
+                  ))}
+                </select>
+              </div>
 
 
               <Field
@@ -67,6 +73,7 @@ class BookForm extends Component {
                 type="text"
                 label="ISBN10"
                 onChange={change}
+
               />
               <Field
                 name="isbn13"
@@ -86,14 +93,14 @@ class BookForm extends Component {
                 name="pagecount"
                 value={pagecount}
                 type="number"
-                label="fjoldi sida"
+                label="Fjöldi síða"
                 onChange={change}
               />
               <Field
                 name="language"
                 value={language}
                 type="text"
-                label="tungumal"
+                label="Tungumál"
                 onChange={change}
               />
               <Button disabled={isFetching}>{buttonLabel}</Button>
