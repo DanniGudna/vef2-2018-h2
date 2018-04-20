@@ -40,8 +40,8 @@ class Books extends Component {
     const { page } = this.props.match.params;
     let search  = this.props.location.search;
     const { limit } = this.props.location;
-    if( search.charAt( 0 ) === '?' ){
-      search = search.slice( 1 );
+    if (search.charAt(0) === '?') {
+      search = search.slice(1);
     }
     search = querystring.parse(search);
 
@@ -79,9 +79,9 @@ class Books extends Component {
 
     return (
       <div>
-        <h2>
-          Bækur!
-        </h2>
+        {search
+          ? <h2>Bækur</h2>
+          : <h2>Bókaleit: {search}</h2>}
         {items.map((item) => (
           <div key={item.id}>
 
