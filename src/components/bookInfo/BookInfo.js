@@ -19,14 +19,49 @@ class BookInfo extends Component {
     return (
       <div>
         <div>
-          <h3>{title}</h3>
-          <p>Eftir {author}</p>
-          <p>ISBN13 {isbn13}</p>
-          <p>{category}</p>
-          <p>{description}</p>
-          <p>{pagecount} Síður</p>
-          <p>Gefin út {published} </p>
-          <p>Tungumál: {language}</p>
+          <h2>{title}</h2>
+          <div>Eftir:&nbsp;
+            {author
+              ? author
+              : <p className="missing">Höfund vantar</p>
+            }
+          </div>
+          <div>ISBN13:&nbsp;{isbn13}
+            {isbn13
+              ? isbn13
+              : <p className="missing">ISBN13 vantar</p>
+            }
+          </div>
+          <div>Flokkur:&nbsp;
+            {category
+              ? category
+              : <p className="missing">Flokk vantar</p>
+            }
+          </div>
+          <div>Lýsing:&nbsp;
+            {description
+              ? description
+              : <p className="missing">Lýsingu vantar</p>
+            }
+          </div>
+          <div>Síður:&nbsp;
+            {pagecount
+              ? `${pagecount} síður`
+              :  <p className="missing">Blaðsíðutal vantar</p>
+            }
+          </div>
+          <div>Gefin út:&nbsp;
+            {published
+              ? published
+              : <p className="missing">Útgáfuár vantar</p>
+            }
+          </div>
+          <div>Tungumál:&nbsp;
+            {language
+              ? language
+              : <p className="missing">Tungumál vantar</p>
+            }
+          </div>
           <a onClick={onClick}>Breyta Bók</a>
         </div>
       </div>

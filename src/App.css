@@ -39,3 +39,11 @@
 .global__bottom-margin {
   margin-bottom: 10px;
 }
+
+.missing {
+  font-style: italic;
+}
+
+.button__back {
+  margin-top: 40px;
+}

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchBooksId } from '../../actions/getBookId';
 import BookInfo from '../../components/bookInfo';
+import Button from '../../components/button';
 
 import BookReview from '../../components/book-review';
 
@@ -34,6 +35,10 @@ class bookId extends Component {
      });
   }
 
+  onBackClick = (e) => {
+    this.props.history.goBack();
+  }
+
   render() {
     const { isFetching, books } = this.props;
 
@@ -57,14 +62,11 @@ class bookId extends Component {
 
     return (
       <div>
-        <h2>
-          Bók!
-        </h2>
         <div>
           <BookInfo
             title={result.title}
             author={result.author}
-            ISBN13={result.isbn13}
+            isbn13={result.isbn13}
             category={result.categorytitle}
             description={result.description}
             pagecount={result.pagecount}
@@ -74,6 +76,12 @@ class bookId extends Component {
           />
             <BookReview id={result.id} />
         </div>
+        <Button
+          className="button__back"
+          onClick={this.onBackClick}
+        >
+          Til Baka
+        </Button>
       </div>
     );
   }
