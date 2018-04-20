@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchBooksId } from '../../actions/getBookId';
 import BookInfo from '../../components/bookInfo';
+import Button from '../../components/button';
 
 import BookReview from '../../components/book-review';
 
@@ -32,6 +33,10 @@ class bookId extends Component {
       pathname: `/books/${id}/edit`,
       state: this.state,
      });
+  }
+
+  onBackClick = (e) => {
+    this.props.history.goBack();
   }
 
   render() {
@@ -71,6 +76,12 @@ class bookId extends Component {
           />
             <BookReview id={result.id} />
         </div>
+        <Button
+          className="button__back"
+          onClick={this.onBackClick}
+        >
+          Til Baka
+        </Button>
       </div>
     );
   }

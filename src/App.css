@@ -43,3 +43,7 @@
 .missing {
   font-style: italic;
 }
+
+.button__back {
+  margin-top: 40px;
+}
