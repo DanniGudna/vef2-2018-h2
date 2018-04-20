@@ -117,7 +117,7 @@ BookForm.propTypes = {
   description: PropTypes.string,
   isbn10: PropTypes.string,
   isbn13: PropTypes.string,
-  category: PropTypes.number,
+  category: PropTypes.any,
   published: PropTypes.string,
   pagecount: PropTypes.string,
   language: PropTypes.string,
